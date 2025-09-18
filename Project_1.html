@@ -11,7 +11,6 @@
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html, body {
       width: 100%;
       font-family: Arial, sans-serif;
@@ -19,45 +18,25 @@
       color: #e0e0e0;
       scroll-behavior: smooth;
     }
-
     :root { --accent: #00aaff; }
 
     /* Sidebar */
     .sidebar {
-      position: fixed;
-      top: 0; left: 0;
+      position: fixed; top: 0; left: 0;
       width: 220px; height: 100%;
       background: #111;
       padding: 2rem 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: flex; flex-direction: column; align-items: center;
     }
-
-    .sidebar h2 {
-      color: var(--accent);
-      margin-bottom: 2rem;
-    }
-
-    .sidebar ul {
-      list-style: none;
-      width: 100%;
-      flex-grow: 1;
-    }
-
-    .sidebar ul li {
-      margin: 1.5rem 0;
-      text-align: center;
-    }
-
+    .sidebar h2 { color: var(--accent); margin-bottom: 2rem; }
+    .sidebar ul { list-style: none; width: 100%; flex-grow: 1; }
+    .sidebar ul li { margin: 1.5rem 0; text-align: center; }
     .sidebar ul li a {
       color: #e0e0e0;
       text-decoration: none;
       font-weight: bold;
       font-size: 1.2rem;
-      transition: color 0.3s;
-    }
-
+      transition: color 0.3s;}
     .sidebar ul li a:hover { color: var(--accent); }
 
     /* Back button */
@@ -75,56 +54,59 @@
       gap: 8px;
       transition: background 0.3s, transform 0.2s;
     }
-
     .back-button:hover {
       background: #ff4d5a;
       transform: translateX(-3px);
     }
 
     /* Main content */
-    .content {
-      margin-left: 220px;
-      padding: 2rem;
+    .content { 
+      margin-left: 220px; 
+      padding: 2rem; 
+      text-align: center;
     }
 
-    /* Section spacing */
+    /* Project title */
+    .project-title {
+      font-size: 2.2rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    /* Section */
     .section {
       min-height: auto;
-      padding: 3rem 1.5rem;
+      padding: 2rem 1.5rem;
       margin-bottom: 3rem;
       border-bottom: 1px solid #333;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
+    .section.visible { opacity: 1; transform: translateY(0); }
 
-    .section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Headings spacing */
-    #drawings h1, #photos h1 {
+    /* Section headings */
+    .section h1 {
       margin-bottom: 1.5rem;
+      color: #fff;
     }
 
     /* Masonry grid layout */
     .masonry {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1rem;
-      width: 100%;
-      max-width: 1000px;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 0.8rem; /* tighter gaps */
+      max-width: 1100px;
       margin: 0 auto;
     }
 
     .masonry img {
       width: 100%;
       height: auto;
-      border-radius: 10px;
+      border-radius: 8px;
       display: block;
       background: #2b2b2b;
-      padding: 8px;
+      padding: 4px; /* tighter padding */
       box-shadow: 0 4px 10px rgba(0,0,0,0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -134,32 +116,25 @@
       box-shadow: 0 6px 14px rgba(0,0,0,0.6);
     }
 
-    /* Photos section collage */
+    /* Photos layout */
     .photos .masonry {
       column-count: 3;
-      column-gap: 1rem;
-      max-width: 1000px;
+      column-gap: 0.8rem;
+      max-width: 1100px;
       margin: 0 auto;
     }
-
     .photos .masonry img {
       width: 100%;
-      margin-bottom: 1rem;
-      border-radius: 10px;
-      display: block;
+      margin-bottom: 0.8rem;
+      border-radius: 8px;
       background: #2b2b2b;
-      padding: 6px;
+      padding: 4px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       break-inside: avoid;
     }
 
-    .photos .masonry img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.6);
-    }
-
-    /* Lightbox container */
+    /* Lightbox */
     #lightbox {
       display: none;
       position: fixed;
@@ -170,14 +145,12 @@
       align-items: center;
       z-index: 1000;
     }
-
     #lightbox img {
       max-width: 90%;
       max-height: 90%;
       border-radius: 10px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.7);
     }
-
     #lightbox .close-btn {
       position: absolute;
       top: 20px;
@@ -187,7 +160,6 @@
       cursor: pointer;
       transition: color 0.3s;
     }
-
     #lightbox .close-btn:hover { color: var(--accent); }
 
     /* Footer */
@@ -196,90 +168,90 @@
       padding: 1.5rem;
       background: #111;
       color: #aaa;
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Sidebar -->
-  <nav class="sidebar">
-    <h2>Portfolio</h2>
-    <ul>
-      <li><a href="#drawings">Drawings</a></li>
-      <li><a href="#photos">Photos</a></li>
-    </ul>
+<!-- Sidebar -->
+<nav class="sidebar">
+  <h2>Portfolio</h2>
+  <ul>
+    <li><a href="#drawings">Drawings</a></li>
+    <li><a href="#photos">Photos</a></li>
+  </ul>
+  <a href="index.html" class="back-button">
+    <i class="fas fa-arrow-left"></i> Back
+  </a>
+</nav>
 
-    <!-- Back button -->
-    <a href="index.html" class="back-button">
-      <i class="fas fa-arrow-left"></i> Back
-    </a>
-  </nav>
+<!-- Main content -->
+<div class="content">
+  <h1 class="project-title">Tilt Table - Prototype</h1>
 
-  <!-- Main content -->
-  <div class="content">
-    <section id="drawings" class="section drawings">
-      <h1>Drawings</h1>
-      <div class="masonry">
-        <img src="assets/Project 1/Roller_Assembly.jpg" alt="Drawing 1">
-        <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 2">
-        <img src="assets/Project 1/Long_Jacket_Assembly.jpg" alt="Drawing 3">
-        <img src="assets/Project 1/Short_Jacket_Assembly.jpg" alt="Drawing 4">
-        <img src="assets/Project 1/Form_Assembly.jpg" alt="Drawing 5">
-      </div>
-    </section>
-
-    <section id="photos" class="section photos">
-      <h1>Photos</h1>
-      <div class="masonry">
-        <img src="assets/Project 1/Rollers.jpg" alt="Photo 1">
-        <img src="assets/Project 1/Core.jpg" alt="Photo 2">
-        <img src="assets/Project 1/Jacket.jpg" alt="Photo 3">
-        <img src="assets/Project 1/Form.jpg" alt="Photo 4">
-        <img src="assets/Project 1/Form_1.jpg" alt="Photo 5">
-        <img src="assets/Project 1/Form_2.jpg" alt="Photo 6">
-      </div>
-    </section>
-
-    <!-- Lightbox -->
-    <div id="lightbox">
-      <span class="close-btn">&times;</span>
-      <img id="lightbox-img" src="" alt="">
+  <section id="drawings" class="section drawings">
+    <h1>Drawings</h1>
+    <div class="masonry">
+      <img src="assets/Project 1/Roller_Assembly.jpg" alt="Drawing 1">
+      <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 2">
+      <img src="assets/Project 1/Long_Jacket_Assembly.jpg" alt="Drawing 3">
+      <img src="assets/Project 1/Short_Jacket_Assembly.jpg" alt="Drawing 4">
+      <img src="assets/Project 1/Form_Assembly.jpg" alt="Drawing 5">
     </div>
+  </section>
 
-    <footer>
-      <p>© 2025 Nathaniel Karau</p>
-    </footer>
+  <section id="photos" class="section photos">
+    <h1>Photos</h1>
+    <div class="masonry">
+      <img src="assets/Project 1/Rollers.jpg" alt="Photo 1">
+      <img src="assets/Project 1/Core.jpg" alt="Photo 2">
+      <img src="assets/Project 1/Jacket.jpg" alt="Photo 3">
+      <img src="assets/Project 1/Form.jpg" alt="Photo 4">
+      <img src="assets/Project 1/Form_1.jpg" alt="Photo 5">
+      <img src="assets/Project 1/Form_2.jpg" alt="Photo 6">
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <span class="close-btn">&times;</span>
+    <img id="lightbox-img" src="" alt="">
   </div>
 
-  <script>
-    // Lightbox
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
+  <footer>
+    <p>© 2025 Nathaniel Karau</p>
+  </footer>
+</div>
 
-    document.querySelectorAll('.masonry img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightbox.style.display = 'flex';
-        lightboxImg.src = img.src;
-      });
+<script>
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  document.querySelectorAll('.masonry img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightbox.style.display = 'flex';
+      lightboxImg.src = img.src;
     });
+  });
 
-    lightbox.addEventListener('click', () => {
-      lightbox.style.display = 'none';
+  lightbox.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+  });
+
+  document.querySelector('#lightbox .close-btn').addEventListener('click', () => {
+    lightbox.style.display = 'none';
+  });
+
+  // Fade-in animation on scroll
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-
-    document.querySelector('#lightbox .close-btn').addEventListener('click', () => {
-      lightbox.style.display = 'none';
-    });
-
-    // Fade-in animation on scroll
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-
-    sections.forEach(section => observer.observe(section));
-  </script>
+  }, { threshold: 0.1 });
+  sections.forEach(section => observer.observe(section));
+</script>
 </body>
 </html>
