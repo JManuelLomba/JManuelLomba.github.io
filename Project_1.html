@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   
-<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <!-- Model Viewer -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,7 +39,8 @@
       text-decoration: none;
       font-weight: bold;
       font-size: 1.2rem;
-      transition: color 0.3s;}
+      transition: color 0.3s;
+    }
     .sidebar ul li a:hover { color: var(--accent); }
 
     /* Back button */
@@ -87,30 +89,28 @@
     }
     .section.visible { opacity: 1; transform: translateY(0); }
 
-    /* Section headings */
-    .section h1 {
-      margin-bottom: 1.5rem;
-      color: #fff;
-    }
+    .section h1 { margin-bottom: 1.5rem; color: #fff; }
 
-    /* Masonry grid layout */
+    /* Masonry layout */
     .masonry {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 0.8rem; /* tighter gaps */
+      gap: 0.8rem;
       max-width: 1100px;
       margin: 0 auto;
     }
 
+    .masonry .img-wrapper {
+      position: relative;
+      cursor: pointer;
+    }
+
     .masonry img {
       width: 100%;
-      height: auto;
       border-radius: 8px;
-      display: block;
-      background: #2b2b2b;
-      padding: 4px; /* tighter padding */
       box-shadow: 0 4px 10px rgba(0,0,0,0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: block;
     }
 
     .masonry img:hover {
@@ -118,23 +118,26 @@
       box-shadow: 0 6px 14px rgba(0,0,0,0.6);
     }
 
-    /* Photos layout */
-.photos .masonry {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 0.8rem; /* tighter gaps */
-  max-width: 1100px;
-  margin: 0 auto;
-}
+    /* Hover overlay */
+    .masonry .img-wrapper span.overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1rem;
+      background: rgba(0,0,0,0.5);
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
-.photos .masonry img {
-  width: 100%;
-  border-radius: 8px;
-  background: #2b2b2b;
-  padding: 4px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    .masonry .img-wrapper:hover span.overlay {
+      opacity: 1;
+    }
 
     /* Lightbox */
     #lightbox {
@@ -155,8 +158,7 @@
     }
     #lightbox .close-btn {
       position: absolute;
-      top: 20px;
-      right: 30px;
+      top: 20px; right: 30px;
       font-size: 2rem;
       color: white;
       cursor: pointer;
@@ -193,39 +195,76 @@
 <div class="content">
   <h1 class="project-title">Tilt Table - Prototype</h1>
 
-<model-viewer 
-    src="assets/3D/TiltTable.glb" 
-    alt="Tilt Table 3D Model" 
-    auto-rotate 
-    camera-controls 
-    ar 
-    shadow-intensity="1" 
-    exposure="1"
-    style="width: 100%; max-width: 900px; height: 600px; margin: 2rem auto;">
-</model-viewer>
+  <!-- 3D Model -->
+  <section id="3d_model" class="section">
+    <h1>3D Model</h1>
+    <model-viewer 
+      src="assets/3D/TiltTable.glb" 
+      alt="Tilt Table 3D Model" 
+      auto-rotate 
+      camera-controls 
+      ar 
+      shadow-intensity="1" 
+      exposure="1"
+      style="width: 100%; max-width: 900px; height: 600px; margin: 2rem auto;">
+    </model-viewer>
+  </section>
 
-
-
+  <!-- Drawings -->
   <section id="drawings" class="section drawings">
     <h1>Drawings</h1>
     <div class="masonry">
-      <img src="assets/Project 1/Roller_Assembly.jpg" alt="Drawing 1">
-      <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 2">
-      <img src="assets/Project 1/Long_Jacket_Assembly.jpg" alt="Drawing 3">
-      <img src="assets/Project 1/Short_Jacket_Assembly.jpg" alt="Drawing 4">
-      <img src="assets/Project 1/Form_Assembly.jpg" alt="Drawing 5">
+      <div class="img-wrapper">
+        <img src="assets/Project 1/Roller_Assembly.jpg" alt="Drawing 1">
+        <span class="overlay">Click to expand</span>
+      </div>
+      <div class="img-wrapper">
+        <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 2">
+        <span class="overlay">Click to expand</span>
+      </div>
+      <div class="img-wrapper">
+        <img src="assets/Project 1/Long_Jacket_Assembly.jpg" alt="Drawing 3">
+        <span class="overlay">Click to expand</span>
+      </div>
+      <div class="img-wrapper">
+        <img src="assets/Project 1/Short_Jacket_Assembly.jpg" alt="Drawing 4">
+        <span class="overlay">Click to expand</span>
+      </div>
+      <div class="img-wrapper">
+        <img src="assets/Project 1/Form_Assembly.jpg" alt="Drawing 5">
+        <span class="overlay">Click to expand</span>
+      </div>
     </div>
   </section>
 
+  <!-- Photos -->
   <section id="photos" class="section photos">
     <h1>Photos</h1>
     <div class="masonry">
-      <img src="assets/Project 1/Rollers.jpg" alt="Photo 1">
-      <img src="assets/Project 1/Form_2.jpg" alt="Photo 2">
-      <img src="assets/Project 1/Jacket.jpg" alt="Photo 3">
-      <img src="assets/Project 1/Form.jpg" alt="Photo 4">
-      <img src="assets/Project 1/Form_1.jpg" alt="Photo 5">
-      <img src="assets/Project 1/Core.jpg" alt="Photo 6">
+      <div class="img-wrapper">
+        <img src="assets/Project 1/Rollers.jpg" alt="Photo 1">
+        <span class="overlay">Click to expand</span>
+      </div>
+      <div class="img-wrapper">
+        <img src="assets/Project 1/Form_2.jpg" alt="Photo 2">
+        <span class="overlay">Click to expand</span>
+      </div>
+      <div class="img-wrapper">
+        <img src="assets/Project 1/Jacket.jpg" alt="Photo 3">
+        <span class="overlay">Click to expand</span>
+      </div>
+      <div class="img-wrapper">
+        <img src="assets/Project 1/Form.jpg" alt="Photo 4">
+        <span class="overlay">Click to expand</span>
+      </div>
+      <div class="img-wrapper">
+        <img src="assets/Project 1/Form_1.jpg" alt="Photo 5">
+        <span class="overlay">Click to expand</span>
+      </div>
+      <div class="img-wrapper">
+        <img src="assets/Project 1/Core.jpg" alt="Photo 6">
+        <span class="overlay">Click to expand</span>
+      </div>
     </div>
   </section>
 
@@ -235,27 +274,25 @@
     <img id="lightbox-img" src="" alt="">
   </div>
 
+  <!-- Footer -->
   <footer>
     <p>© 2025 Nathaniel Karau</p>
   </footer>
 </div>
 
 <script>
-  // Lightbox
+  // Lightbox functionality
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
 
-  document.querySelectorAll('.masonry img').forEach(img => {
+  document.querySelectorAll('.masonry .img-wrapper img').forEach(img => {
     img.addEventListener('click', () => {
       lightbox.style.display = 'flex';
       lightboxImg.src = img.src;
     });
   });
 
-  lightbox.addEventListener('click', () => {
-    lightbox.style.display = 'none';
-  });
-
+  lightbox.addEventListener('click', () => { lightbox.style.display = 'none'; });
   document.querySelector('#lightbox .close-btn').addEventListener('click', () => {
     lightbox.style.display = 'none';
   });
@@ -269,5 +306,6 @@
   }, { threshold: 0.1 });
   sections.forEach(section => observer.observe(section));
 </script>
+
 </body>
 </html>
