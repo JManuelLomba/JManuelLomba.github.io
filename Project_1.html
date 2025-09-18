@@ -99,6 +99,34 @@
       background: #111;
       color: #aaa;
     }
+    /* Masonry grid layout */
+.masonry {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Image card style */
+.masonry img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  background: #2b2b2b;   /* background frame */
+  padding: 8px;          /* space between img & frame */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.masonry img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+}
+
   </style>
 </head>
 <body>
