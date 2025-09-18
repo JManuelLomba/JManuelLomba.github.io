@@ -1,220 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tilt Table - Prototype</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tilt Table - Prototype</title>
 
-<!-- Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 
-<style>
-/* -------------------------
-   GLOBAL
-------------------------- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body {
-  font-family: Arial, sans-serif;
-  background: #1a1a1a;
-  color: #e0e0e0;
-  scroll-behavior: smooth;
-}
-:root { --accent: #00aaff; }
+  <style>
+    /* -------------------------
+       GLOBAL STYLES & RESET
+    ------------------------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {    width: 100%;  font-family: 'Arial', sans-serif;  background: #1a1a1a; color: #e0e0e0; scroll-behavior: smooth;}
+    :root { --accent: #00aaff; } /* accent color variable */
 
-/* -------------------------
-   SIDEBAR
-------------------------- */
-.sidebar {
-  position: fixed;
-  top: 0; left: 0;
-  width: 220px; height: 100%;
-  background: #111;
-  padding: 2rem 1rem;
-  display: flex; flex-direction: column; align-items: center;
-}
-.sidebar h2 { color: var(--accent); margin-bottom: 2rem; }
-.sidebar ul { list-style: none; width: 100%; }
-.sidebar ul li { margin: 1.5rem 0; text-align: center; }
-.sidebar ul li a {
-  color: #e0e0e0;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: color 0.3s;
-}
-.sidebar ul li a:hover { color: var(--accent); }
+    /* -------------------------
+       SIDEBAR NAVIGATION
+    ------------------------- */
+    .sidebar {  position: fixed; top: 0; left: 0;  width: 220px; height: 100%;  background: #111;  padding: 2rem 1rem;  display: flex; flex-direction: column; align-items: center;}
+    .sidebar h2 { color: var(--accent); margin-bottom: 2rem; }
+    .sidebar ul { list-style: none; width: 100%; padding: 0; }
+    .sidebar ul li { margin: 1.5rem 0; text-align: center; }
+    .sidebar ul li a {  color: #e0e0e0; text-decoration: none; font-weight: bold; font-size: 1.2rem; transition: color 0.3s;}
+    .sidebar ul li a:hover { color: var(--accent); }
 
-/* Resume link */
-.sidebar ul li.resume-link a {
-  border: 2px solid var(--accent);
-  padding: 0.4rem 0.6rem;
-  border-radius: 6px;
-  display: inline-block;
-}
-.sidebar ul li.resume-link a:hover {
-  background: var(--accent);
-  color: black;
-}
+    /* Resume link styling */
+    .sidebar ul li.resume-link a {  border: 2px solid var(--accent);  padding: 0.4rem 0.6rem;  border-radius: 6px;  display: inline-block;}
+    .sidebar ul li.resume-link a:hover {  background: var(--accent);  color: black;}
 
-/* -------------------------
-   MAIN CONTENT
-------------------------- */
-.main {
-  margin-left: 220px;
-  padding: 20px;
-}
-h1 { color: #FF0000; margin-top: 0; }
-h3 { color: #fff; margin-top: 1rem; }
+    /* Resume button style (used in Home too) */
+    .resume-btn {  padding: 0.8rem 1.5rem;  border-radius: 8px;  background: var(--accent);  color: white;  text-decoration: none;  display: flex; align-items: center; gap: 0.5rem;  font-weight: bold;}
+    .resume-btn:hover { background: #0088cc; color: white; }
 
-/* Back button */
-.back-btn {
-  position: fixed;
-  top: 20px; right: 20px;
-  background: #FF0000;
-  color: #fff;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-  z-index: 100;
-}
-.back-btn:hover { background: #ff5a36; }
+    /* -------------------------
+       MAIN CONTENT AREA
+    ------------------------- */
+    .content { margin-left: 220px; } /* shifts right for sidebar */
 
-/* -------------------------
-   GALLERY GRID
-------------------------- */
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
-  margin-top: 1rem;
-}
-.photo-card {
-  background: #333;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  cursor: pointer;
-  transition: transform 0.3s;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-}
-.photo-card:hover { transform: scale(1.05); }
-.photo-card img, .pdf-thumb {
-  max-width: 100%;
-  max-height: 180px;
-  object-fit: contain;
-  display: block;
-}
-.pdf-thumb {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #ff7043;
-  font-size: 1rem;
-  padding: 10px;
-  text-align: center;
-  background: #333;
-}
-.pdf-embed {
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 8px;
-}
+    /* Section base styling */
+    .section {   min-height: 100vh;  display: flex; flex-direction: column;  justify-content: center; align-items: center;  text-align: center;  padding: 2rem;  border-bottom: 1px solid #333;  opacity: 0; transform: translateY(20px);  transition: all 1s ease;}
+    .section.visible { opacity: 1; transform: translateY(0); }
 
-/* -------------------------
-   LIGHTBOX
-------------------------- */
-.lightbox {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.95);
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.lightbox iframe {
-  width: 90%; height: 80%;
-  border: none;
-  border-radius: 8px;
-}
-.lightbox img {
-  max-width: 90%;
-  max-height: 90%;
-  width: auto; height: auto;
-  border-radius: 8px;
-}
-.lightbox .close {
-  position: absolute;
-  top: 20px; right: 30px;
-  font-size: 4rem;
-  color: #FF0000;
-  cursor: pointer;
-  font-weight: bold;
-}
-.lightbox .close:hover { color: #ff5a36; }
+    /* -------------------------
+       HOME SECTION
+    ------------------------- */
+    .home { background: #1e1e1e; }
+    .home img {  width: 180px; height: 180px;  border-radius: 50%; margin-top: 1rem;  border: 3px solid #444; object-fit: cover;}
+    .home .button-group {  margin-top: 1.5rem; display: flex; gap: 1rem;}
+    .home .button-group a { padding: 0.8rem 1.5rem; border-radius: 8px; background: #444; color: white; text-decoration: none; font-weight: bold; transition: background 0.3s; display: flex; align-items: center; gap: 0.5rem;}
+    .home .button-group a:hover { background: var(--accent); color: black; }
 
-/* -------------------------
-   CONTACT & FOOTER
-------------------------- */
-.contact { margin: 2rem 0; }
-.contact form {
-  display: flex; flex-direction: column;
-  gap: 10px; margin-top: 1rem;
-}
-.contact input, .contact textarea {
-  padding: 10px;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-}
-.contact button {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.contact button:hover { background: #0088cc; }
+    /* -------------------------
+       ABOUT SECTION
+    ------------------------- */
+    #drawing {  padding: 80px 20px;  max-width: 1000px;  margin: 0 auto;  color: white;}
+    #drawing h1 {  font-size: 2.5rem;  text-align: center;  margin-bottom: 40px;  color: white; }
+    .drawing-box p {  font-size: 1.1rem;  line-height: 1.2;  margin-bottom: 20px;  text-align: justify;  max-width: 800px;  margin-left: auto; margin-right: auto;}
 
-.social {
-  margin-top: 1rem;
-  display: flex; gap: 10px;
-}
-.social a {
-  color: var(--accent);
-  font-size: 1.5rem;
-  transition: color 0.3s;
-}
-.social a:hover { color: #fff; }
+    @media screen and (max-width: 768px) {
+      #drawing { padding: 50px 15px; }
+      #drawing h1 { font-size: 2rem; }
+      .drawing-category p { font-size: 1rem; }}
 
-footer {
-  margin-top: 2rem;
-  text-align: center;
-  padding: 1rem;
-  background: #111;
-  color: #777;
-}
-</style>
+/* About section box */
+.drawing-box {
+  background: #2b2b2b;          /* light gray/charcoal box */
+  border: 1px solid #444;       /* subtle border */
+  border-radius: 10px;          /* rounded corners */
+  padding: 1.5rem;                /* space inside the box */
+  max-width: 800px;             /* keep readable width */
+  margin: 0 auto;               /* center the box */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3); /* shadow for depth */
+  text-align: justify;}
+    /* -------------------------
+       SKILLS SECTION
+    ------------------------- */
+    .skills-category {  margin-top: 2rem;  width: 100%; max-width: 900px;  text-align: center;}
+    .skills-category h3 { color: var(--accent); margin-bottom: 1rem; }
+
+    /* Skill grid - keeps rows aligned but boxes wrap text */
+    .skills-grid {  display: flex; flex-wrap: wrap;  gap: 1rem; justify-content: center;}
+    .skill {  background: #333;  padding: 0.4rem 0.8rem;  border-radius: 6px;  display: inline-block;  white-space: nowrap;  text-align: center;}
+
+    /* -------------------------
+       WORK EXPERIENCE
+    ------------------------- */
+    .work-experience-list { display: flex; flex-direction: column; gap: 1.5rem; width: 100%; max-width: 800px; margin: 2rem auto 0 auto; align-items: center; justify-content: center;}
+    .work-experience-item {  background: #2b2b2b;  border: 1px solid #444;  border-radius: 10px;  padding: 1rem 1.5rem;  text-align: left;  box-shadow: 0 6px 12px rgba(0,0,0,0.3);  transition: transform 0.3s, background 0.3s;  cursor: pointer;}
+    .work-experience-item:hover {  transform: translateY(-5px); background: #333;}
+    .work-experience-item h3 {  margin-bottom: 0.3rem;  color: var(--accent); text-align: center;}
+    .work-experience-item p strong {  color: #fff; text-align: center;}
+
+    /* Hidden expandable descriptions */
+    .work-experience-item .description,
+    .project-card .description {  display: none;  margin-top: 0.8rem;  color: #ccc;  font-size: 0.95rem;  line-height: 1.4;}
+    /* Show description when parent is active */
+    .work-experience-item.active .description,
+    .project-card.active .description {  display: block;}
+
+    /* -------------------------
+       PROJECTS SECTION
+    ------------------------- */
+    .projects h1 { margin-bottom: 1rem; }
+    .project-list {  display: flex; gap: 2rem;  margin-top: 2rem;  flex-wrap: wrap; justify-content: center;}
+    .project-card {  background: #333; color: #e0e0e0;  padding: 1rem;  border-radius: 10px;  width: 250px;  box-shadow: 0 8px 15px rgba(0,0,0,0.3);  transition: transform 0.3s;  cursor: pointer;}
+    .project-card:hover { transform: translateY(-10px); }
+    .project-card img {  width: 100%; height: 150px;   border-radius: 8px; margin-bottom: 1rem;  object-fit: cover;}
+    .project-card a { text-decoration: none;  color: var(--accent);  font-weight: bold;}
+    .project-card .description a {  display: inline-block;  margin-right: 30px;  color: var(--accent);  text-decoration: none;}
+    .project-gallery {  display: grid;  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));  gap: 10px;  margin-top: 10px;}
+    .project-gallery img {  width: 100%;  border-radius: 8px;  box-shadow: 0 2px 6px rgba(0,0,0,0.2); transition: transform 0.2s;}
+    .project-gallery img:hover {  transform: scale(1.05);  cursor: pointer;}
+    .masonry {  column-count: 3;  column-gap: 10px;}
+.masonry img {  width: 100%;  margin-bottom: 10px;border-radius: 10px;  box-shadow: 0 3px 8px rgba(0,0,0,0.2);  transition: transform 0.2s;}
+.masonry img:hover {  transform: scale(1.05);}
+@media (max-width: 800px) {  .masonry { column-count: 2; }}
+@media (max-width: 500px) {  .masonry { column-count: 1; }}
+    /* Lightbox overlay */
+#lightbox {  position: fixed;  top: 0; left: 0;width: 100%; height: 100%;  background: rgba(0,0,0,0.9);  display: none;  align-items: center;  justify-content: center;z-index: 1000;}
+#lightbox img {  max-width: 90%;  max-height: 80%;border-radius: 10px;  box-shadow: 0 4px 12px rgba(0,0,0,0.5);}
+
+    /* -------------------------
+       CONTACT SECTION
+    ------------------------- */
+    .contact form {  display: flex; flex-direction: column;  gap: 1rem; width: 300px;}
+    .contact input, .contact textarea {  padding: 0.8rem  border: none; border-radius: 5px;  background: #333; color: #e0e0e0;}
+    .contact button { padding: 0.8rem;  border: none; border-radius: 5px;  background: #555; color: white;  cursor: pointer; transition: background 0.3s;}
+    .contact button:hover { background: #777; }
+
+    /* Social icons row */
+    .social {  display: flex; gap: 1rem;  margin-top: 1rem;  justify-content: center;}
+    .social a {  color: #e0e0e0;  font-size: 1.5rem;  transition: color 0.3s;  display: flex; align-items: center; gap: 0.3rem;  text-decoration: none;}
+    .social a:hover { color: var(--accent); }
+
+    /* -------------------------
+       FOOTER
+    ------------------------- */
+    footer {   text-align: center;  padding: 1rem;  background: #111;  color: #aaa;}
+  </style>
 </head>
 <body>
 
-<!-- Sidebar -->
+<!-- =========================
+     SIDEBAR NAVIGATION
+========================= -->
 <nav class="sidebar">
-  <h2>Tilt Table</h2>
+  <h2>Portfolio</h2>
+   <p>Project's</p>
   <ul>
     <li><a href="#drawings">Drawings</a></li>
     <li><a href="#photos">Photos</a></li>
-    <li><a href="#product">Product</a></li>
     <li><a href="#contact">Contact</a></li>
     <li class="resume-link">
       <a href="assets/Nathaniel_Karau_Resume.pdf" download>
@@ -224,36 +162,199 @@ footer {
   </ul>
 </nav>
 
-<!-- Main content -->
-<div class="main">
-  <button onclick="history.back()" class="back-btn">⬅ Back</button>
-  <h1>Tilt Table - Prototype</h1>
+<!-- =========================
+     MAIN CONTENT SECTIONS
+========================= -->
+<div class="content">
 
-  <!-- Drawings Section -->
-  <section id="drawings">
-    <h3>Drawings</h3>
-    <div class="photo-grid">
-      <div class="photo-card" onclick="openLightboxImage('assets/Project 1/Core_Assembly.jpg')">
-        <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 1">
+  <!-- =========================
+       ABOUT SECTION
+  ========================= -->
+  <section id="drawings" class="section drawings">
+    <h1>Drawings</h1>
+    <div class="drawings-box">
+
+    </div>
+  </section>
+
+  <!-- =========================
+       SKILLS SECTION
+  ========================= -->
+  <section id="skills" class="section skills">
+    <h1>Skills</h1>
+    <!-- Advanced -->
+    <div class="skills-category">
+      <h3>Advanced</h3>
+      <div class="skills-grid">
+        <div class="skill">SolidWorks</div>
+        <div class="skill">AutoCAD</div>
+        <div class="skill">GD&T</div>
+        <div class="skill">CAM</div>
+        <div class="skill">Machining</div>
+        <div class="skill">Process Flow Diagrams</div>
+        <div class="skill">Lean Manufacturing</div>
+        <div class="skill">Cross-Functional Team</div>
+        <div class="skill">Technical Writing</div>
+        <div class="skill">Inventor</div>
+        <div class="skill">Project Management</div>
+        <div class="skill">Manufacturing Processes</div>
       </div>
-      <div class="photo-card" onclick="openLightboxImage('assets/Project 1/Core_Assembly.jpg')">
-        <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 2">
+    </div>
+
+    <!-- Proficient -->
+    <div class="skills-category">
+      <h3>Proficient</h3>
+      <div class="skills-grid">
+        <div class="skill">Prototyping</div>
+        <div class="skill">Design for Manufacturability (DFM)</div>
+        <div class="skill">Welding</div>
+        <div class="skill">Injection Molding</div>
+        <div class="skill">Jigs & Fixtures</div>
+        <div class="skill">Data Analysis</div>
+        <div class="skill">Six Sigma</div>
+        <div class="skill">CNC Programming</div>
+      </div>
+    </div>
+
+    <!-- Developing -->
+    <div class="skills-category">
+      <h3>Developing</h3>
+      <div class="skills-grid">
+        <div class="skill">Robotics</div>
+        <div class="skill">Casting</div>
+        <div class="skill">PLC Programming</div>
+        <div class="skill">3D Printing</div>
+        <div class="skill">Finite Element Analysis</div>
       </div>
     </div>
   </section>
 
-  <!-- Photos Section -->
-  <section id="photos">
-    <h3>Photos</h3>
-    <div class="photo-grid">
-      <div class="photo-card" onclick="openLightboxImage('assets/Project 1/Core_Assembly.jpg')">
-        <img src="assets/Project 1/Core_Assembly.jpg" alt="Photo 1">
+  <!-- =========================
+       WORK EXPERIENCE SECTION
+  ========================= -->
+  <section id="work-experience" class="section work-experience">
+    <h1>Work Experience</h1>
+    <h3>Awards/Achievements</h3>
+    <div class="work-experience-list">
+      <!-- Example work item -->
+      <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
+        <h3>2024 - Present</h3>
+        <p><strong>Wieser Form Fabrication | Engineering Project Manager</strong></p>
+        <div class="description">
+          <p> - Coordinated design and implementation of manufacturing tools, improving workflow efficiency by 25% and supporting on-time project delivery.</p> 
+          <p> - Created and maintained weekly and monthly production schedules to balance workload and prioritize orders.</p>
+          <p> - Utilized Autodesk Inventor for 3D modeling and design validation, reducing design errors by 20% and ensuring compliance with industry standards.</p> 
+          <p> - Managed design revisions and change requests to align with customer requirements and production capabilities.</p> 
+          <p> - Collaborated with shop floor staff and suppliers to resolve technical issues, preventing production delays</p> 
+        </div>
+        <div class="description">
+          <p><strong>Awards/Achievements</strong></p>
+         <div class="description">
+          <p> - Implemented CAD models that improved accuracy/reduced errors.</p>
+          <p> - Created custom templates or design standards adopted by the team.</p>
+        </div>
+        </div>
+      </div>
+
+      <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
+        <h3>2023 - 2024</h3> 
+        <p><strong> Viracon | Senior Engineering Design Experience (Capstone)</strong></p>
+        <div class="description"> 
+          <p> - Led the design, analysis, and development of a scaled Tilt Table prototype to improve ergonomics for employees, optimizing workflow and enhancing productivity.</p>
+          <p> - Conducted FEA and CAD modeling using SolidWorks, ensuring structural integrity and compliance with industry standards.</p>
+          <p> - Implemented manufacturing processes including design, machining, assembly, and testing, delivering a successful functional prototype integrated into Viracon’s production facility.</p>
+        </div>
+        <div class="description">
+          <p><strong>Awards/Achievements</strong></p>
+         <div class="description">
+          <p> - NEED SOMETHING HERE.</p>
+          <p> - NEED SOMETHING HERE.</p>
+        </div>
+        </div>
+      </div>
+
+      <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
+        <h3>2022 - 2024</h3>
+        <p><strong> Walmart | Stocking Associate (CAP 1)</strong></p> 
+        <div class="description"> 
+          <p> - Recognized as a reliable team player who was consistently sought out by coworkers and supervisors for assistance with daily tasks and problem-solving.</p> 
+          <p> - Demonstrated a strong work ethic by completing assignments efficiently, maintaining store standards, and going above expectations to support the team.</p>
+          <p> - Took initiative to help others and ensured shelves were fully stocked and organized, contributing to smooth store operations and customer satisfaction.</p>
+         </div>
+        <div class="description">
+          <p><strong>Awards/Achievements</strong></p>
+         <div class="description">
+          <p> - NEED SOMETHING HERE.</p>
+          <p> - NEED SOMETHING HERE.</p>
+        </div>
+        </div>
+      </div>
+      
+      <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
+        <h3>2022 - 2022 (Internship)</h3>
+        <p><strong>Midwest Manufacturing | Engineering Manager Intern</strong></p> 
+        <div class="description"> 
+          <p> - Supervised a team of five to improve workplace efficiency, reducing system runtime.</p>
+          <p> - Developed strong communication, critical thinking, and management skills, enhancing team productivity and project outcomes.</p>
+          <p> - Ensured safety compliance by traveling to new plants and implementing safety measures, increasing safety compliance.</p>
+        </div>
+        <div class="description">
+          <p><strong>Awards/Achievements</strong></p>
+         <div class="description">
+          <p> - NEED SOMETHING HERE.</p>
+          <p> - NEED SOMETHING HERE.</p>
+        </div>
+        </div>
+      </div>
+      
+      <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
+        <h3>2019 - 2024</h3>
+        <p><strong>University of Wisconsin - Stout | B.S. Manufacturing Engineering</strong></p>
+        <div class="description"> <p>Developed expertise in manufacturing systems, design for manufacturability, lean practices, and engineering leadership through coursework and projects.</p>
+        </div>
+        <div class="description">
+          <p><strong>Awards/Achievements</strong></p>
+         <div class="description">
+          <p> - NEED SOMETHING HERE.</p>
+          <p> - NEED SOMETHING HERE.</p>
+        </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="contact">
+<!-- =========================
+     PROJECTS SECTION
+========================= -->
+<section id="projects" class="section projects">
+  <h1>Projects</h1>
+
+  <div class="project-list">
+
+    <!-- Example Project -->
+<div class="project-card" onclick="window.location.href='Project_1.html'" title="Click to View">
+  <img src="assets/Tilt_Table_Cover_Photo.png" alt="Tilt Table Prototype">
+  <h3>Tilt Table - Prototype</h3>
+</div>
+
+    <!-- Another Example Project -->
+    <div class="project-card" onclick="toggleCard(this)" title="Click to expand">
+      <img src="assets/Cover_Photo.jpg" alt="Tilt Table Prototype">
+      <h3>Tilt Table - Prototype</h3>
+      <div class="description">
+        <p><a href="assets/Tilt_Table_Prototype.pdf" target="_blank"><i class="fa-solid fa-file"></i> Report</a></p>
+        <p><a href="assets/Project 1/(5'x5'x6')_Photos.zip" target="_blank"><i class="fa-solid fa-image"></i>Photos</a></p>
+        <p><a href="https://youtu.be/Y_yHQ1yjqLk" target="_blank"><i class="fa-solid fa-video"></i>Video</a></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <!-- =========================
+       CONTACT SECTION
+  ========================= -->
+  <section id="contact" class="section contact">
     <h2>Contact Me</h2>
     <form id="contact-form" action="https://formspree.io/f/xqadnpao" method="post">
       <input type="text" name="name" placeholder="Your Name" required>
@@ -261,77 +362,72 @@ footer {
       <textarea name="message" placeholder="Your Message" required></textarea>
       <button type="submit">Send</button>
     </form>
+
+    <!-- Social icons -->
     <div class="social">
       <a href="https://www.linkedin.com/in/nate-karau61/" target="_blank"><i class="fab fa-linkedin"></i></a>
       <a href="https://github.com/NateKarau61" target="_blank"><i class="fab fa-github"></i></a>
       <a href="https://www.youtube.com/@natekarau42" target="_blank"><i class="fab fa-youtube"></i></a>
     </div>
+
+    <!-- Confirmation message -->
     <div id="form-confirmation" style="display:none; color:var(--accent); margin-top:10px;">
       Thank you! Your message has been sent.
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- =========================
+       FOOTER
+  ========================= -->
   <footer>
     <p>© 2025 Nathaniel Karau</p>
   </footer>
 </div>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <span class="close" onclick="closeLightbox()">&times;</span>
-  <img id="lightbox-img" src="" alt="Expanded View" style="display:none;">
-  <iframe id="lightbox-pdf" src="" style="display:none;"></iframe>
-</div>
-
+<!-- =========================
+     JAVASCRIPT
+========================= -->
 <script>
-// Contact form with Formspree
-const form = document.getElementById('contact-form');
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const data = new FormData(form);
-  const response = await fetch(form.action, {
-    method: form.method,
-    body: data,
-    headers: { 'Accept': 'application/json' }
-  });
-  if (response.ok) {
-    document.getElementById('form-confirmation').style.display = 'block';
-    form.reset();
-  } else {
-    alert('Oops! There was a problem sending your message.');
+  // Fade-in animation on scroll
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  sections.forEach(section => observer.observe(section));
+
+  // Toggle work experience description (expand/collapse)
+  function toggleDescription(item) {
+    item.classList.toggle("active");
   }
-});
 
-// Lightbox functions
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-const lightboxPDF = document.getElementById("lightbox-pdf");
+  // Contact form submission with Formspree
+  const form = document.getElementById('contact-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      document.getElementById('form-confirmation').style.display = 'block';
+      form.reset();
+    } else {
+      alert('Oops! There was a problem sending your message.');
+    }
+  });
 
-function openLightboxImage(src){
-  lightbox.style.display = 'flex';
-  lightboxImg.style.display = 'block';
-  lightboxPDF.style.display = 'none';
-  lightboxImg.src = src;
-}
-
-function openLightboxPDF(src){
-  lightbox.style.display = 'flex';
-  lightboxImg.style.display = 'none';
-  lightboxPDF.style.display = 'block';
-  lightboxPDF.src = src;
-}
-
-function closeLightbox(){
-  lightbox.style.display = 'none';
-  lightboxImg.src = '';
-  lightboxPDF.src = '';
-}
-
-lightbox.addEventListener('click', e => {
-  if(e.target === lightbox) closeLightbox();
-});
+  // Toggle card (for projects and awards)
+  function toggleCard(card) {
+    card.classList.toggle("active");
+    // If you want all open at a time (accordion style), replace above with this:
+    /*
+    .card.classList.toggle("active");
+    */
+  }
 </script>
-
 </body>
 </html>
