@@ -352,50 +352,41 @@
   <!-- =========================
        PROJECTS SECTION
   ========================= -->
-  <section id="projects" class="section projects">
-    <h1>Projects</h1>
-    <div class="project-list">
-<div class="project-card" onclick="toggleCard(this)">
-  <img src="assets/Tilt_Table_Cover_Photo.png" alt="Tilt Table Project Thumbnail">
-  <h3>Tilt Table - Prototype</h3>
-  <p class="short-desc">Ergonomic tilt table design for glass handling.</p>
-  <div class="description">
+ <section id="projects" class="section projects">
+  <h1>Projects</h1>
 
-    <!-- PDF Thumbnail -->
-    <a href="assets/Tilt_Table_Prototype.pdf" title="Click to view report">
-      <img src="assets/Tilt_Table_Prototype_Thumb.png" alt="Tilt Table PDF preview" style="width:100%; border-radius:8px; margin-bottom:10px;">
-    </a>
+  <div class="project-list">
 
-    <!-- Extra Images -->
-    <a href="assets/Tilt_Table_Full_View.jpg"  title="Click to enlarge images">
-        <div class="masonry">
-    <img src="assets/photo1.jpg" alt="Photo 1">
-    <img src="assets/photo2.jpg" alt="Photo 2">
-    <img src="assets/photo3.jpg" alt="Photo 3">
-    <img src="assets/photo4.jpg" alt="Photo 4">
-    <img src="assets/photo5.jpg" alt="Photo 5">
-    <img src="assets/photo6.jpg" alt="Photo 6">
+    <!-- Example Project -->
+    <div class="project-card">
+      <h3>Tilt Table - Prototype</h3>
+      <p>Ergonomic tilt table design for glass handling.</p>
+      
+      <!-- Simple links -->
+      <p>
+        <a href="assets/Tilt_Table_Prototype.pdf">Click to open Report</a>
+      </p>
+      <p>
+        <a href="assets/Project 1/(5'x5'x6')_Photos.zip">Click to open Photos</a>
+      </p>
+       <p>
+        <a href="assets/Tilt_Table_Photos.zip">Click to open Video</a>
+      </p>
+    </div>
+
+    <!-- Add more projects below -->
+    <div class="project-card">
+      <h3>Another Project</h3>
+      <p>Short project description.</p>
+      <p>
+        <a href="assets/Project_Report.pdf">📄 Click to open Report</a>
+      </p>
+      <p>
+        <a href="assets/Project_Photos.zip">🖼️ Click to open Photos</a>
+      </p>
+    </div>
+
   </div>
-    </a>
-
-    <!-- Links -->
-    <a href="assets/Tilt_Table_Prototype.pdf" target="_blank">📄 View Full PDF</a>
-    <a href="https://youtu.be/Y_yHQ1yjqLk" target="_blank">▶ Watch Video</a>
-    
-    <div class="project-gallery">
-  <a href="assets/Report1.pdf" target="_blank" title="Open PDF">
-    <img src="assets/Report1_thumb.png" alt="Report 1">
-  </a>
-<a href="assets/Prototype.jpg" class="lightbox" title="Enlarge Image">
-  <img src="assets/Prototype_thumb.jpg" alt="Prototype">
-</a>
-  <a href="assets/Analysis.pdf" target="_blank" title="Open Analysis PDF">
-    <img src="assets/Analysis_thumb.png" alt="Analysis report">
-  </a>
-</div>
-  </div>
-</div>
-</section>
   <!-- =========================
        CONTACT SECTION
   ========================= -->
@@ -475,27 +466,7 @@
     .card.classList.toggle("active");
     */
   }
-  // Lightbox for project images
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = lightbox.querySelector("img");
-
-document.querySelectorAll(".project-gallery a, .masonry a, .lightbox").forEach(link => {
-  link.addEventListener("click", e => {
-    e.preventDefault();
-    const imgSrc = link.getAttribute("href");
-    lightboxImg.src = imgSrc;
-    lightbox.style.display = "flex";
-  });
-});
-
-// Close on click anywhere
-lightbox.addEventListener("click", () => {
-  lightbox.style.display = "none";
-  lightboxImg.src = "";
 });
 </script>
-  <div id="lightbox">
-  <img src="" alt="Expanded view">
-</div>
 </body>
 </html>
