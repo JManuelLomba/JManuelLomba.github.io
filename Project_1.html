@@ -126,6 +126,40 @@
   transform: scale(1.03);
   box-shadow: 0 6px 14px rgba(0,0,0,0.6);
 }
+    /* Lightbox container */
+#lightbox {
+  display: none; /* hidden by default */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Lightbox image */
+#lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+}
+
+/* Close button */
+#lightbox .close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+#lightbox .close-btn:hover {
+  color: var(--accent);
+}
+
 
   </style>
 </head>
@@ -176,9 +210,11 @@
   </section>
 
   <!-- Lightbox -->
-  <div id="lightbox">
-    <img id="lightbox-img" src="" alt="">
-  </div>
+<div id="lightbox">
+  <span class="close-btn">&times;</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 
   <footer>
     <p>© 2025 Nathaniel Karau</p>
@@ -201,6 +237,12 @@ lightbox.addEventListener('click', () => {
   lightbox.style.display = 'none';
 });
 
+// Close button functionality
+document.querySelector('#lightbox .close-btn').addEventListener('click', () => {
+  lightbox.style.display = 'none';
+});
+  
+  
 // Fade-in animation on scroll
 const sections = document.querySelectorAll('.section');
 const observer = new IntersectionObserver(entries => {
