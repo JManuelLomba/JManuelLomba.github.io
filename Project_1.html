@@ -201,7 +201,7 @@
   <h2>Portfolio</h2>
   <ul>
     <li><a href="#drawings">Drawings</a></li>
-    <li><a href="#projects">Projects</a></li>
+    <li><a href="#photos">Photos</a></li>
     <li><a href="#contact">Contact</a></li>
     <li class="resume-link">
       <a href="assets/Nathaniel_Karau_Resume.pdf" download>
@@ -217,37 +217,28 @@
 <div class="content">
 
   <!-- Drawings Section -->
-  <section id="drawings" class="section">
-    <h1>Drawings</h1>
-    <div class="drawings-box">
-      <p>Placeholder for drawings and description...</p>
-    </div>
-  </section>
+<section id="drawings" class="section drawings">
+  <h1>Drawings</h1>
+  <div class="masonry">
+    <img src="assets/drawing1.jpg" alt="Drawing 1">
+    <img src="assets/drawing2.jpg" alt="Drawing 2">
+    <img src="assets/drawing3.jpg" alt="Drawing 3">
+    <img src="assets/drawing4.jpg" alt="Drawing 4">
+    <img src="assets/drawing5.jpg" alt="Drawing 5">
+  </div>
+</section>
 
   <!-- Projects Section -->
-  <section id="projects" class="section projects">
-    <h1>Projects</h1>
-    <div class="project-list">
-
-      <!-- Project 1 -->
-      <div class="project-card" onclick="window.location.href='Project_1.html'" title="Click to View">
-        <img src="assets/Tilt_Table_Cover_Photo.png" alt="Tilt Table Prototype">
-        <h3>Tilt Table - Prototype</h3>
-      </div>
-
-      <!-- Project 2 -->
-      <div class="project-card" onclick="toggleCard(this)" title="Click to Expand">
-        <img src="assets/Cover_Photo.jpg" alt="Project Cover">
-        <h3>Tilt Table - Prototype</h3>
-        <div class="description">
-          <p><a href="assets/Tilt_Table_Prototype.pdf" target="_blank"><i class="fa-solid fa-file"></i> Report</a></p>
-          <p><a href="assets/Project 1/(5'x5'x6')_Photos.zip" target="_blank"><i class="fa-solid fa-image"></i> Photos</a></p>
-          <p><a href="https://youtu.be/Y_yHQ1yjqLk" target="_blank"><i class="fa-solid fa-video"></i> Video</a></p>
-        </div>
-      </div>
-
-    </div>
-  </section>
+<section id="photos" class="section photos">
+  <h1>Photos</h1>
+  <div class="masonry">
+    <img src="assets/photo1.jpg" alt="Photo 1">
+    <img src="assets/photo2.jpg" alt="Photo 2">
+    <img src="assets/photo3.jpg" alt="Photo 3">
+    <img src="assets/photo4.jpg" alt="Photo 4">
+    <img src="assets/photo5.jpg" alt="Photo 5">
+  </div>
+</section>
 
   <!-- Contact Section -->
   <section id="contact" class="section contact">
@@ -271,17 +262,36 @@
       Thank you! Your message has been sent.
     </div>
   </section>
+  
+  <div id="lightbox">
+  <img id="lightbox-img" src="" alt="">
+</div>
 
   <!-- Footer -->
   <footer>
     <p>© 2025 Nathaniel Karau</p>
   </footer>
 </div>
+  
 
 <!-- =========================
      JAVASCRIPT
 ========================= -->
 <script>
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+
+document.querySelectorAll('.masonry img').forEach(img => {
+  img.addEventListener('click', () => {
+    lightbox.style.display = 'flex';
+    lightboxImg.src = img.src;
+  });
+});
+
+lightbox.addEventListener('click', () => {
+  lightbox.style.display = 'none';
+});
   // Fade-in animation on scroll
   const sections = document.querySelectorAll('.section');
   const observer = new IntersectionObserver(entries => {
