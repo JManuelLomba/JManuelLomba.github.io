@@ -119,6 +119,9 @@
 .masonry img:hover {  transform: scale(1.05);}
 @media (max-width: 800px) {  .masonry { column-count: 2; }}
 @media (max-width: 500px) {  .masonry { column-count: 1; }}
+    /* Lightbox overlay */
+#lightbox {  position: fixed;  top: 0; left: 0;width: 100%; height: 100%;  background: rgba(0,0,0,0.9);  display: none;  align-items: center;  justify-content: center;z-index: 1000;}
+#lightbox img {  max-width: 90%;  max-height: 80%;border-radius: 10px;  box-shadow: 0 4px 12px rgba(0,0,0,0.5);}
 
     /* -------------------------
        CONTACT SECTION
@@ -383,9 +386,9 @@
   <a href="assets/Report1.pdf" target="_blank" title="Open PDF">
     <img src="assets/Report1_thumb.png" alt="Report 1">
   </a>
-  <a href="assets/Prototype.jpg" target="_blank" title="Enlarge Image">
-    <img src="assets/Prototype_thumb.jpg" alt="Prototype">
-  </a>
+<a href="assets/Prototype.jpg" class="lightbox" title="Enlarge Image">
+  <img src="assets/Prototype_thumb.jpg" alt="Prototype">
+</a>
   <a href="assets/Analysis.pdf" target="_blank" title="Open Analysis PDF">
     <img src="assets/Analysis_thumb.png" alt="Analysis report">
   </a>
@@ -472,6 +475,27 @@
     .card.classList.toggle("active");
     */
   }
+  // Lightbox for project images
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = lightbox.querySelector("img");
+
+document.querySelectorAll(".project-gallery a, .masonry a, .lightbox").forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+    const imgSrc = link.getAttribute("href");
+    lightboxImg.src = imgSrc;
+    lightbox.style.display = "flex";
+  });
+});
+
+// Close on click anywhere
+lightbox.addEventListener("click", () => {
+  lightbox.style.display = "none";
+  lightboxImg.src = "";
+});
 </script>
+  <div id="lightbox">
+  <img src="" alt="Expanded view">
+</div>
 </body>
 </html>
