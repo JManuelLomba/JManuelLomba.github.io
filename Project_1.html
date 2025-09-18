@@ -5,61 +5,72 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tilt Table - Prototype</title>
 
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 
-  
 <style>
- /* -------------------------
-       GLOBAL STYLES & RESET
-    ------------------------- */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {    width: 100%;  font-family: 'Arial', sans-serif;  background: #1a1a1a; color: #e0e0e0; scroll-behavior: smooth;}
-    :root { --accent: #00aaff; } /* accent color variable */
-
-    /* -------------------------
-       SIDEBAR NAVIGATION
-    ------------------------- */
-    .sidebar {  position: fixed; top: 0; left: 0;  width: 220px; height: 100%;  background: #111;  padding: 2rem 1rem;  display: flex; flex-direction: column; align-items: center;}
-    .sidebar h2 { color: var(--accent); margin-bottom: 2rem; }
-    .sidebar ul { list-style: none; width: 100%; padding: 0; }
-    .sidebar ul li { margin: 1.5rem 0; text-align: center; }
-    .sidebar ul li a {  color: #e0e0e0; text-decoration: none; font-weight: bold; font-size: 1.2rem; transition: color 0.3s;}
-    .sidebar ul li a:hover { color: var(--accent); }
-
-    /* Resume link styling */
-    .sidebar ul li.resume-link a {  border: 2px solid var(--accent);  padding: 0.4rem 0.6rem;  border-radius: 6px;  display: inline-block;}
-    .sidebar ul li.resume-link a:hover {  background: var(--accent);  color: black;}
-
-    /* Resume button style (used in Home too) */
-    .resume-btn {  padding: 0.8rem 1.5rem;  border-radius: 8px;  background: var(--accent);  color: white;  text-decoration: none;  display: flex; align-items: center; gap: 0.5rem;  font-weight: bold;}
-    .resume-btn:hover { background: #0088cc; color: white; }
-
-  body {
+/* -------------------------
+   GLOBAL
+------------------------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
   font-family: Arial, sans-serif;
-  background: #1e1e1e;
+  background: #1a1a1a;
   color: #e0e0e0;
-  margin: 0;
-  padding: 0;
-  display: flex;
+  scroll-behavior: smooth;
+}
+:root { --accent: #00aaff; }
+
+/* -------------------------
+   SIDEBAR
+------------------------- */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 220px; height: 100%;
+  background: #111;
+  padding: 2rem 1rem;
+  display: flex; flex-direction: column; align-items: center;
+}
+.sidebar h2 { color: var(--accent); margin-bottom: 2rem; }
+.sidebar ul { list-style: none; width: 100%; }
+.sidebar ul li { margin: 1.5rem 0; text-align: center; }
+.sidebar ul li a {
+  color: #e0e0e0;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: color 0.3s;
+}
+.sidebar ul li a:hover { color: var(--accent); }
+
+/* Resume link */
+.sidebar ul li.resume-link a {
+  border: 2px solid var(--accent);
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  display: inline-block;
+}
+.sidebar ul li.resume-link a:hover {
+  background: var(--accent);
+  color: black;
 }
 
-/* Main content */
+/* -------------------------
+   MAIN CONTENT
+------------------------- */
 .main {
   margin-left: 220px;
   padding: 20px;
-  flex: 1;
 }
-
 h1 { color: #FF0000; margin-top: 0; }
 h3 { color: #fff; margin-top: 1rem; }
 
 /* Back button */
 .back-btn {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 20px; right: 20px;
   background: #FF0000;
   color: #fff;
   border: none;
@@ -71,7 +82,9 @@ h3 { color: #fff; margin-top: 1rem; }
 }
 .back-btn:hover { background: #ff5a36; }
 
-/* Grid */
+/* -------------------------
+   GALLERY GRID
+------------------------- */
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -84,16 +97,15 @@ h3 { color: #fff; margin-top: 1rem; }
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   cursor: pointer;
   transition: transform 0.3s;
-  display: inline-flex;        /* shrink to fit image */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;                /* background only around image */
-  margin: auto;                /* centers it in the grid cell */
+  padding: 8px;
 }
 .photo-card:hover { transform: scale(1.05); }
 .photo-card img, .pdf-thumb {
-  width: 100%;
-  height: 180px;
+  max-width: 100%;
+  max-height: 180px;
   object-fit: contain;
   display: block;
 }
@@ -108,9 +120,16 @@ h3 { color: #fff; margin-top: 1rem; }
   text-align: center;
   background: #333;
 }
-.pdf-embed { width: 100%; height: 100%; border: none; border-radius: 8px; }
+.pdf-embed {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
 
-/* Lightbox */
+/* -------------------------
+   LIGHTBOX
+------------------------- */
 .lightbox {
   display: none;
   position: fixed;
@@ -141,17 +160,57 @@ h3 { color: #fff; margin-top: 1rem; }
   cursor: pointer;
   font-weight: bold;
 }
-.lightbox .close:hover { color: #FF0000; }
+.lightbox .close:hover { color: #ff5a36; }
 
+/* -------------------------
+   CONTACT & FOOTER
+------------------------- */
+.contact { margin: 2rem 0; }
+.contact form {
+  display: flex; flex-direction: column;
+  gap: 10px; margin-top: 1rem;
+}
+.contact input, .contact textarea {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.contact button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.contact button:hover { background: #0088cc; }
+
+.social {
+  margin-top: 1rem;
+  display: flex; gap: 10px;
+}
+.social a {
+  color: var(--accent);
+  font-size: 1.5rem;
+  transition: color 0.3s;
+}
+.social a:hover { color: #fff; }
+
+footer {
+  margin-top: 2rem;
+  text-align: center;
+  padding: 1rem;
+  background: #111;
+  color: #777;
+}
 </style>
 </head>
 <body>
 
-<!-- =========================
-     SIDEBAR NAVIGATION
-========================= -->
+<!-- Sidebar -->
 <nav class="sidebar">
-  <h2>Tilt Table - Protoype</h2>
+  <h2>Tilt Table</h2>
   <ul>
     <li><a href="#drawings">Drawings</a></li>
     <li><a href="#photos">Photos</a></li>
@@ -180,18 +239,6 @@ h3 { color: #fff; margin-top: 1rem; }
       <div class="photo-card" onclick="openLightboxImage('assets/Project 1/Core_Assembly.jpg')">
         <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 2">
       </div>
-      <div class="photo-card" onclick="openLightboxImage('assets/Project 1/Core_Assembly.jpg')">
-        <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 1">
-      </div>
-      <div class="photo-card" onclick="openLightboxImage('assets/Project 1/Core_Assembly.jpg')">
-        <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 2">
-      </div>
-      <div class="photo-card" onclick="openLightboxImage('assets/Project 1/Core_Assembly.jpg')">
-        <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 1">
-      </div>
-      <div class="photo-card" onclick="openLightboxImage('assets/Project 1/Core_Assembly.jpg')">
-        <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 2">
-      </div>
     </div>
   </section>
 
@@ -202,11 +249,32 @@ h3 { color: #fff; margin-top: 1rem; }
       <div class="photo-card" onclick="openLightboxImage('assets/Project 1/Core_Assembly.jpg')">
         <img src="assets/Project 1/Core_Assembly.jpg" alt="Photo 1">
       </div>
-      <div class="photo-card" onclick="openLightboxImage('assets/Project 1/Core_Assembly.jpg')">
-        <img src="assets/Project 1/Core_Assembly.jpg" alt="Photo 2">
-      </div>
     </div>
   </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Contact Me</h2>
+    <form id="contact-form" action="https://formspree.io/f/xqadnpao" method="post">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <div class="social">
+      <a href="https://www.linkedin.com/in/nate-karau61/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/NateKarau61" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://www.youtube.com/@natekarau42" target="_blank"><i class="fab fa-youtube"></i></a>
+    </div>
+    <div id="form-confirmation" style="display:none; color:var(--accent); margin-top:10px;">
+      Thank you! Your message has been sent.
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Nathaniel Karau</p>
+  </footer>
 </div>
 
 <!-- Lightbox -->
@@ -216,58 +284,26 @@ h3 { color: #fff; margin-top: 1rem; }
   <iframe id="lightbox-pdf" src="" style="display:none;"></iframe>
 </div>
 
-  <!-- =========================
-       CONTACT SECTION
-  ========================= -->
-  <section id="contact" class="section contact">
-    <h2>Contact Me</h2>
-    <form id="contact-form" action="https://formspree.io/f/xqadnpao" method="post">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send</button>
-    </form>
-
-    <!-- Social icons -->
-    <div class="social">
-      <a href="https://www.linkedin.com/in/nate-karau61/" target="_blank"><i class="fab fa-linkedin"></i></a>
-      <a href="https://github.com/NateKarau61" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://www.youtube.com/@natekarau42" target="_blank"><i class="fab fa-youtube"></i></a>
-    </div>
-
-    <!-- Confirmation message -->
-    <div id="form-confirmation" style="display:none; color:var(--accent); margin-top:10px;">
-      Thank you! Your message has been sent.
-    </div>
-  </section>
-
-  <!-- =========================
-       FOOTER
-  ========================= -->
-  <footer>
-    <p>© 2025 Nathaniel Karau</p>
-  </footer>
-</div>  
-  
 <script>
- // Contact form submission with Formspree
-  const form = document.getElementById('contact-form');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    const response = await fetch(form.action, {
-      method: form.method,
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    });
-    if (response.ok) {
-      document.getElementById('form-confirmation').style.display = 'block';
-      form.reset();
-    } else {
-      alert('Oops! There was a problem sending your message.');
-    }
+// Contact form with Formspree
+const form = document.getElementById('contact-form');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const data = new FormData(form);
+  const response = await fetch(form.action, {
+    method: form.method,
+    body: data,
+    headers: { 'Accept': 'application/json' }
   });
+  if (response.ok) {
+    document.getElementById('form-confirmation').style.display = 'block';
+    form.reset();
+  } else {
+    alert('Oops! There was a problem sending your message.');
+  }
+});
 
+// Lightbox functions
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const lightboxPDF = document.getElementById("lightbox-pdf");
@@ -292,11 +328,8 @@ function closeLightbox(){
   lightboxPDF.src = '';
 }
 
-// Close if clicked outside content
 lightbox.addEventListener('click', e => {
-  if(e.target !== lightboxImg && e.target !== lightboxPDF){
-    closeLightbox();
-  }
+  if(e.target === lightbox) closeLightbox();
 });
 </script>
 
