@@ -1,94 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery</title>
-  <style>
-    body {font-family: Arial, sans-serif; background: #1e1e1e; color: #e0e0e0; margin: 0; padding: 0; text-align: center;}
-    h1, h2 {color: #ff7043; margin-top: 1rem;}
-    .back-btn {  background: #ff7043;  color: #fff;  border: none;  padding: 10px 16px;  border-radius: 6px;  cursor: pointer;  margin: 1rem;  font-size: 1rem;  box-shadow: 0 3px 6px rgba(0,0,0,0.3);  transition: background 0.3s;}
-    .back-btn:hover {  background: #ff5a36;}
-    .photo-grid {  display: grid;  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));  gap: 12px;  margin: 1rem;}
-    .photo-grid img {  width: 100%;  height: 200px;  object-fit: cover;  border-radius: 8px;  box-shadow: 0 4px 8px rgba(0,0,0,0.3);  transition: transform 0.3s;  cursor: pointer;}
-    .photo-grid img:hover {  transform: scale(1.05);}
-    .pdf-list {  list-style: none;  margin: 1rem auto;  padding: 0;  max-width: 600px;  text-align: left;}
-    .pdf-list li { margin: 0.5rem 0;}
-    .pdf-list a {  color: #ff7043;  font-weight: bold;  text-decoration: none;}
-    .pdf-list a:hover {  text-decoration: underline;}
-    .pdf-preview { background: #333;border-radius: 8px;box-shadow: 0 4px 8px rgba(0,0,0,0.3);overflow: hidden;cursor: pointer;transition: transform 0.3s;height: 200px;display: flex;align-items: center;justify-content: center;}
-    .pdf-preview embed { width: 100%; height: 100%; border: none;}
-    .pdf-preview embed:hover {transform: scale(1.05);}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery</title>
+<style>
+body {font-family: Arial, sans-serif; background: #1e1e1e; color: #e0e0e0; margin: 0; padding: 0; text-align: center;}
+h1, h2 {color: #ff7043; margin-top: 1rem;}
+.back-btn {background: #ff7043; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; margin: 1rem; font-size: 1rem; box-shadow: 0 3px 6px rgba(0,0,0,0.3); transition: background 0.3s;}
+.back-btn:hover {background: #ff5a36;}
+.photo-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 1rem;}
+.photo-card {background: #333; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); overflow: hidden; cursor: pointer; transition: transform 0.3s; height: 200px; display: flex; align-items: center; justify-content: center; position: relative;}
+.photo-card:hover {transform: scale(1.05);}
+.photo-card img, .photo-card .pdf-thumb {width: 100%; height: 100%; object-fit: cover;}
+.pdf-thumb {display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ff7043; font-size: 1rem; padding: 10px; text-align: center;}
 
-    /* Lightbox Styles */
-    .lightbox {  display: none;  position: fixed;  z-index: 1000;  top: 0; left: 0;  width: 100%; height: 100%;  background: rgba(0, 0, 0, 0.9);  justify-content: center;  align-items: center; }
-    .lightbox img {  max-width: 90%;  max-height: 90%;  border-radius: 8px;  box-shadow: 0 4px 12px rgba(0,0,0,0.5);}
-    .lightbox .close { position: absolute;  top: 20px;  right: 30px;  font-size: 5rem;  color: #ff7043;  cursor: pointer;  font-weight: bold;}
-    .lightbox .close:hover {  color: #ff7043; }
-  </style>
+.lightbox {display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; flex-direction: column;}
+.lightbox iframe {width: 90%; height: 80%; border: none; border-radius: 8px;}
+.lightbox .close {position: absolute; top: 20px; right: 30px; font-size: 4rem; color: #ff7043; cursor: pointer; font-weight: bold;}
+.lightbox .close:hover {color: #ff7043;}
+</style>
 </head>
 <body>
 
-  <!-- Back Button -->
-  <button onclick="history.back()" class="back-btn">⬅ Back</button>
+<button onclick="history.back()" class="back-btn">⬅ Back</button>
+<h1>Project Gallery</h1>
 
-  <h1>Project Gallery</h1>
-
-  <!-- Collage -->
-  <div class="photo-grid">
+<div class="photo-grid">
+  <!-- Image -->
+  <div class="photo-card" onclick="openLightboxImage('assets/Cover_Photo.jpg')">
     <img src="assets/Cover_Photo.jpg" alt="Photo 1">
-    <img src="assets/Nathaniel_Karau_Resume.pdf" alt="Photo 2">
-    <img src="assets/project1_pic3.jpg" alt="Photo 3">
-    <img src="assets/project1_pic4.jpg" alt="Photo 4">
-    <img src="assets/project1_pic5.jpg" alt="Photo 5">
-    <img src="assets/project1_pic6.jpg" alt="Photo 6">
   </div>
 
-    <!-- PDF Preview -->
-  <div class="pdf-preview">
-    <embed src="assets/Nathaniel_Karau_Resume.pdf" type="application/pdf"/>
-    <embed src="assets/Nathaniel_Karau_Resume.pdf" type="application/pdf"/>
-    <embed src="assets/Nathaniel_Karau_Resume.pdf" type="application/pdf"/>
-    <embed src="assets/Nathaniel_Karau_Resume.pdf" type="application/pdf"/>
-    <embed src="assets/Nathaniel_Karau_Resume.pdf" type="application/pdf"/>
+  <!-- PDF -->
+  <div class="photo-card" onclick="openLightboxPDF('assets/Tilt_Table_Prototype.pdf')">
+    <div class="pdf-thumb">Tilt Table Report (PDF)</div>
+  </div>
+
+  <div class="photo-card" onclick="openLightboxPDF('assets/Project_Manual.pdf')">
+    <div class="pdf-thumb">User Manual (PDF)</div>
+  </div>
+
+  <!-- Another Image -->
+  <div class="photo-card" onclick="openLightboxImage('assets/project1_pic3.jpg')">
+    <img src="assets/project1_pic3.jpg" alt="Photo 2">
   </div>
 </div>
-  
-  <!-- PDFs Section -->
-  <h2>Project Files</h2>
-  <ul class="pdf-list">
-    <li><a href="assets/Tilt_Table_Prototype.pdf" target="_blank">Tilt Table Report (PDF)</a></li>
-    <li><a href="assets/Project_Manual.pdf" target="_blank">User Manual (PDF)</a></li>
-  </ul>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <span class="close" onclick="closeLightbox()">&times;</span>
-    <img id="lightbox-img" src="" alt="Expanded View">
-  </div>
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <span class="close" onclick="closeLightbox()">&times;</span>
+  <img id="lightbox-img" src="" alt="Expanded View" style="display:none;">
+  <iframe id="lightbox-pdf" src="" style="display:none;"></iframe>
+</div>
 
-  <script>
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightbox-img");
+<script>
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const lightboxPDF = document.getElementById("lightbox-pdf");
 
-    document.querySelectorAll(".photo-grid img").forEach(img => {
-      img.addEventListener("click", () => {
-        lightbox.style.display = "flex";
-        lightboxImg.src = img.src;
-      });
-    });
+function openLightboxImage(src){
+  lightbox.style.display = 'flex';
+  lightboxImg.style.display = 'block';
+  lightboxPDF.style.display = 'none';
+  lightboxImg.src = src;
+}
 
-    function closeLightbox() {
-      lightbox.style.display = "none";
-    }
+function openLightboxPDF(src){
+  lightbox.style.display = 'flex';
+  lightboxImg.style.display = 'none';
+  lightboxPDF.style.display = 'block';
+  lightboxPDF.src = src;
+}
 
-    // Close if clicked outside the image
-    lightbox.addEventListener("click", (e) => {
-      if (e.target !== lightboxImg) {
-        closeLightbox();
-      }
-    });
-  </script>
+function closeLightbox(){
+  lightbox.style.display = 'none';
+  lightboxImg.src = '';
+  lightboxPDF.src = '';
+}
+
+// Close if clicked outside content
+lightbox.addEventListener('click', e => {
+  if(e.target !== lightboxImg && e.target !== lightboxPDF){
+    closeLightbox();
+  }
+});
+</script>
 
 </body>
 </html>
