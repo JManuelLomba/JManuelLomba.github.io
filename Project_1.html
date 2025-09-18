@@ -5,73 +5,186 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gallery</title>
 <style>
-body {font-family: Arial, sans-serif; background: #1e1e1e; color: #e0e0e0; margin: 0; padding: 0; text-align: center;}
-h1, h2 {color: #FF0000; margin-top: 1rem;}
-h3 {color: white; margin-top: 1rem;}
-.back-btn {  position: fixed; top: 20px; left: 20px; background: #FF0000;  color: #fff;  border: none;padding: 10px 16px;  border-radius: 6px;  cursor: pointer;  font-size: 1rem;  box-shadow: 0 3px 6px rgba(0,0,0,0.3);  transition: background 0.3s;  z-index: 100;}
-.back-btn:hover {background: #ff5a36;}
-.photo-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 1rem;}
-.photo-card {background: #333; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); overflow: hidden; cursor: pointer; transition: transform 0.3s; height: 200px; display: flex; align-items: center; justify-content: center; position: relative;}
-.photo-card:hover {transform: scale(1.05);}
-.photo-card img, .pdf-thumb {width: 100%; height: 100%; object-fit: cover;}
-.pdf-thumb {display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ff7043; font-size: 1rem; padding: 10px; text-align: center; background: #333;}
-.pdf-embed {width: 100%; height: 100%; border: none; border-radius: 8px;}
+body {
+  font-family: Arial, sans-serif;
+  background: #1e1e1e;
+  color: #e0e0e0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
 
-.lightbox {display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; flex-direction: column;}
-.lightbox iframe {width: 90%; height: 80%; border: none; border-radius: 8px;}
-.lightbox img {max-width: 90%; max-height: 90%; width: auto; height: auto; border-radius: 8px;}
-.lightbox .close {position: absolute; top: 20px; right: 30px; font-size: 4rem; color: #FF0000; cursor: pointer; font-weight: bold;}
-.lightbox .close:hover {color: #FF0000;}
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #2c2c2c;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+}
+
+.sidebar h2 {
+  color: #ff7043;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: #e0e0e0;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 5px 0;
+  transition: background 0.3s;
+}
+
+.sidebar a:hover {
+  background: #ff7043;
+  color: #fff;
+}
+
+/* Main content */
+.main {
+  margin-left: 220px;
+  padding: 20px;
+  flex: 1;
+}
+
+h1 { color: #FF0000; margin-top: 0; }
+h3 { color: #fff; margin-top: 1rem; }
+
+/* Back button */
+.back-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #FF0000;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  z-index: 100;
+}
+.back-btn:hover { background: #ff5a36; }
+
+/* Grid */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 1rem;
+}
+.photo-card {
+  background: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.photo-card:hover { transform: scale(1.05); }
+.photo-card img, .pdf-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pdf-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #ff7043;
+  font-size: 1rem;
+  padding: 10px;
+  text-align: center;
+  background: #333;
+}
+.pdf-embed { width: 100%; height: 100%; border: none; border-radius: 8px; }
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.95);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.lightbox iframe {
+  width: 90%; height: 80%;
+  border: none;
+  border-radius: 8px;
+}
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  width: auto; height: auto;
+  border-radius: 8px;
+}
+.lightbox .close {
+  position: absolute;
+  top: 20px; right: 30px;
+  font-size: 4rem;
+  color: #FF0000;
+  cursor: pointer;
+  font-weight: bold;
+}
+.lightbox .close:hover { color: #FF0000; }
+
 </style>
 </head>
 <body>
 
-<button onclick="history.back()" class="back-btn">⬅ Back</button>
-<h1>Tilt Table - Prototype</h1>
-
-<!-- Drawings Section -->
-<section>
-<h3>Photos</h3>
-<div class="photo-grid">
-  <div class="photo-card" onclick="openLightboxImage('assets/Project%201/Roller%20Assembly%20(5'%205'%206')_page-0001.jpg')">
-    <img src="assets/Project%201/Roller%20Assembly%20(5'%205'%206')_page-0001.jpg" alt="Photo 1">
-  </div>
-  <div class="photo-card" onclick="openLightboxImage('assets/Project%201/Roller%20Assembly%20(5'%205'%206')_page-0001.jpg')">
-    <img src="assets/Cover_Photo.jpg" alt="Photo 2">
-  </div>
-  <div class="photo-card" onclick="openLightboxImage('assets/Cover_Photo.jpg')">
-    <img src="assets/Project%201/Roller%20Assembly%20(5'%205'%206')_page-0001.jpg" alt="Photo 2">
-  </div>
-  <div class="photo-card" onclick="openLightboxImage('assets/Cover_Photo.jpg')">
-    <img src="assets/Cover_Photo.jpg" alt="Photo 2">
-  </div>
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>Gallery</h2>
+  <a href="#drawings">Drawings</a>
+  <a href="#photos">Photos</a>
 </div>
-</section>
 
-<!-- PDFs Section -->
-<section>
-<h3>Drawings</h3>
-<div class="photo-grid">
-  <div class="photo-card" onclick="openLightboxImage('assets/Cover_Photo.jpg')">
-    <img src="assets/Cover_Photo.jpg" alt="Photo 1">
-  </div>
-  <div class="photo-card" onclick="openLightboxImage('assets/Cover_Photo.jpg')">
-    <img src="assets/Cover_Photo.jpg" alt="Photo 2">
-  </div>
-  <div class="photo-card" onclick="openLightboxImage('assets/Cover_Photo.jpg')">
-    <img src="assets/Cover_Photo.jpg" alt="Photo 2">
-  </div>
-  <div class="photo-card" onclick="openLightboxImage('assets/Cover_Photo.jpg')">
-    <img src="assets/Cover_Photo.jpg" alt="Photo 2">
-  </div>
-</div>
-</section>
+<!-- Main content -->
+<div class="main">
+  <button onclick="history.back()" class="back-btn">⬅ Back</button>
+  <h1>Tilt Table - Prototype</h1>
 
-<!-- Another Image -->
-<div class="photo-grid">
-  <div class="photo-card" onclick="openLightboxImage('assets/project1_pic3.jpg')">
-    <img src="assets/project1_pic3.jpg" alt="Photo 5">
-  </div>
+  <!-- Drawings Section -->
+  <section id="drawings">
+    <h3>Drawings</h3>
+    <div class="photo-grid">
+      <div class="photo-card" onclick="openLightboxImage('assets/Cover_Photo.jpg')">
+        <img src="assets/Project 1/Roller Assembly (5'x5'x6')_page-0001.jpg" alt="Drawing 1">
+      </div>
+      <div class="photo-card" onclick="openLightboxImage('assets/Project 1/Roller Assembly (5'x5'x6')_page-0001.jpg')">
+        <img src="assets/Project 1/Roller Assembly (5'x5'x6')_page-0001.jpg" alt="Drawing 2">
+      </div>
+    </div>
+  </section>
+
+  <!-- Photos Section -->
+  <section id="photos">
+    <h3>Photos</h3>
+    <div class="photo-grid">
+      <div class="photo-card" onclick="openLightboxImage('assets/photo1.jpg')">
+        <img src="assets/photo1.jpg" alt="Photo 1">
+      </div>
+      <div class="photo-card" onclick="openLightboxImage('assets/photo2.jpg')">
+        <img src="assets/photo2.jpg" alt="Photo 2">
+      </div>
+    </div>
+  </section>
 </div>
 
 <!-- Lightbox -->
