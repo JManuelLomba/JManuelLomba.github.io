@@ -13,9 +13,9 @@ h3 {color: white; margin-top: 1rem;}
 .photo-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 1rem;}
 .photo-card {background: #333; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); overflow: hidden; cursor: pointer; transition: transform 0.3s; height: 200px; display: flex; align-items: center; justify-content: center; position: relative;}
 .photo-card:hover {transform: scale(1.05);}
-.photo-card img, .photo-card .pdf-thumb {width: 100%; height: 100%; object-fit: cover;}
+.photo-card img, .pdf-thumb {width: 100%; height: 100%; object-fit: cover;}
 .pdf-thumb {display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ff7043; font-size: 1rem; padding: 10px; text-align: center; background: #333;}
-.pdf-embed {  width: 100%;  height: 100%;  border: none;  border-radius: 8px;}
+.pdf-embed {width: 100%; height: 100%; border: none; border-radius: 8px;}
 
 .lightbox {display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; flex-direction: column;}
 .lightbox iframe {width: 90%; height: 80%; border: none; border-radius: 8px;}
@@ -39,27 +39,21 @@ h3 {color: white; margin-top: 1rem;}
   <div class="photo-card" onclick="openLightboxImage('assets/Cover_Photo.jpg')">
     <img src="assets/Cover_Photo.jpg" alt="Photo 2">
   </div>
-  <div class="photo-card" onclick="openLightboxImage('assets/Cover_Photo.jpg')">
-    <img src="assets/Cover_Photo.jpg" alt="Photo 3">
-  </div>
-  <div class="photo-card" onclick="openLightboxImage('assets/Cover_Photo.jpg')">
-    <img src="assets/Cover_Photo.jpg" alt="Photo 4">
-  </div>
 </div>
 </section>
 
-<!-- PDF embedded directly in the grid -->
+<!-- PDFs Section -->
 <section>
 <h3>PDF Previews</h3>
 <div class="photo-grid">
-  <div class="photo-card">
-    <iframe class="pdf-embed" src="assets/Nathaniel_Karau_Resume.pdf" frameborder="0"></iframe>
+  <div class="photo-card" onclick="openLightboxPDF('assets/Nathaniel_Karau_Resume.pdf')">
+    <iframe class="pdf-embed" src="assets/Nathaniel_Karau_Resume.pdf"></iframe>
   </div>
-  <div class="photo-card">
-    <iframe class="pdf-embed" src="assets/Nathaniel_Karau_Resume.pdf" frameborder="0"></iframe>
+  <div class="photo-card" onclick="openLightboxPDF('assets/Nathaniel_Karau_Resume.pdf')">
+    <iframe class="pdf-embed" src="assets/Nathaniel_Karau_Resume.pdf"></iframe>
   </div>
-  <div class="photo-card">
-    <iframe class="pdf-embed" src="assets/Nathaniel_Karau_Resume.pdf" frameborder="0"></iframe>
+  <div class="photo-card" onclick="openLightboxPDF('assets/Project_Manual.pdf')">
+    <iframe class="pdf-embed" src="assets/Project_Manual.pdf"></iframe>
   </div>
 </div>
 </section>
