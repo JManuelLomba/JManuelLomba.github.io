@@ -14,132 +14,182 @@
        GLOBAL STYLES & RESET
     ------------------------- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {    width: 100%;  font-family: 'Arial', sans-serif;  background: #1a1a1a; color: #e0e0e0; scroll-behavior: smooth;}
-    :root { --accent: #00aaff; } /* accent color variable */
+    html, body {
+      width: 100%;
+      font-family: Arial, sans-serif;
+      background: #1a1a1a;
+      color: #e0e0e0;
+      scroll-behavior: smooth;
+    }
+    :root { --accent: #00aaff; } /* accent color */
 
     /* -------------------------
        SIDEBAR NAVIGATION
     ------------------------- */
-    .sidebar {  position: fixed; top: 0; left: 0;  width: 220px; height: 100%;  background: #111;  padding: 2rem 1rem;  display: flex; flex-direction: column; align-items: center;}
+    .sidebar {
+      position: fixed; top: 0; left: 0;
+      width: 220px; height: 100%;
+      background: #111;
+      padding: 2rem 1rem;
+      display: flex; flex-direction: column; align-items: center;
+    }
     .sidebar h2 { color: var(--accent); margin-bottom: 2rem; }
-    .sidebar ul { list-style: none; width: 100%; padding: 0; }
+    .sidebar ul { list-style: none; width: 100%; }
     .sidebar ul li { margin: 1.5rem 0; text-align: center; }
-    .sidebar ul li a {  color: #e0e0e0; text-decoration: none; font-weight: bold; font-size: 1.2rem; transition: color 0.3s;}
+    .sidebar ul li a {
+      color: #e0e0e0;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
     .sidebar ul li a:hover { color: var(--accent); }
 
     /* Resume link styling */
-    .sidebar ul li.resume-link a {  border: 2px solid var(--accent);  padding: 0.4rem 0.6rem;  border-radius: 6px;  display: inline-block;}
-    .sidebar ul li.resume-link a:hover {  background: var(--accent);  color: black;}
-
-    /* Resume button style (used in Home too) */
-    .resume-btn {  padding: 0.8rem 1.5rem;  border-radius: 8px;  background: var(--accent);  color: white;  text-decoration: none;  display: flex; align-items: center; gap: 0.5rem;  font-weight: bold;}
-    .resume-btn:hover { background: #0088cc; color: white; }
+    .sidebar ul li.resume-link a {
+      border: 2px solid var(--accent);
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .sidebar ul li.resume-link a:hover {
+      background: var(--accent);
+      color: black;
+    }
 
     /* -------------------------
        MAIN CONTENT AREA
     ------------------------- */
-    .content { margin-left: 220px; } /* shifts right for sidebar */
+    .content { margin-left: 220px; padding: 2rem; }
 
     /* Section base styling */
-    .section {   min-height: 100vh;  display: flex; flex-direction: column;  justify-content: center; align-items: center;  text-align: center;  padding: 2rem;  border-bottom: 1px solid #333;  opacity: 0; transform: translateY(20px);  transition: all 1s ease;}
+    .section {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 2rem;
+      border-bottom: 1px solid #333;
+      opacity: 0; transform: translateY(20px);
+      transition: all 1s ease;
+    }
     .section.visible { opacity: 1; transform: translateY(0); }
 
     /* -------------------------
-       HOME SECTION
+       DRAWINGS SECTION
     ------------------------- */
-    .home { background: #1e1e1e; }
-    .home img {  width: 180px; height: 180px;  border-radius: 50%; margin-top: 1rem;  border: 3px solid #444; object-fit: cover;}
-    .home .button-group {  margin-top: 1.5rem; display: flex; gap: 1rem;}
-    .home .button-group a { padding: 0.8rem 1.5rem; border-radius: 8px; background: #444; color: white; text-decoration: none; font-weight: bold; transition: background 0.3s; display: flex; align-items: center; gap: 0.5rem;}
-    .home .button-group a:hover { background: var(--accent); color: black; }
-
-    /* -------------------------
-       ABOUT SECTION
-    ------------------------- */
-    #drawing {  padding: 80px 20px;  max-width: 1000px;  margin: 0 auto;  color: white;}
-    #drawing h1 {  font-size: 2.5rem;  text-align: center;  margin-bottom: 40px;  color: white; }
-    .drawing-box p {  font-size: 1.1rem;  line-height: 1.2;  margin-bottom: 20px;  text-align: justify;  max-width: 800px;  margin-left: auto; margin-right: auto;}
-
-    @media screen and (max-width: 768px) {
-      #drawing { padding: 50px 15px; }
-      #drawing h1 { font-size: 2rem; }
-      .drawing-category p { font-size: 1rem; }}
-
-/* About section box */
-.drawing-box {
-  background: #2b2b2b;          /* light gray/charcoal box */
-  border: 1px solid #444;       /* subtle border */
-  border-radius: 10px;          /* rounded corners */
-  padding: 1.5rem;                /* space inside the box */
-  max-width: 800px;             /* keep readable width */
-  margin: 0 auto;               /* center the box */
-  box-shadow: 0 6px 12px rgba(0,0,0,0.3); /* shadow for depth */
-  text-align: justify;}
-    /* -------------------------
-       SKILLS SECTION
-    ------------------------- */
-    .skills-category {  margin-top: 2rem;  width: 100%; max-width: 900px;  text-align: center;}
-    .skills-category h3 { color: var(--accent); margin-bottom: 1rem; }
-
-    /* Skill grid - keeps rows aligned but boxes wrap text */
-    .skills-grid {  display: flex; flex-wrap: wrap;  gap: 1rem; justify-content: center;}
-    .skill {  background: #333;  padding: 0.4rem 0.8rem;  border-radius: 6px;  display: inline-block;  white-space: nowrap;  text-align: center;}
-
-    /* -------------------------
-       WORK EXPERIENCE
-    ------------------------- */
-    .work-experience-list { display: flex; flex-direction: column; gap: 1.5rem; width: 100%; max-width: 800px; margin: 2rem auto 0 auto; align-items: center; justify-content: center;}
-    .work-experience-item {  background: #2b2b2b;  border: 1px solid #444;  border-radius: 10px;  padding: 1rem 1.5rem;  text-align: left;  box-shadow: 0 6px 12px rgba(0,0,0,0.3);  transition: transform 0.3s, background 0.3s;  cursor: pointer;}
-    .work-experience-item:hover {  transform: translateY(-5px); background: #333;}
-    .work-experience-item h3 {  margin-bottom: 0.3rem;  color: var(--accent); text-align: center;}
-    .work-experience-item p strong {  color: #fff; text-align: center;}
-
-    /* Hidden expandable descriptions */
-    .work-experience-item .description,
-    .project-card .description {  display: none;  margin-top: 0.8rem;  color: #ccc;  font-size: 0.95rem;  line-height: 1.4;}
-    /* Show description when parent is active */
-    .work-experience-item.active .description,
-    .project-card.active .description {  display: block;}
+    #drawings h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+    .drawings-box {
+      background: #2b2b2b;
+      border: 1px solid #444;
+      border-radius: 10px;
+      padding: 1.5rem;
+      max-width: 800px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      text-align: justify;
+    }
 
     /* -------------------------
        PROJECTS SECTION
     ------------------------- */
     .projects h1 { margin-bottom: 1rem; }
-    .project-list {  display: flex; gap: 2rem;  margin-top: 2rem;  flex-wrap: wrap; justify-content: center;}
-    .project-card {  background: #333; color: #e0e0e0;  padding: 1rem;  border-radius: 10px;  width: 250px;  box-shadow: 0 8px 15px rgba(0,0,0,0.3);  transition: transform 0.3s;  cursor: pointer;}
+    .project-list {
+      display: flex; gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .project-card {
+      background: #333;
+      color: #e0e0e0;
+      padding: 1rem;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
     .project-card:hover { transform: translateY(-10px); }
-    .project-card img {  width: 100%; height: 150px;   border-radius: 8px; margin-bottom: 1rem;  object-fit: cover;}
-    .project-card a { text-decoration: none;  color: var(--accent);  font-weight: bold;}
-    .project-card .description a {  display: inline-block;  margin-right: 30px;  color: var(--accent);  text-decoration: none;}
-    .project-gallery {  display: grid;  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));  gap: 10px;  margin-top: 10px;}
-    .project-gallery img {  width: 100%;  border-radius: 8px;  box-shadow: 0 2px 6px rgba(0,0,0,0.2); transition: transform 0.2s;}
-    .project-gallery img:hover {  transform: scale(1.05);  cursor: pointer;}
-    .masonry {  column-count: 3;  column-gap: 10px;}
-.masonry img {  width: 100%;  margin-bottom: 10px;border-radius: 10px;  box-shadow: 0 3px 8px rgba(0,0,0,0.2);  transition: transform 0.2s;}
-.masonry img:hover {  transform: scale(1.05);}
-@media (max-width: 800px) {  .masonry { column-count: 2; }}
-@media (max-width: 500px) {  .masonry { column-count: 1; }}
-    /* Lightbox overlay */
-#lightbox {  position: fixed;  top: 0; left: 0;width: 100%; height: 100%;  background: rgba(0,0,0,0.9);  display: none;  align-items: center;  justify-content: center;z-index: 1000;}
-#lightbox img {  max-width: 90%;  max-height: 80%;border-radius: 10px;  box-shadow: 0 4px 12px rgba(0,0,0,0.5);}
+    .project-card img {
+      width: 100%; height: 150px;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      object-fit: cover;
+    }
+    .project-card h3 {
+      margin: 0.5rem 0;
+      color: var(--accent);
+    }
+    .project-card .description {
+      display: none;
+      margin-top: 0.8rem;
+      color: #ccc;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .project-card.active .description { display: block; }
+    .project-card .description a {
+      display: inline-block;
+      margin-right: 15px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .project-card .description a:hover { text-decoration: underline; }
 
     /* -------------------------
        CONTACT SECTION
     ------------------------- */
-    .contact form {  display: flex; flex-direction: column;  gap: 1rem; width: 300px;}
-    .contact input, .contact textarea {  padding: 0.8rem  border: none; border-radius: 5px;  background: #333; color: #e0e0e0;}
-    .contact button { padding: 0.8rem;  border: none; border-radius: 5px;  background: #555; color: white;  cursor: pointer; transition: background 0.3s;}
-    .contact button:hover { background: #777; }
+    .contact form {
+      display: flex; flex-direction: column;
+      gap: 1rem;
+      width: 300px;
+    }
+    .contact input, .contact textarea {
+      padding: 0.8rem;
+      border: none;
+      border-radius: 5px;
+      background: #333;
+      color: #e0e0e0;
+    }
+    .contact button {
+      padding: 0.8rem;
+      border: none;
+      border-radius: 5px;
+      background: var(--accent);
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .contact button:hover { background: #0088cc; }
 
     /* Social icons row */
-    .social {  display: flex; gap: 1rem;  margin-top: 1rem;  justify-content: center;}
-    .social a {  color: #e0e0e0;  font-size: 1.5rem;  transition: color 0.3s;  display: flex; align-items: center; gap: 0.3rem;  text-decoration: none;}
+    .social {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+    .social a {
+      color: #e0e0e0;
+      font-size: 1.5rem;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
     .social a:hover { color: var(--accent); }
 
     /* -------------------------
        FOOTER
     ------------------------- */
-    footer {   text-align: center;  padding: 1rem;  background: #111;  color: #aaa;}
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #111;
+      color: #aaa;
+    }
   </style>
 </head>
 <body>
@@ -151,7 +201,7 @@
   <h2>Portfolio</h2>
   <ul>
     <li><a href="#drawings">Drawings</a></li>
-    <li><a href="#photos">Photos</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
     <li class="resume-link">
       <a href="assets/Nathaniel_Karau_Resume.pdf" download>
@@ -162,52 +212,44 @@
 </nav>
 
 <!-- =========================
-     MAIN CONTENT SECTIONS
+     MAIN CONTENT
 ========================= -->
 <div class="content">
 
-  <!-- =========================
-       ABOUT SECTION
-  ========================= -->
-  <section id="drawings" class="section drawings">
+  <!-- Drawings Section -->
+  <section id="drawings" class="section">
     <h1>Drawings</h1>
     <div class="drawings-box">
+      <p>Placeholder for drawings and description...</p>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="section projects">
+    <h1>Projects</h1>
+    <div class="project-list">
+
+      <!-- Project 1 -->
+      <div class="project-card" onclick="window.location.href='Project_1.html'" title="Click to View">
+        <img src="assets/Tilt_Table_Cover_Photo.png" alt="Tilt Table Prototype">
+        <h3>Tilt Table - Prototype</h3>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card" onclick="toggleCard(this)" title="Click to Expand">
+        <img src="assets/Cover_Photo.jpg" alt="Project Cover">
+        <h3>Tilt Table - Prototype</h3>
+        <div class="description">
+          <p><a href="assets/Tilt_Table_Prototype.pdf" target="_blank"><i class="fa-solid fa-file"></i> Report</a></p>
+          <p><a href="assets/Project 1/(5'x5'x6')_Photos.zip" target="_blank"><i class="fa-solid fa-image"></i> Photos</a></p>
+          <p><a href="https://youtu.be/Y_yHQ1yjqLk" target="_blank"><i class="fa-solid fa-video"></i> Video</a></p>
+        </div>
+      </div>
 
     </div>
   </section>
 
- 
-<!-- =========================
-     PROJECTS SECTION
-========================= -->
-<section id="projects" class="section projects">
-  <h1>Projects</h1>
-
-  <div class="project-list">
-
-    <!-- Example Project -->
-<div class="project-card" onclick="window.location.href='Project_1.html'" title="Click to View">
-  <img src="assets/Tilt_Table_Cover_Photo.png" alt="Tilt Table Prototype">
-  <h3>Tilt Table - Prototype</h3>
-</div>
-
-    <!-- Another Example Project -->
-    <div class="project-card" onclick="toggleCard(this)" title="Click to expand">
-      <img src="assets/Cover_Photo.jpg" alt="Tilt Table Prototype">
-      <h3>Tilt Table - Prototype</h3>
-      <div class="description">
-        <p><a href="assets/Tilt_Table_Prototype.pdf" target="_blank"><i class="fa-solid fa-file"></i> Report</a></p>
-        <p><a href="assets/Project 1/(5'x5'x6')_Photos.zip" target="_blank"><i class="fa-solid fa-image"></i>Photos</a></p>
-        <p><a href="https://youtu.be/Y_yHQ1yjqLk" target="_blank"><i class="fa-solid fa-video"></i>Video</a></p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-  <!-- =========================
-       CONTACT SECTION
-  ========================= -->
+  <!-- Contact Section -->
   <section id="contact" class="section contact">
     <h2>Contact Me</h2>
     <form id="contact-form" action="https://formspree.io/f/xqadnpao" method="post">
@@ -230,9 +272,7 @@
     </div>
   </section>
 
-  <!-- =========================
-       FOOTER
-  ========================= -->
+  <!-- Footer -->
   <footer>
     <p>© 2025 Nathaniel Karau</p>
   </footer>
@@ -246,14 +286,14 @@
   const sections = document.querySelectorAll('.section');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if(entry.isIntersecting) entry.target.classList.add('visible');
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.1 });
   sections.forEach(section => observer.observe(section));
 
-  // Toggle work experience description (expand/collapse)
-  function toggleDescription(item) {
-    item.classList.toggle("active");
+  // Toggle card expand/collapse
+  function toggleCard(card) {
+    card.classList.toggle("active");
   }
 
   // Contact form submission with Formspree
@@ -273,15 +313,6 @@
       alert('Oops! There was a problem sending your message.');
     }
   });
-
-  // Toggle card (for projects and awards)
-  function toggleCard(card) {
-    card.classList.toggle("active");
-    // If you want all open at a time (accordion style), replace above with this:
-    /*
-    .card.classList.toggle("active");
-    */
-  }
 </script>
 </body>
 </html>
