@@ -111,6 +111,9 @@
     .project-card img {  width: 100%; height: 150px;   border-radius: 8px; margin-bottom: 1rem;  object-fit: cover;}
     .project-card a { text-decoration: none;  color: var(--accent);  font-weight: bold;}
     .project-card .description a {  display: inline-block;  margin-right: 10px;  color: var(--accent);  text-decoration: none;}
+    .project-gallery {  display: grid;  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));  gap: 10px;  margin-top: 10px;}
+    .project-gallery img {  width: 100%;  border-radius: 8px;  box-shadow: 0 2px 6px rgba(0,0,0,0.2); transition: transform 0.2s;}
+    .project-gallery img:hover {  transform: scale(1.05);  cursor: pointer;}
 
     /* -------------------------
        CONTACT SECTION
@@ -344,27 +347,40 @@
   <section id="projects" class="section projects">
     <h1>Projects</h1>
     <div class="project-list">
-      <div class="project-card" onclick="toggleCard(this)">
-        <img src="assets/Tilt_Table_Cover_Photo.png" alt="Project 1">
-        <h3>Tilt Table - Prototype</h3>
-        <p class="short-desc">Ergonomic tilt table design for glass handling.</p>
-        <div class="description">
-          <p>Designed and built a scaled prototype for Viracon’s facility...</p>
-          <a href="assets/Tilt_Table_Prototype.pdf" target="_blank">View Details</a>
-          <a href="https://youtu.be/Y_yHQ1yjqLk" target="_blank">View Video</a>
-        </div>
-      </div>
-      <div class="project-card" onclick="toggleCard(this)">
-        <img src="assets/Project_1/Form_Fabrication_Form.jpg" alt="Project 2">
-        <h3>Project 2</h3>
-        <p class="short-desc">Brief summary here.</p>
-        <div class="description">
-          <p>More detailed explanation of project 2, including methods and impact.</p>
-          <a href="https://example.com/project2" target="_blank">View Details</a>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="project-card" onclick="toggleCard(this)">
+  <img src="assets/Tilt_Table_Cover_Photo.png" alt="Tilt Table Project Thumbnail">
+  <h3>Tilt Table - Prototype</h3>
+  <p class="short-desc">Ergonomic tilt table design for glass handling.</p>
+  <div class="description">
+    <p>Designed and built a scaled prototype for Viracon’s facility...</p>
+
+    <!-- PDF Thumbnail -->
+    <a href="assets/Tilt_Table_Prototype.pdf" target="_blank" title="Click to view full report">
+      <img src="assets/Tilt_Table_Prototype_Thumb.png" alt="Tilt Table PDF preview" style="width:100%; border-radius:8px; margin-bottom:10px;">
+    </a>
+
+    <!-- Extra Images -->
+    <a href="assets/Tilt_Table_Full_View.jpg" target="_blank" title="Click to enlarge image">
+      <img src="assets/Tilt_Table_Full_View_thumb.jpg" alt="Tilt Table prototype full view" style="width:100%; border-radius:8px; margin-bottom:10px;">
+    </a>
+
+    <!-- Links -->
+    <a href="assets/Tilt_Table_Prototype.pdf" target="_blank">📄 View Full PDF</a>
+    <a href="https://youtu.be/Y_yHQ1yjqLk" target="_blank">▶ Watch Video</a>
+    
+    <div class="project-gallery">
+  <a href="assets/Report1.pdf" target="_blank" title="Open PDF">
+    <img src="assets/Report1_thumb.png" alt="Report 1">
+  </a>
+  <a href="assets/Prototype.jpg" target="_blank" title="Enlarge Image">
+    <img src="assets/Prototype_thumb.jpg" alt="Prototype">
+  </a>
+  <a href="assets/Analysis.pdf" target="_blank" title="Open Analysis PDF">
+    <img src="assets/Analysis_thumb.png" alt="Analysis report">
+  </a>
+</div>
+  </div>
+</div>
 
   <!-- =========================
        CONTACT SECTION
