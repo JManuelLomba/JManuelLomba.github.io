@@ -165,6 +165,25 @@
       transition: background 0.3s;
     }
     .contact button:hover { background: #0088cc; }
+    
+    /* Back button styling */
+.back-btn {
+  margin-top: auto; /* Pushes it to the bottom of the sidebar */
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.6rem 1rem;
+  background: #e53935; /* Red */
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.back-btn:hover {
+  background: #c62828; /* Darker red */
+}
 
     /* Social icons row */
     .social {
@@ -209,6 +228,11 @@
       </a>
     </li>
   </ul>
+
+  <!-- 🔴 Back Button -->
+  <a href="index.html" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Back
+  </a>
 </nav>
 
 <!-- =========================
