@@ -83,21 +83,20 @@ h3 { color: #fff; margin-top: 1rem; }
   background: #333;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s;
-  height: 200px;
-  display: flex;
+  display: inline-flex;        /* shrink to fit image */
   align-items: center;
   justify-content: center;
-  position: relative;
-  object-fit: contain;
+  padding: 8px;                /* background only around image */
+  margin: auto;                /* centers it in the grid cell */
 }
 .photo-card:hover { transform: scale(1.05); }
 .photo-card img, .pdf-thumb {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  display: block;
 }
 .pdf-thumb {
   display: flex;
