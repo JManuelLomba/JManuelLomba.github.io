@@ -21,7 +21,7 @@
       color: #e0e0e0;
       scroll-behavior: smooth;
     }
-    :root { --accent: #00aaff; } /* accent color */
+    :root { --accent: #00aaff; }
 
     /* -------------------------
        SIDEBAR NAVIGATION
@@ -75,9 +75,7 @@
     }
     .section.visible { opacity: 1; transform: translateY(0); }
 
-    /* -------------------------
-       DRAWINGS SECTION
-    ------------------------- */
+    /* Drawings Section */
     #drawings h1 {
       font-size: 2.5rem;
       margin-bottom: 20px;
@@ -93,9 +91,7 @@
       text-align: justify;
     }
 
-    /* -------------------------
-       PROJECTS SECTION
-    ------------------------- */
+    /* Photos Section */
     .projects h1 { margin-bottom: 1rem; }
     .project-list {
       display: flex; gap: 2rem;
@@ -103,106 +99,8 @@
       flex-wrap: wrap;
       justify-content: center;
     }
-    .project-card {
-      background: #333;
-      color: #e0e0e0;
-      padding: 1rem;
-      border-radius: 10px;
-      width: 250px;
-      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-      transition: transform 0.3s;
-      cursor: pointer;
-    }
-    .project-card:hover { transform: translateY(-10px); }
-    .project-card img {
-      width: 100%; height: 150px;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      object-fit: cover;
-    }
-    .project-card h3 {
-      margin: 0.5rem 0;
-      color: var(--accent);
-    }
-    .project-card .description {
-      display: none;
-      margin-top: 0.8rem;
-      color: #ccc;
-      font-size: 0.95rem;
-      line-height: 1.4;
-    }
-    .project-card.active .description { display: block; }
-    .project-card .description a {
-      display: inline-block;
-      margin-right: 15px;
-      color: var(--accent);
-      text-decoration: none;
-    }
-    .project-card .description a:hover { text-decoration: underline; }
 
-    /* -------------------------
-       CONTACT SECTION
-    ------------------------- */
-    .contact form {
-      display: flex; flex-direction: column;
-      gap: 1rem;
-      width: 300px;
-    }
-    .contact input, .contact textarea {
-      padding: 0.8rem;
-      border: none;
-      border-radius: 5px;
-      background: #333;
-      color: #e0e0e0;
-    }
-    .contact button {
-      padding: 0.8rem;
-      border: none;
-      border-radius: 5px;
-      background: var(--accent);
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .contact button:hover { background: #0088cc; }
-    
-    /* Back button styling */
-.back-btn {
-  margin-top: auto; /* Pushes it to the bottom of the sidebar */
-  display: block;
-  width: 100%;
-  text-align: center;
-  padding: 0.6rem 1rem;
-  background: #e53935; /* Red */
-  color: white;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-
-.back-btn:hover {
-  background: #c62828; /* Darker red */
-}
-
-    /* Social icons row */
-    .social {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-      justify-content: center;
-    }
-    .social a {
-      color: #e0e0e0;
-      font-size: 1.5rem;
-      transition: color 0.3s;
-      text-decoration: none;
-    }
-    .social a:hover { color: var(--accent); }
-
-    /* -------------------------
-       FOOTER
-    ------------------------- */
+    /* Footer */
     footer {
       text-align: center;
       padding: 1rem;
@@ -221,18 +119,12 @@
   <ul>
     <li><a href="#drawings">Drawings</a></li>
     <li><a href="#photos">Photos</a></li>
-    <li><a href="#contact">Contact</a></li>
     <li class="resume-link">
       <a href="assets/Nathaniel_Karau_Resume.pdf" download>
         <i class="fas fa-download"></i> Resume
       </a>
     </li>
   </ul>
-
-  <!-- 🔴 Back Button -->
-  <a href="index.html" class="back-btn">
-    <i class="fas fa-arrow-left"></i> Back
-  </a>
 </nav>
 
 <!-- =========================
@@ -241,62 +133,39 @@
 <div class="content">
 
   <!-- Drawings Section -->
-<section id="drawings" class="section drawings">
-  <h1>Drawings</h1>
-  <div class="masonry">
-    <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 1">
-    <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 2">
-    <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 3">
-    <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 4">
-    <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 5">
-  </div>
-</section>
-
-  <!-- Projects Section -->
-<section id="photos" class="section photos">
-  <h1>Photos</h1>
-  <div class="masonry">
-    <img src="assets/Project 1/Core_Assembly.jpg" alt="Photo 1">
-    <img src="assets/Project 1/Core_Assembly.jpg" alt="Photo 2">
-    <img src="assets/Project 1/Core_Assembly.jpg" alt="Photo 3">
-    <img src="assets/Project 1/Core_Assembly.jpg" alt="Photo 4">
-    <img src="assets/Project 1/Core_Assembly.jpg" alt="Photo 5">
-  </div>
-</section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="section contact">
-    <h2>Contact Me</h2>
-    <form id="contact-form" action="https://formspree.io/f/xqadnpao" method="post">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send</button>
-    </form>
-
-    <!-- Social icons -->
-    <div class="social">
-      <a href="https://www.linkedin.com/in/nate-karau61/" target="_blank"><i class="fab fa-linkedin"></i></a>
-      <a href="https://github.com/NateKarau61" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://www.youtube.com/@natekarau42" target="_blank"><i class="fab fa-youtube"></i></a>
-    </div>
-
-    <!-- Confirmation message -->
-    <div id="form-confirmation" style="display:none; color:var(--accent); margin-top:10px;">
-      Thank you! Your message has been sent.
+  <section id="drawings" class="section drawings">
+    <h1>Drawings</h1>
+    <div class="masonry">
+      <img src="assets/Project 1/Core_Assembly.jpg" alt="Drawing 1">
+      <img src="assets/drawing2.jpg" alt="Drawing 2">
+      <img src="assets/drawing3.jpg" alt="Drawing 3">
+      <img src="assets/drawing4.jpg" alt="Drawing 4">
+      <img src="assets/drawing5.jpg" alt="Drawing 5">
     </div>
   </section>
-  
+
+  <!-- Photos Section -->
+  <section id="photos" class="section photos">
+    <h1>Photos</h1>
+    <div class="masonry">
+      <img src="assets/photo1.jpg" alt="Photo 1">
+      <img src="assets/photo2.jpg" alt="Photo 2">
+      <img src="assets/photo3.jpg" alt="Photo 3">
+      <img src="assets/photo4.jpg" alt="Photo 4">
+      <img src="assets/photo5.jpg" alt="Photo 5">
+    </div>
+  </section>
+
+  <!-- Lightbox -->
   <div id="lightbox">
-  <img id="lightbox-img" src="" alt="">
-</div>
+    <img id="lightbox-img" src="" alt="">
+  </div>
 
   <!-- Footer -->
   <footer>
     <p>© 2025 Nathaniel Karau</p>
   </footer>
 </div>
-  
 
 <!-- =========================
      JAVASCRIPT
@@ -316,37 +185,15 @@ document.querySelectorAll('.masonry img').forEach(img => {
 lightbox.addEventListener('click', () => {
   lightbox.style.display = 'none';
 });
-  // Fade-in animation on scroll
-  const sections = document.querySelectorAll('.section');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.1 });
-  sections.forEach(section => observer.observe(section));
 
-  // Toggle card expand/collapse
-  function toggleCard(card) {
-    card.classList.toggle("active");
-  }
-
-  // Contact form submission with Formspree
-  const form = document.getElementById('contact-form');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    const response = await fetch(form.action, {
-      method: form.method,
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    });
-    if (response.ok) {
-      document.getElementById('form-confirmation').style.display = 'block';
-      form.reset();
-    } else {
-      alert('Oops! There was a problem sending your message.');
-    }
+// Fade-in animation on scroll
+const sections = document.querySelectorAll('.section');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
   });
+}, { threshold: 0.1 });
+sections.forEach(section => observer.observe(section));
 </script>
 </body>
 </html>
