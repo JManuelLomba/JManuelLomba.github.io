@@ -49,6 +49,7 @@
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
       transition: transform 0.3s;
+      cursor: pointer;
     }
 
     .photo-grid img:hover {
@@ -72,6 +73,38 @@
     }
     .pdf-list a:hover {
       text-decoration: underline;
+    }
+
+    /* Lightbox Styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .lightbox .close:hover {
+      color: #ff7043;
     }
   </style>
 </head>
@@ -98,6 +131,35 @@
     <li><a href="assets/Tilt_Table_Prototype.pdf" target="_blank">Tilt Table Report (PDF)</a></li>
     <li><a href="assets/Project_Manual.pdf" target="_blank">User Manual (PDF)</a></li>
   </ul>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" src="" alt="Expanded View">
+  </div>
+
+  <script>
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+
+    document.querySelectorAll(".photo-grid img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightbox.style.display = "flex";
+        lightboxImg.src = img.src;
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.style.display = "none";
+    }
+
+    // Close if clicked outside the image
+    lightbox.addEventListener("click", (e) => {
+      if (e.target !== lightboxImg) {
+        closeLightbox();
+      }
+    });
+  </script>
 
 </body>
 </html>
