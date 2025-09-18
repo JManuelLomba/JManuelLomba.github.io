@@ -3,47 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gallery</title>
+<title>Tilt Table - Prototype</title>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+  
 <style>
-body {
+ /* -------------------------
+       GLOBAL STYLES & RESET
+    ------------------------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {    width: 100%;  font-family: 'Arial', sans-serif;  background: #1a1a1a; color: #e0e0e0; scroll-behavior: smooth;}
+    :root { --accent: #00aaff; } /* accent color variable */
+
+    /* -------------------------
+       SIDEBAR NAVIGATION
+    ------------------------- */
+    .sidebar {  position: fixed; top: 0; left: 0;  width: 220px; height: 100%;  background: #111;  padding: 2rem 1rem;  display: flex; flex-direction: column; align-items: center;}
+    .sidebar h2 { color: var(--accent); margin-bottom: 2rem; }
+    .sidebar ul { list-style: none; width: 100%; padding: 0; }
+    .sidebar ul li { margin: 1.5rem 0; text-align: center; }
+    .sidebar ul li a {  color: #e0e0e0; text-decoration: none; font-weight: bold; font-size: 1.2rem; transition: color 0.3s;}
+    .sidebar ul li a:hover { color: var(--accent); }
+
+    /* Resume link styling */
+    .sidebar ul li.resume-link a {  border: 2px solid var(--accent);  padding: 0.4rem 0.6rem;  border-radius: 6px;  display: inline-block;}
+    .sidebar ul li.resume-link a:hover {  background: var(--accent);  color: black;}
+
+    /* Resume button style (used in Home too) */
+    .resume-btn {  padding: 0.8rem 1.5rem;  border-radius: 8px;  background: var(--accent);  color: white;  text-decoration: none;  display: flex; align-items: center; gap: 0.5rem;  font-weight: bold;}
+    .resume-btn:hover { background: #0088cc; color: white; }
+
+  body {
   font-family: Arial, sans-serif;
   background: #1e1e1e;
   color: #e0e0e0;
   margin: 0;
   padding: 0;
   display: flex;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 220px;
-  background: #2c2c2c;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding-top: 20px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-}
-
-.sidebar h2 {
-  color: #ff7043;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.sidebar a {
-  display: block;
-  color: #e0e0e0;
-  text-decoration: none;
-  padding: 10px 20px;
-  margin: 5px 0;
-  transition: background 0.3s;
-}
-
-.sidebar a:hover {
-  background: #ff7043;
-  color: #fff;
 }
 
 /* Main content */
@@ -148,12 +147,23 @@ h3 { color: #fff; margin-top: 1rem; }
 </head>
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar">
-  <h2>Gallery</h2>
-  <a href="#drawings">Drawings</a>
-  <a href="#photos">Photos</a>
-</div>
+<!-- =========================
+     SIDEBAR NAVIGATION
+========================= -->
+<nav class="sidebar">
+  <h2>Tilt Table - Protoype</h2>
+  <ul>
+    <li><a href="#drawings">Drawings</a></li>
+    <li><a href="#photos">Photos</a></li>
+    <li><a href="#product">Product</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="resume-link">
+      <a href="assets/Nathaniel_Karau_Resume.pdf" download>
+        <i class="fas fa-download"></i> Resume
+      </a>
+    </li>
+  </ul>
+</nav>
 
 <!-- Main content -->
 <div class="main">
@@ -206,7 +216,58 @@ h3 { color: #fff; margin-top: 1rem; }
   <iframe id="lightbox-pdf" src="" style="display:none;"></iframe>
 </div>
 
+  <!-- =========================
+       CONTACT SECTION
+  ========================= -->
+  <section id="contact" class="section contact">
+    <h2>Contact Me</h2>
+    <form id="contact-form" action="https://formspree.io/f/xqadnpao" method="post">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+
+    <!-- Social icons -->
+    <div class="social">
+      <a href="https://www.linkedin.com/in/nate-karau61/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/NateKarau61" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://www.youtube.com/@natekarau42" target="_blank"><i class="fab fa-youtube"></i></a>
+    </div>
+
+    <!-- Confirmation message -->
+    <div id="form-confirmation" style="display:none; color:var(--accent); margin-top:10px;">
+      Thank you! Your message has been sent.
+    </div>
+  </section>
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+  <footer>
+    <p>© 2025 Nathaniel Karau</p>
+  </footer>
+</div>  
+  
 <script>
+ // Contact form submission with Formspree
+  const form = document.getElementById('contact-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      document.getElementById('form-confirmation').style.display = 'block';
+      form.reset();
+    } else {
+      alert('Oops! There was a problem sending your message.');
+    }
+  });
+
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const lightboxPDF = document.getElementById("lightbox-pdf");
