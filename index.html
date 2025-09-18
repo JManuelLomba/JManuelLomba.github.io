@@ -114,6 +114,11 @@
     .project-gallery {  display: grid;  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));  gap: 10px;  margin-top: 10px;}
     .project-gallery img {  width: 100%;  border-radius: 8px;  box-shadow: 0 2px 6px rgba(0,0,0,0.2); transition: transform 0.2s;}
     .project-gallery img:hover {  transform: scale(1.05);  cursor: pointer;}
+    .masonry {  column-count: 3;  column-gap: 10px;}
+.masonry img {  width: 100%;  margin-bottom: 10px;border-radius: 10px;  box-shadow: 0 3px 8px rgba(0,0,0,0.2);  transition: transform 0.2s;}
+.masonry img:hover {  transform: scale(1.05);}
+@media (max-width: 800px) {  .masonry { column-count: 2; }}
+@media (max-width: 500px) {  .masonry { column-count: 1; }}
 
     /* -------------------------
        CONTACT SECTION
@@ -254,7 +259,7 @@
     <h3>Awards/Achievements</h3>
     <div class="work-experience-list">
       <!-- Example work item -->
-      <div class="work-experience-item" onclick="toggleDescription(this) "target="_blank" title="Click to view full report">
+      <div class="work-experience-item" onclick="toggleDescription(this) title="Click to open">
         <h3>2024 - Present</h3>
         <p><strong>Wieser Form Fabrication | Engineering Project Manager</strong></p>
         <div class="description">
@@ -273,7 +278,7 @@
         </div>
       </div>
 
-      <div class="work-experience-item" onclick="toggleDescription(this)">
+      <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
         <h3>2023 - 2024</h3> 
         <p><strong> Viracon | Senior Engineering Design Experience (Capstone)</strong></p>
         <div class="description"> 
@@ -290,7 +295,7 @@
         </div>
       </div>
 
-      <div class="work-experience-item" onclick="toggleDescription(this)">
+      <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
         <h3>2022 - 2024</h3>
         <p><strong> Walmart | Stocking Associate (CAP 1)</strong></p> 
         <div class="description"> 
@@ -307,7 +312,7 @@
         </div>
       </div>
       
-      <div class="work-experience-item" onclick="toggleDescription(this)">
+      <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
         <h3>2022 - 2022 (Internship)</h3>
         <p><strong>Midwest Manufacturing | Engineering Manager Intern</strong></p> 
         <div class="description"> 
@@ -324,7 +329,7 @@
         </div>
       </div>
       
-      <div class="work-experience-item" onclick="toggleDescription(this)">
+      <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
         <h3>2019 - 2024</h3>
         <p><strong>University of Wisconsin - Stout | B.S. Manufacturing Engineering</strong></p>
         <div class="description"> <p>Developed expertise in manufacturing systems, design for manufacturability, lean practices, and engineering leadership through coursework and projects.</p>
@@ -354,13 +359,20 @@
   <div class="description">
 
     <!-- PDF Thumbnail -->
-    <a href="assets/Tilt_Table_Prototype.pdf" target="_blank" title="Click to view full report">
+    <a href="assets/Tilt_Table_Prototype.pdf" title="Click to view full report">
       <img src="assets/Tilt_Table_Prototype_Thumb.png" alt="Tilt Table PDF preview" style="width:100%; border-radius:8px; margin-bottom:10px;">
     </a>
 
     <!-- Extra Images -->
-    <a href="assets/Tilt_Table_Full_View.jpg" target="_blank" title="Click to enlarge image">
-      <img src="assets/Tilt_Table_Full_View_thumb.jpg" alt="Tilt Table prototype full view" style="width:100%; border-radius:8px; margin-bottom:10px;">
+    <a href="assets/Tilt_Table_Full_View.jpg"  title="Click to enlarge images">
+        <div class="masonry">
+    <img src="assets/photo1.jpg" alt="Photo 1">
+    <img src="assets/photo2.jpg" alt="Photo 2">
+    <img src="assets/photo3.jpg" alt="Photo 3">
+    <img src="assets/photo4.jpg" alt="Photo 4">
+    <img src="assets/photo5.jpg" alt="Photo 5">
+    <img src="assets/photo6.jpg" alt="Photo 6">
+  </div>
     </a>
 
     <!-- Links -->
