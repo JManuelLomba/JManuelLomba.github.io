@@ -357,7 +357,7 @@
   <div class="project-list">
 
     <!-- Example Project -->
-    <div class="project-card" onclick="toggleCard(this)" title="Click to expand">
+    <div class="project-card" onclick="toggleCard(this)" title="Click to view">
       <img src="assets/Tilt_Table_Cover_Photo.png" alt="Tilt Table Prototype">
       <h3>Tilt Table - Prototype</h3>
       <div class="description">
@@ -451,8 +451,6 @@
 
   // Toggle card (for projects and awards)
   function toggleCard(card) {
-        const siblings = card.parentNode.querySelectorAll('.work-experience-item, .award-item, .project-card');
-    siblings.forEach(sib => { if (sib !== card) sib.classList.remove("active"); });
     card.classList.toggle("active");
     // If you want all open at a time (accordion style), replace above with this:
     /*
