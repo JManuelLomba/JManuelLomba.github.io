@@ -192,14 +192,17 @@
 <div class="content">
   <h1 class="project-title">Tilt Table - Prototype</h1>
 
-  <model-viewer src="assets/Project 1/3D_Form.glb" 
-              alt="5'x5'x6' Box Form 3D Model" 
-              auto-rotate 
-              camera-controls 
-              ar 
-              exposure=".5" 
-              shadow-intensity="4" 
-              style="width: 100%; max-width: 900px; height: 600px; margin: 2rem auto;">
+<model-viewer 
+    src="assets/Project 1/3D_Form.glb"
+    alt="Tilt Table 3D Model"
+    auto-rotate
+    camera-controls
+    exposure="1.5"          <!-- brighter and more contrast -->
+    shadow-intensity="2"    <!-- softer, realistic shadows -->
+    environment-image="neutral.exr" <!-- HDRI lighting for reflections -->
+    skybox-image="neutral.exr"      <!-- optional -->
+    ar
+    style="width: 100%; max-width: 900px; height: 600px; margin: 2rem auto;">
 </model-viewer>
 
 
