@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1e1e1e;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    h1, h2 {
+      color: #ff7043;
+      margin-top: 1rem;
+    }
+
+    .back-btn {
+      background: #ff7043;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 1rem;
+      font-size: 1rem;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      transition: background 0.3s;
+    }
+    .back-btn:hover {
+      background: #ff5a36;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 1rem;
+    }
+
+    .photo-grid img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+
+    .photo-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    .pdf-list {
+      list-style: none;
+      margin: 1rem auto;
+      padding: 0;
+      max-width: 600px;
+      text-align: left;
+    }
+    .pdf-list li {
+      margin: 0.5rem 0;
+    }
+    .pdf-list a {
+      color: #ff7043;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .pdf-list a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back Button -->
+  <button onclick="history.back()" class="back-btn">⬅ Back</button>
+
+  <h1>Project Gallery</h1>
+
+  <!-- Collage -->
+  <div class="photo-grid">
+    <img src="assets/project1_pic1.jpg" alt="Photo 1">
+    <img src="assets/project1_pic2.jpg" alt="Photo 2">
+    <img src="assets/project1_pic3.jpg" alt="Photo 3">
+    <img src="assets/project1_pic4.jpg" alt="Photo 4">
+    <img src="assets/project1_pic5.jpg" alt="Photo 5">
+    <img src="assets/project1_pic6.jpg" alt="Photo 6">
+  </div>
+
+  <!-- PDFs Section -->
+  <h2>Project Files</h2>
+  <ul class="pdf-list">
+    <li><a href="assets/Tilt_Table_Prototype.pdf" target="_blank">Tilt Table Report (PDF)</a></li>
+    <li><a href="assets/Project_Manual.pdf" target="_blank">User Manual (PDF)</a></li>
+  </ul>
+
+</body>
+</html>
