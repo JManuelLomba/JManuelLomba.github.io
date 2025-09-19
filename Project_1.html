@@ -122,27 +122,25 @@
       100% { background-position: 0% 50%; }
     }
 
-/* Model Viewer */
-/* Center container */
+/* Make 3D model span full width & center on page */
 #3d_model {
+  margin-left: 0;         /* remove sidebar margin */
+  width: 100vw;           /* span full screen width */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  flex-direction: column; /* keep title above model */
+  padding: 2rem 0;
 }
 
-/* 3D viewer */
+#3d_model h1 {
+  margin-bottom: 1.5rem;
+}
+
 #3d_model model-viewer {
-  width: 80%;          /* responsive width */
-  max-width: 900px;    /* don’t let it stretch too wide */
+  width: 80%;
+  max-width: 900px;
   height: 600px;
-  margin: 0 auto;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #1e1e1e, #2a2a2a); /* background panel */
-  --poster-color: transparent;
-  --progress-bar-color: var(--accent);
-  --progress-bar-height: 6px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.8);
 }
 
     
