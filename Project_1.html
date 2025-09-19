@@ -190,18 +190,31 @@
   <!-- 3D Model -->
   <section id="3d_model" class="section">
     <h1>3D Model</h1>
-    <model-viewer 
-      src="assets/Project 1/3D_Form.glb" 
-      alt="3D Model"
-      auto-rotate 
-      camera-controls 
-      ar 
-      exposure="1.1"
-      shadow-intensity="1"
-      environment-image="neutral"
-      camera-orbit="45deg 75deg 3m"
-      poster="assets/Project 1/loading_poster.png">
-    </model-viewer>
+<model-viewer 
+  src="assets/Project 1/3D_Form.glb" 
+  alt="3D Model of Box Form"
+  auto-rotate 
+  camera-controls 
+  ar 
+  ar-modes="webxr scene-viewer quick-look"
+  exposure="1.3"
+  shadow-intensity="1.2"
+  shadow-softness="0.9"
+  environment-image="https://modelviewer.dev/shared-assets/environments/studio_small_09_1k.hdr"
+  camera-orbit="45deg 65deg 4m"
+  field-of-view="45deg"
+  poster="assets/Project 1/loading_poster.png"
+  style="
+    width: 100%; 
+    max-width: 1000px; 
+    height: 650px; 
+    margin: 2rem auto; 
+    display:block; 
+    border-radius: 12px; 
+    background:#000; 
+    box-shadow:0 8px 20px rgba(0,0,0,0.8);
+  ">
+</model-viewer>
   </section>
 
   <!-- Drawings -->
