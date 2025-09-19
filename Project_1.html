@@ -264,21 +264,29 @@
 </div>
 
 <script>
-  // Lightbox
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
 
-  document.querySelectorAll('.img-wrapper img').forEach(img => {
-    img.addEventListener('click', () => {
-      lightbox.style.display = 'flex';
-      lightboxImg.src = img.src;
-    });
+document.querySelectorAll('.img-wrapper img').forEach(img => {
+  img.addEventListener('click', () => {
+    lightbox.style.display = 'flex';
+    lightboxImg.src = img.src;
   });
+});
 
-  lightbox.addEventListener('click', () => lightbox.style.display = 'none');
-  document.querySelector('#lightbox .close-btn').addEventListener('click', () => {
+// Close when clicking the X
+document.querySelector('#lightbox .close-btn').addEventListener('click', () => {
+  lightbox.style.display = 'none';
+});
+
+// Close only when clicking the background (not the image)
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) {  
     lightbox.style.display = 'none';
-  });
+  }
+});
+
 
   // Fade-in sections
   const sections = document.querySelectorAll('.section');
