@@ -124,16 +124,15 @@
 
 /* Force 3D model section to cover the screen and center content */
 #3d_model {
-  position: relative;
-  margin-left: 220px;        /* leave space for sidebar */
-  width: calc(100% - 220px); /* full width minus sidebar */
-  height: 100vh;             /* take full screen height */
+  margin-left: 220px;         /* keep space for sidebar */
+  width: calc(100% - 220px);  /* take the rest of the screen */
+  min-height: 100vh;          /* full height */
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: column; 
+  padding: 2rem 0;
   background: #111;
-  text-align: center;
 }
 
 #3d_model h1 {
