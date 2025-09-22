@@ -192,23 +192,23 @@
 <!-- 3D Model -->
 <section id="3d_model">
   <h1>3D Model</h1>
-<model-viewer
-  src="Project_1/3D_Form.glb"
-  alt="3D Model"
-  auto-rotate
-  camera-controls
-  ar
-  exposure="2.5"
-  shadow-intensity="1"
-  shadow-softness="0.9"
-  environment-image="studio"
-  camera-orbit="0deg 45deg 7m"
-  min-camera-orbit="auto -90deg auto"
-  max-camera-orbit="auto 90deg auto"
-  field-of-view="45deg"
-  poster="Project_1/loading_poster.png"
-  style="width: 70vw; height: 70vh; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.7);"
-></model-viewer>
+  <model-viewer
+    src="Project_1/3D_Form.glb"
+    alt="3D Model"
+    auto-rotate
+    camera-controls
+    ar
+    exposure="1.5"
+    shadow-intensity="1"
+    shadow-softness="0.9"
+    environment-image="studio"           <!-- built-in HDR for best quality -->
+    camera-orbit="0deg 75deg 7m"        <!-- start slightly top-down -->
+    min-camera-orbit="-180deg -90deg 3m" <!-- allow full top-bottom rotation -->
+    max-camera-orbit="180deg 90deg 15m"
+    field-of-view="45deg"
+    poster="Project_1/loading_poster.png"
+    style="width: 80vw; height: 80vh; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.7);"
+  ></model-viewer>
 </section>
 
   
