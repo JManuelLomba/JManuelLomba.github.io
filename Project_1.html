@@ -122,23 +122,23 @@
       100% { background-position: 0% 50%; }
     }
 
-/* Make 3D model span full width & center on page */
+/* Force 3D model section to cover the screen and center content */
 #3d_model {
-  margin-left: 220px;     /* keep room for sidebar */
-  width: calc(100% - 220px);  /* fill remaining width */
-  min-height: 100vh;
+  position: relative;
+  margin-left: 220px;        /* leave space for sidebar */
+  width: calc(100% - 220px); /* full width minus sidebar */
+  height: 100vh;             /* take full screen height */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 2rem 0;
   background: #111;
   text-align: center;
 }
 
 #3d_model h1 {
-  margin-bottom: 2rem;     /* UPDATED: bigger gap above model */
-  font-size: 2.5rem;       /* UPDATED: bigger title */
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
   color: var(--accent);
 }
 
