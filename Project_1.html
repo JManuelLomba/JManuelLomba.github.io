@@ -202,21 +202,23 @@
 <!-- 3D Model -->
 <section id="3d_model">
   <h1>3D Model</h1>
-  <model-viewer
-    src="Project_1/3D_Form.glb"
-    alt="3D Model"
-    auto-rotate
-    camera-controls
-    ar
-    exposure="1.2"
-    shadow-intensity="1"
-    shadow-softness="0.9"
-    environment-image="neutral"
-    camera-orbit="0deg 70deg 100m"
-    field-of-view="45deg"
-    poster="Project 1/loading_poster.png"
-    style="width: 90vw; height: 80vh; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.7);"
-  ></model-viewer>
+<model-viewer
+  src="Project_1/3D_Form.glb"
+  alt="3D Model"
+  auto-rotate
+  camera-controls
+  ar
+  exposure="1.2"
+  shadow-intensity="1"
+  shadow-softness="0.9"
+  environment-image="neutral"
+  camera-orbit="0deg 70deg 12m"
+  min-camera-orbit="0deg 0deg 2m"
+  max-camera-orbit="360deg 90deg 50m"
+  field-of-view="45deg"
+  poster="Project_1/loading_poster.png"
+  style="width: 90vw; height: 80vh; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.7);"
+></model-viewer>
 </section>
 
   </section>
