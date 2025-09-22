@@ -122,26 +122,29 @@
       100% { background-position: 0% 50%; }
     }
 
-/* Make 3D model section fill viewport and center content */
+/* 3D model fullscreen and centered */
 #3d_model {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80vw;
-  height: 80vh;
+  width: 100vw;
+  height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: #111;
-  z-index: 1;
+  z-index: 1000; /* make sure it's above sidebar and content */
+  text-align: center;
 }
 
 /* Model title */
 #3d_model h1 {
-  margin-bottom: 1rem;
-  font-size: 2.5rem;
   color: var(--accent);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  z-index: 1001;
 }
 
 /* Make the model bigger */
@@ -196,25 +199,25 @@
 <div class="content">
   <h1 class="project-title">Box Form - (5'x5'x6')</h1>
 
-  <!-- 3D Model -->
-  <section id="3d_model" class="section">
-    <h1>3D Model</h1>
-<model-viewer
-  src="Project_1/3D_Form.glb"
-  alt="3D Model"
-  auto-rotate
-  camera-controls
-  ar
-  exposure="1.2"
-  shadow-intensity="1"
-  shadow-softness="0.9"
-  environment-image="neutral"
-  camera-orbit="0deg 70deg 2.5m"
-  field-of-view="35deg"
-  poster="Project 1/loading_poster.png"
-  style="width: 100%; height: 100%;"
->
-</model-viewer>
+<!-- 3D Model -->
+<section id="3d_model">
+  <h1>3D Model</h1>
+  <model-viewer
+    src="Project_1/3D_Form.glb"
+    alt="3D Model"
+    auto-rotate
+    camera-controls
+    ar
+    exposure="1.2"
+    shadow-intensity="1"
+    shadow-softness="0.9"
+    environment-image="neutral"
+    camera-orbit="0deg 70deg 2.5m"
+    field-of-view="35deg"
+    poster="Project 1/loading_poster.png"
+    style="width: 90vw; height: 90vh; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.7);"
+  ></model-viewer>
+</section>
 
   </section>
 
