@@ -125,11 +125,11 @@
 /* 3D model fullscreen and centered */
 #3d_model {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 40%;
+  left: 40%;
   transform: translate(-50%, -50%);
-  width: 60vw;
-  height: 60vh;
+  width: 30vw;
+  height: 30vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -150,9 +150,9 @@
 /* Make the model bigger */
 #3d_model model-viewer {
   width: 80%;                        /* almost full width */
-  max-width: 1000px;                 /* optional max width */
+  max-width: 800px;                 /* optional max width */
   height: 80vh;                      /* almost full height of viewport */
-  min-height: 200px;                 /* ensure minimum size */
+  min-height: 100px;                 /* ensure minimum size */
   border-radius: 12px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.7);
 }
@@ -212,7 +212,7 @@
     shadow-intensity="1"
     shadow-softness="0.9"
     environment-image="neutral"
-    camera-orbit="0deg 70deg 40m"
+    camera-orbit="0deg 70deg 8m"
     field-of-view="45deg"
     poster="Project 1/loading_poster.png"
     style="width: 90vw; height: 80vh; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.7);"
