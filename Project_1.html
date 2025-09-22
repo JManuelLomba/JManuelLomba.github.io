@@ -122,18 +122,17 @@
       100% { background-position: 0% 50%; }
     }
 
-/* 3D model section centered in remaining space */
+/* 3D model section centered and bigger */
 #3d_model {
-  position: relative;
-  width: calc(100% - 220px); /* take space to the right of sidebar */
-  height: 100vh;
+  margin-left: 220px;         /* leave space for sidebar */
+  width: calc(100% - 220px);  /* only the space to the right */
+  height: 100vh;              /* full viewport height */
   display: flex;
-  justify-content: center;  /* horizontal center within content area */
-  align-items: center;      /* vertical center */
+  justify-content: center;     /* horizontal center */
+  align-items: center;         /* vertical center */
   flex-direction: column;
   background: #111;
   text-align: center;
-  z-index: 1;
 }
 
 /* Model title */
@@ -144,15 +143,13 @@
   z-index: 2;
 }
 
-/* Model viewer sizing */
+/* Make the model bigger */
 #3d_model model-viewer {
-  width: 80%;               /* centered within available space */
-  max-width: 1000px;
-  height: 70vh;
-  min-height: 400px;
+  width: 90%;                  /* almost full width of remaining space */
+  max-width: 1200px;           /* optional max width */
+  height: 80vh;                /* almost full height of viewport */
   border-radius: 12px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-  z-index: 1;
 }
 
     
