@@ -124,23 +124,29 @@
 
 /* Make 3D model span full width & center on page */
 #3d_model {
-  margin-left: 0;         /* remove sidebar margin */
-  width: 100vw;           /* span full screen width */
+  margin-left: 0;         
+  width: 100vw;           
+  min-height: 100vh;       /* UPDATED: make section at least full screen height */
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column; /* keep title above model */
+  flex-direction: column; 
   padding: 2rem 0;
+  background: #111;        /* UPDATED: give section a darker background */
 }
 
 #3d_model h1 {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;     /* UPDATED: bigger gap above model */
+  font-size: 2.5rem;       /* UPDATED: bigger title */
+  color: var(--accent);
 }
 
 #3d_model model-viewer {
-  width: 80%;
-  max-width: 900px;
-  height: 600px;
+  width: 90%;              /* UPDATED: take almost full width */
+  max-width: 1200px;       /* UPDATED: allow larger model */
+  height: 80vh;            /* UPDATED: model takes 80% of screen height */
+  border-radius: 12px;     /* optional: rounded edges */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.7); /* optional: glowing effect */
 }
 
     
