@@ -124,18 +124,14 @@
 
 /* 3D model fullscreen and centered */
 #3d_model {
-  top: 40%;
-  left: 40%;
-  transform: translate(-50%, -50%);
-  width: 30vw;
-  height: 30vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #111;
-  z-index: 1000; /* make sure it's above sidebar and content */
+  justify-content: center;   /* vertical centering */
+  align-items: center;       /* horizontal centering */
   text-align: center;
+  min-height: 90vh;          /* fills most of screen height */
+  background: #111;
+  margin-bottom: 3rem;       /* spacing before next section */
 }
 
 /* Model title */
@@ -143,7 +139,6 @@
   color: var(--accent);
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  z-index: 1001;
 }
 
     
