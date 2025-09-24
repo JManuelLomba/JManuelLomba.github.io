@@ -131,33 +131,34 @@
     }
     .img-wrapper:hover span.overlay { opacity: 1; }
 
-    /* 3D model */
-    #3d_model {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      min-height: 90vh;
-      background: #111;
-      margin-bottom: 3rem;
-    }
+/* === 3D Model Section (Base: Mobile-first) === */
+#3d_model {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 90vh;
+  background: #111;
+  margin-bottom: 3rem;
+}
 
-    #3d_model h1 {
-      color: var(--accent);
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
+#3d_model h1 {
+  color: var(--accent);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
 
-    #3d_model model-viewer {
-      margin: 0 auto;
-      width: 100%;
-      max-width: 700px;
-      height: 55vh;
-      border-radius: 12px;
-      box-shadow: 0 25px 25px rgba(0,0,0,0.7);
-      background-color: #222;
-    }
+#3d_model model-viewer {
+  margin: 0 auto;
+  display: block;
+  width: 95vw;               /* flexible width */
+  max-width: 700px;          /* keeps it from blowing up on big screens */
+  height: 45vh;              /* balanced for mobile */
+  border-radius: 12px;
+  box-shadow: 0 25px 25px rgba(0,0,0,0.7);
+  background-color: #222;
+}
 
     /* Lightbox */
     #lightbox {
@@ -189,32 +190,61 @@
       margin-top: 2rem;
     }
 
-    /* Responsive adjustments */
-    @media(max-width: 1024px) {
-      .content { margin-left: 200px; }
-      #3d_model model-viewer { height: 50vh; }
-    }
+/* === Tablet (481px–768px) === */
+@media (min-width: 481px) and (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.active { transform: translateX(0); }
+  .content { margin-left: 0; padding: 1rem; }
+  .menu-toggle { display: block; }
 
-    @media(max-width: 768px) {
-      .sidebar { transform: translateX(-100%); }
-      .sidebar.active { transform: translateX(0); }
-      .content { margin-left: 0; padding: 1rem; }
-      .menu-toggle { display: block; }
-      .project-title { font-size: 1.8rem; }
-      #3d_model h1 { font-size: 2rem; }
-      .masonry { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-    }
+  .project-title { font-size: 1.8rem; }
+  #3d_model h1 { font-size: 2rem; }
 
-    @media(max-width: 480px) {
-      .project-title { font-size: 1.5rem; }
-      #3d_model h1 { font-size: 1.5rem; }
-      #3d_model model-viewer { height: 40vh; }
-      .masonry { grid-template-columns: 1fr; }
-    }
-    /* Center 3D model on desktop only */
-@media(min-width: 769px) {
-  #3d_model {  display: flex;  justify-content: center;  align-items: center;}
-  #3d_model model-viewer {  margin: 0 auto;  display: block;}
+  #3d_model model-viewer {
+    width: 90vw;
+    height: 50vh;
+  }
+
+  .masonry { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+}
+
+/* === Small Laptops / Tablets Landscape (769px–1024px) === */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .content { margin-left: 200px; }
+
+  #3d_model h1 { font-size: 2.2rem; }
+
+  #3d_model model-viewer {
+    width: 85vw;
+    max-width: 900px;
+    height: 55vh;
+  }
+}
+
+/* === Desktops (1025px–1439px) === */
+@media (min-width: 1025px) and (max-width: 1439px) {
+  .content { margin-left: 250px; }
+
+  #3d_model h1 { font-size: 2.5rem; }
+
+  #3d_model model-viewer {
+    width: 80vw;
+    max-width: 1000px;
+    height: 60vh;
+  }
+}
+
+/* === Large Desktops (1440px and up) === */
+@media (min-width: 1440px) {
+  .content { margin-left: 300px; }
+
+  #3d_model h1 { font-size: 2.8rem; }
+
+  #3d_model model-viewer {
+    width: 70vw;
+    max-width: 1200px;
+    height: 70vh;
+  }
 }
 
   </style>
