@@ -252,14 +252,9 @@
 /* === Mobile / Tablet Sidebar Push Aside === */
 @media (max-width: 1024px) {
   .sidebar {
-    position: fixed;
-    top: 0; left: 0;
-    width: 220px;
-    height: 100%;
-    background: #111;
-    transform: translateX(-220px); /* fully hidden */
-    transition: transform 0.3s ease;
-    z-index: 1000;
+    width: 100vw;          /* full width of screen */
+    height: 100vh;         /* full height of screen */
+    transform: translateX(-100%); /* hide initially */
   }
 
   .sidebar.active {
@@ -278,6 +273,10 @@
   .menu-toggle {
     display: block;
     z-index: 1100;
+  }
+    .back-button {
+    margin-top: 1rem;      /* move to top */
+    align-self: flex-start; /* stick to top-left */
   }
 }
 
