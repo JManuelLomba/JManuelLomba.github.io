@@ -148,31 +148,28 @@
     .img-wrapper:hover span.overlay { opacity: 1; }
 
     /* ================= 3D Model ================= */
-    #3d_model {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      min-height: 90vh;
-      background: #111;
-      margin-bottom: 3rem;
-    }
+#3d_model {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh; /* full viewport */
+  background: #111;
+}
     #3d_model h1 {
       color: var(--accent);
       font-size: 2rem;
       margin-bottom: 1rem;
     }
-    #3d_model model-viewer {
-      margin: 0 auto;
-      display: block;
-      width: 95vw;
-      max-width: 1000px;
-      height: 60vh;
-      border-radius: 12px;
-      box-shadow: 0 25px 25px rgba(0,0,0,0.7);
-      background-color: transparent;
-    }
+#3d_model model-viewer {
+  width: 80vw;
+  max-width: 1000px;
+  height: 60vh;
+  border-radius: 12px;
+  box-shadow: 0 25px 25px rgba(0,0,0,0.7);
+  background-color: transparent;
+  margin: 0; /* remove margin auto */
+}
 
     /* ================= Lightbox ================= */
     #lightbox {
