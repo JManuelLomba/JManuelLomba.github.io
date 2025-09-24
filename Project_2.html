@@ -325,26 +325,25 @@
 <div class="content">
   <h1 class="project-title">Box Form - (5'x5'x6')</h1>
 
-  <!-- 3D Model -->
-  <section id="3d_model" class="section">
-    <h1>3D Model</h1>
-    <model-viewer
-      src="Project_1/3D_Form.glb"
-      alt="3D Model"
-      auto-rotate
-      camera-controls
-      ar
-      exposure="1"
-      shadow-intensity="1"
-      shadow-softness="0.9"
-      environment-image="natural"
-      camera-orbit="0deg 65deg 7m"
-      min-camera-orbit="-360deg -360deg 3m"
-      max-camera-orbit="360deg 360deg 12m"
-      field-of-view="45deg"
-      poster="Project_1/loading_poster.png"
-    ></model-viewer>
-  </section>
+<section id="3d_model" class="section">
+  <h1>3D Model</h1>
+  <model-viewer
+    src="Project_1/3D_Form.glb"
+    alt="3D Model"
+    auto-rotate
+    camera-controls
+    exposure="1.1"
+    shadow-intensity="0.8"
+    shadow-softness="0.9"
+    environment-image="neutral"   <!-- neutral built-in lighting -->
+    camera-orbit="0deg 70deg 6m"  <!-- good starting angle -->
+    min-camera-orbit="-180deg 0deg 3m"  <!-- restrict under view -->
+    max-camera-orbit="180deg 90deg 10m" <!-- prevent too far zoom -->
+    field-of-view="40deg"
+    style="width: 90vw; max-width: 1000px; height: 65vh; border-radius: 12px; box-shadow: 0 25px 25px rgba(0,0,0,0.7); background-color: #222;">
+  </model-viewer>
+</section>
+
 
   <!-- Drawings -->
   <section id="drawings" class="section">
