@@ -246,26 +246,30 @@
     height: 70vh;
   }
 }
-/* === Mobile / Tablet Sidebar Fix === */
+/* === Mobile / Tablet Sidebar Push Aside === */
 @media (max-width: 1024px) {
   .sidebar {
-    transform: translateX(-100%);
     position: fixed;
     top: 0; left: 0;
-    height: 100%;
     width: 220px;
+    height: 100%;
     background: #111;
+    transform: translateX(-220px); /* fully hidden */
     transition: transform 0.3s ease;
-    z-index: 1000; /* above content */
+    z-index: 1000;
   }
 
   .sidebar.active {
-    transform: translateX(0);
+    transform: translateX(0); /* slide in */
   }
 
   .content {
-    margin-left: 0; /* don’t push content */
-    padding: 1rem;
+    margin-left: 0;
+    transition: margin-left 0.3s ease; /* smooth push */
+  }
+
+  .content.shifted {
+    margin-left: 220px; /* pushed aside */
   }
 
   .menu-toggle {
@@ -277,7 +281,7 @@
 /* === Desktop Sidebar Normal === */
 @media (min-width: 1025px) {
   .sidebar {
-    transform: translateX(0);
+    transform: none;
     position: fixed;
   }
 
@@ -290,6 +294,7 @@
     padding: 2rem;
   }
 }
+
 
 
   </style>
@@ -398,19 +403,22 @@
   }, { threshold: 0.1 });
   sections.forEach(section => observer.observe(section));
 
-// Mobile Menu
+// Mobile Menu - Push Aside
 const menuToggle = document.querySelector('.menu-toggle');
 const sidebar = document.querySelector('.sidebar');
+const content = document.querySelector('.content');
 
 menuToggle.addEventListener('click', () => {
   sidebar.classList.toggle('active');
+  content.classList.toggle('shifted');
 });
 
-// Close sidebar when clicking outside (only on mobile)
+// Close sidebar if clicking outside
 document.addEventListener('click', (e) => {
   if (window.innerWidth <= 1024) {
     if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
       sidebar.classList.remove('active');
+      content.classList.remove('shifted');
     }
   }
 });
