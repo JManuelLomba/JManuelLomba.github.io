@@ -26,6 +26,41 @@
     .sidebar ul li { margin: 1.5rem 0; text-align: center; }
     .sidebar ul li a {  color: #e0e0e0; text-decoration: none; font-weight: bold; font-size: 1.2rem; transition: color 0.3s;}
     .sidebar ul li a:hover { color: var(--accent); }
+    /* Hide hamburger by default */
+.menu-toggle {
+  display: none; 
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  font-size: 1.8rem;
+  background: #111;
+  color: white;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  z-index: 1200;
+  cursor: pointer;
+}
+
+/* Mobile styles: show hamburger, adjust sidebar */
+@media (max-width: 1024px) {
+  .menu-toggle { display: block; }
+
+  .sidebar {
+    width: 100vw;
+    height: 100vh;
+    transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease;
+    z-index: 1100;
+  }
+
+  .sidebar.active { transform: translateX(0); }
+
+  .content { margin-left: 0; transition: margin-left 0.3s ease; }
+  .content.shifted { margin-left: 220px; } /* optional: push content if sidebar opens */
+}
 
     /* Resume link styling */
     .sidebar ul li.resume-link a {  border: 2px solid var(--accent);  padding: 0.4rem 0.6rem;  border-radius: 6px;  display: inline-block;}
@@ -192,6 +227,11 @@
 </head>
 <body>
 
+
+  <!-- Mobile Hamburger Button -->
+<div class="menu-toggle"><i class="fas fa-bars"></i></div>
+
+  
 <!-- =========================
      SIDEBAR NAVIGATION
 ========================= -->
@@ -495,7 +535,7 @@
     .card.classList.toggle("active");
     */
   }
-  const menuToggle = document.querySelector('.menu-toggle');
+const menuToggle = document.querySelector('.menu-toggle');
 const sidebar = document.querySelector('.sidebar');
 const content = document.querySelector('.content');
 
@@ -503,6 +543,8 @@ menuToggle.addEventListener('click', () => {
   sidebar.classList.toggle('active');
   content.classList.toggle('shifted');
 });
+
+// Optional: Close sidebar if clicking outside on mobile
 document.addEventListener('click', e => {
   if (window.innerWidth <= 1024) {
     if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
