@@ -246,6 +246,51 @@
     height: 70vh;
   }
 }
+/* === Mobile / Tablet Sidebar Fix === */
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    top: 0; left: 0;
+    height: 100%;
+    width: 220px;
+    background: #111;
+    transition: transform 0.3s ease;
+    z-index: 1000; /* above content */
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .content {
+    margin-left: 0; /* don’t push content */
+    padding: 1rem;
+  }
+
+  .menu-toggle {
+    display: block;
+    z-index: 1100;
+  }
+}
+
+/* === Desktop Sidebar Normal === */
+@media (min-width: 1025px) {
+  .sidebar {
+    transform: translateX(0);
+    position: fixed;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .content {
+    margin-left: 220px; /* match sidebar width */
+    padding: 2rem;
+  }
+}
+
 
   </style>
 </head>
@@ -280,7 +325,7 @@
       exposure="1"
       shadow-intensity="1"
       shadow-softness="0.9"
-      environment-image="neutral"
+      environment-image="https://modelviewer.dev/shared-assets/environments/spruit_sunrise_1k.hdr"
       camera-orbit="0deg 65deg 7m"
       min-camera-orbit="-360deg -360deg 3m"
       max-camera-orbit="360deg 360deg 12m"
@@ -353,12 +398,22 @@
   }, { threshold: 0.1 });
   sections.forEach(section => observer.observe(section));
 
-  // Mobile Menu
-  const menuToggle = document.querySelector('.menu-toggle');
-  const sidebar = document.querySelector('.sidebar');
-  menuToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('active');
-  });
+// Mobile Menu
+const menuToggle = document.querySelector('.menu-toggle');
+const sidebar = document.querySelector('.sidebar');
+
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+});
+
+// Close sidebar when clicking outside (only on mobile)
+document.addEventListener('click', (e) => {
+  if (window.innerWidth <= 1024) {
+    if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+      sidebar.classList.remove('active');
+    }
+  }
+});
 </script>
 
 </body>
