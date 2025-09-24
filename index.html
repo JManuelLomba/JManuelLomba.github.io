@@ -119,6 +119,54 @@
 .masonry img:hover {  transform: scale(1.05);}
 @media (max-width: 800px) {  .masonry { column-count: 2; }}
 @media (max-width: 500px) {  .masonry { column-count: 1; }}
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 100vw;       /* full screen on mobile */
+    height: 100vh;
+    transform: translateX(-100%);
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 1100;
+  }
+  .sidebar.active { transform: translateX(0); }
+
+  /* Menu toggle button */
+  .menu-toggle { display: block; position: fixed; top: 1rem; left: 1rem; z-index: 1200; }
+
+  /* Push content aside when sidebar opens */
+  .content { margin-left: 0; transition: margin-left 0.3s ease; }
+  .content.shifted { margin-left: 220px; }
+
+  /* Move "Back" button closer to top */
+  .back-button { margin-top: 1rem; align-self: flex-start; }
+
+  /* Adjust sidebar list items for smaller screens */
+  .sidebar ul li { margin: 1rem 0; font-size: 1.1rem; }
+}
+@media (max-width: 768px) {
+  .content { padding: 1rem; }
+
+  /* Sections */
+  .section { padding: 1rem; margin-bottom: 2rem; }
+
+  /* About text */
+  #about h1 { font-size: 2rem; }
+  .about-box p { font-size: 1rem; line-height: 1.4; }
+
+  /* Skills section */
+  .skills-category h3 { font-size: 1.2rem; }
+  .skill { padding: 0.3rem 0.6rem; font-size: 0.9rem; }
+
+  /* Work experience cards */
+  .work-experience-item { width: 95%; padding: 0.8rem 1rem; }
+
+  /* Project cards / images */
+  .project-card { width: 90%; margin: 0 auto; }
+  .project-card img { height: auto; }
+
+  /* Masonry grids */
+  .masonry { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.5rem; }
+}
     /* Lightbox overlay */
 #lightbox {  position: fixed;  top: 0; left: 0;width: 100%; height: 100%;  background: rgba(0,0,0,0.9);  display: none;  align-items: center;  justify-content: center;z-index: 1000;}
 #lightbox img {  max-width: 90%;  max-height: 80%;border-radius: 10px;  box-shadow: 0 4px 12px rgba(0,0,0,0.5);}
@@ -447,6 +495,22 @@
     .card.classList.toggle("active");
     */
   }
+  const menuToggle = document.querySelector('.menu-toggle');
+const sidebar = document.querySelector('.sidebar');
+const content = document.querySelector('.content');
+
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+  content.classList.toggle('shifted');
+});
+document.addEventListener('click', e => {
+  if (window.innerWidth <= 1024) {
+    if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+      sidebar.classList.remove('active');
+      content.classList.remove('shifted');
+    }
+  }
+});
 </script>
 </body>
 </html>
