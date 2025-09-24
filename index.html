@@ -204,8 +204,21 @@
   .work-experience-item { width: 95%; padding: 0.8rem 1rem; }
 
   /* Project cards / images */
-  .project-card { width: 90%; margin: 0 auto; }
-  .project-card img { height: auto; }
+  .project-card {  
+    width: 90%;
+    margin: 0 auto;
+    height: auto; /* let card height adjust to content */
+    padding: 1rem;
+  }
+  .project-card img { 
+  display: block;
+  margin: 0 auto 0.8rem auto; /* center horizontally */
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  object-fit: cover;
+  }
 
   /* Masonry grids */
   .masonry { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.5rem; }
