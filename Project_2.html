@@ -85,6 +85,8 @@
       padding: 2rem; 
       text-align: center;
     }
+    .content {
+  transition: margin-left 0.3s ease, transform 0.3s ease;}
 
     /* Project title */
     .project-title { font-size: 2.2rem; color: var(--accent); margin-bottom: 2rem; }
@@ -149,15 +151,16 @@
   margin-bottom: 1rem;
 }
 
+/* 3D model card responsive tweaks */
 #3d_model model-viewer {
   margin: 0 auto;
   display: block;
-  width: 95vw;               /* flexible width */
-  max-width: 700px;          /* keeps it from blowing up on big screens */
-  height: 45vh;              /* balanced for mobile */
+  width: 95vw;          /* full width on mobile */
+  max-width: 1000px;    /* limit size on large screens */
+  height: 60vh;         /* good balance across devices */
   border-radius: 12px;
   box-shadow: 0 25px 25px rgba(0,0,0,0.7);
-  background-color: #222;
+  background-color: transparent; /* natural blend */
 }
 
     /* Lightbox */
