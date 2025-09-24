@@ -13,6 +13,7 @@
   <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <style>
+    /* ================= Base Styles ================= */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
       width: 100%;
@@ -23,19 +24,32 @@
     }
     :root { --accent: #00aaff; }
 
-    /* Sidebar */
+    /* ================= Sidebar ================= */
     .sidebar {
-      position: fixed; top: 0; left: 0;
+      position: fixed;
+      top: 0; left: 0;
       width: 220px; height: 100%;
       background: #111;
       padding: 2rem 1rem;
-      display: flex; flex-direction: column; align-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       transition: transform 0.3s ease;
       z-index: 100;
     }
-    .sidebar h2 { color: var(--accent); margin-bottom: 2rem; }
-    .sidebar ul { list-style: none; width: 100%; flex-grow: 1; }
-    .sidebar ul li { margin: 1.5rem 0; text-align: center; }
+    .sidebar h2 {
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+    .sidebar ul {
+      list-style: none;
+      width: 100%;
+      flex-grow: 1;
+    }
+    .sidebar ul li {
+      margin: 1.5rem 0;
+      text-align: center;
+    }
     .sidebar ul li a {
       color: #e0e0e0;
       text-decoration: none;
@@ -45,7 +59,7 @@
     }
     .sidebar ul li a:hover { color: var(--accent); }
 
-    /* Back button */
+    /* ================= Back Button ================= */
     .back-button {
       margin-top: auto;
       background: #e63946;
@@ -60,12 +74,9 @@
       gap: 8px;
       transition: background 0.3s, transform 0.2s;
     }
-    .back-button:hover {
-      background: #ff4d5a;
-      transform: translateX(-3px);
-    }
+    .back-button:hover { background: #ff4d5a; transform: translateX(-3px); }
 
-    /* Mobile Sidebar Toggle */
+    /* ================= Mobile Menu Toggle ================= */
     .menu-toggle {
       display: none;
       position: fixed;
@@ -79,30 +90,32 @@
       cursor: pointer;
     }
 
-    /* Main content */
+    /* ================= Main Content ================= */
     .content { 
       margin-left: 220px; 
       padding: 2rem; 
       text-align: center;
+      transition: margin-left 0.3s ease, transform 0.3s ease;
     }
-    .content {
-  transition: margin-left 0.3s ease, transform 0.3s ease;}
+    .project-title {
+      font-size: 2.2rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
 
-    /* Project title */
-    .project-title { font-size: 2.2rem; color: var(--accent); margin-bottom: 2rem; }
-
-    /* Sections */
-    .section { 
-      padding: 2rem 1.5rem; 
-      margin-bottom: 3rem; 
+    /* ================= Sections ================= */
+    .section {
+      padding: 2rem 1.5rem;
+      margin-bottom: 3rem;
       border-bottom: 1px solid #333;
-      opacity: 0; transform: translateY(20px);
+      opacity: 0;
+      transform: translateY(20px);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .section.visible { opacity: 1; transform: translateY(0); }
     .section h1 { margin-bottom: 1.5rem; color: #fff; }
 
-    /* Masonry */
+    /* ================= Masonry Images ================= */
     .masonry {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -110,10 +123,11 @@
       max-width: 1100px;
       margin: 0 auto;
     }
-
     .img-wrapper { position: relative; cursor: pointer; }
     .img-wrapper img {
-      width: 100%; border-radius: 8px; display: block;
+      width: 100%;
+      border-radius: 8px;
+      display: block;
       box-shadow: 0 4px 10px rgba(0,0,0,0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -121,51 +135,50 @@
       transform: scale(1.03);
       box-shadow: 0 6px 14px rgba(0,0,0,0.6);
     }
-
-    /* Hover overlay */
     .img-wrapper span.overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
       display: flex; justify-content: center; align-items: center;
       color: #fff; font-weight: bold; font-size: 1rem;
       background: rgba(0,0,0,0.5);
-      border-radius: 8px; opacity: 0; transition: opacity 0.3s ease;
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
     .img-wrapper:hover span.overlay { opacity: 1; }
 
-/* === 3D Model Section (Base: Mobile-first) === */
-#3d_model {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 90vh;
-  background: #111;
-  margin-bottom: 3rem;
-}
+    /* ================= 3D Model ================= */
+    #3d_model {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 90vh;
+      background: #111;
+      margin-bottom: 3rem;
+    }
+    #3d_model h1 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    #3d_model model-viewer {
+      margin: 0 auto;
+      display: block;
+      width: 95vw;
+      max-width: 1000px;
+      height: 60vh;
+      border-radius: 12px;
+      box-shadow: 0 25px 25px rgba(0,0,0,0.7);
+      background-color: transparent;
+    }
 
-#3d_model h1 {
-  color: var(--accent);
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-/* 3D model card responsive tweaks */
-#3d_model model-viewer {
-  margin: 0 auto;
-  display: block;
-  width: 95vw;          /* full width on mobile */
-  max-width: 1000px;    /* limit size on large screens */
-  height: 60vh;         /* good balance across devices */
-  border-radius: 12px;
-  box-shadow: 0 25px 25px rgba(0,0,0,0.7);
-  background-color: transparent; /* natural blend */
-}
-
-    /* Lightbox */
+    /* ================= Lightbox ================= */
     #lightbox {
-      display: none; position: fixed; top:0; left:0;
+      display: none;
+      position: fixed;
+      top:0; left:0;
       width: 100%; height: 100%;
       background: rgba(0,0,0,0.85);
       justify-content: center; align-items: center;
@@ -185,6 +198,7 @@
     }
     #lightbox .close-btn:hover { color: var(--accent); }
 
+    /* ================= Footer ================= */
     footer {
       text-align: center;
       padding: 1.5rem;
@@ -193,244 +207,183 @@
       margin-top: 2rem;
     }
 
-/* === Tablet (481px–768px) === */
-@media (min-width: 481px) and (max-width: 768px) {
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.active { transform: translateX(0); }
-  .content { margin-left: 0; padding: 1rem; }
-  .menu-toggle { display: block; }
+    /* ================= Media Queries ================= */
 
-  .project-title { font-size: 1.8rem; }
-  #3d_model h1 { font-size: 2rem; }
+    /* Tablet: 481px–768px */
+    @media (min-width: 481px) and (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.active { transform: translateX(0); }
+      .content { margin-left: 0; padding: 1rem; }
+      .menu-toggle { display: block; }
+      .project-title { font-size: 1.8rem; }
+      #3d_model h1 { font-size: 2rem; }
+      #3d_model model-viewer { width: 90vw; height: 50vh; }
+      .masonry { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .back-button { margin-top: 1rem; align-self: flex-start; }
+    }
 
-  #3d_model model-viewer {
-    width: 90vw;
-    height: 50vh;
-  }
+    /* Small Laptops / Tablets Landscape: 769px–1024px */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .content { margin-left: 200px; }
+      #3d_model h1 { font-size: 2.2rem; }
+      #3d_model model-viewer { width: 85vw; max-width: 900px; height: 55vh; }
+    }
 
-  .masonry { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-}
+    /* Desktops: 1025px–1439px */
+    @media (min-width: 1025px) and (max-width: 1439px) {
+      .content { margin-left: 250px; }
+      #3d_model h1 { font-size: 2.5rem; }
+      #3d_model model-viewer { width: 80vw; max-width: 1000px; height: 60vh; }
+    }
 
-/* === Small Laptops / Tablets Landscape (769px–1024px) === */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .content { margin-left: 200px; }
+    /* Large Desktops: 1440px+ */
+    @media (min-width: 1440px) {
+      .content { margin-left: 300px; }
+      #3d_model h1 { font-size: 2.8rem; }
+      #3d_model model-viewer { width: 70vw; max-width: 1200px; height: 70vh; }
+    }
 
-  #3d_model h1 { font-size: 2.2rem; }
-
-  #3d_model model-viewer {
-    width: 85vw;
-    max-width: 900px;
-    height: 55vh;
-  }
-}
-
-/* === Desktops (1025px–1439px) === */
-@media (min-width: 1025px) and (max-width: 1439px) {
-  .content { margin-left: 250px; }
-
-  #3d_model h1 { font-size: 2.5rem; }
-
-  #3d_model model-viewer {
-    width: 80vw;
-    max-width: 1000px;
-    height: 60vh;
-  }
-}
-
-/* === Large Desktops (1440px and up) === */
-@media (min-width: 1440px) {
-  .content { margin-left: 300px; }
-
-  #3d_model h1 { font-size: 2.8rem; }
-
-  #3d_model model-viewer {
-    width: 70vw;
-    max-width: 1200px;
-    height: 70vh;
-  }
-}
-/* === Mobile / Tablet Sidebar Push Aside === */
-@media (max-width: 1024px) {
-  .sidebar {
-    width: 100vw;          /* full width of screen */
-    height: 100vh;         /* full height of screen */
-    transform: translateX(-100%); /* hide initially */
-  }
-
-  .sidebar.active {
-    transform: translateX(0); /* slide in */
-  }
-
-  .content {
-    margin-left: 0;
-    transition: margin-left 0.3s ease; /* smooth push */
-  }
-
-  .content.shifted {
-    margin-left: 220px; /* pushed aside */
-  }
-
-  .menu-toggle {
-    display: block;
-    z-index: 1100;
-  }
-    .back-button {
-    margin-top: 1rem;      /* move to top */
-    align-self: flex-start; /* stick to top-left */
-  }
-}
-
-/* === Desktop Sidebar Normal === */
-@media (min-width: 1025px) {
-  .sidebar {
-    transform: none;
-    position: fixed;
-  }
-
-  .menu-toggle {
-    display: none;
-  }
-
-  .content {
-    margin-left: 220px; /* match sidebar width */
-    padding: 2rem;
-  }
-}
-    /* Mobile: move back button higher */
-@media (max-width: 768px) {
-  .back-button {
-    margin-top: 1rem;   /* instead of auto */
-    align-self: flex-start; /* keep it near the top/left */
-  }
-}
-
-
-
+    /* Mobile / Tablet Sidebar Push Aside: max-width 1024px */
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 100vw;
+        height: 100vh;
+        transform: translateX(-100%);
+      }
+      .sidebar.active { transform: translateX(0); }
+      .content { margin-left: 0; transition: margin-left 0.3s ease; }
+      .content.shifted { margin-left: 220px; }
+      .menu-toggle { display: block; z-index: 1100; }
+      .back-button { margin-top: 1rem; align-self: flex-start; }
+    }
   </style>
 </head>
 <body>
 
-<!-- Mobile Menu Toggle -->
-<div class="menu-toggle"><i class="fas fa-bars"></i></div>
+  <!-- Mobile Menu Toggle -->
+  <div class="menu-toggle"><i class="fas fa-bars"></i></div>
 
-<!-- Sidebar -->
-<nav class="sidebar">
-  <h2>Portfolio</h2>
-  <ul>
-    <li><a href="#3d_model">3D Model</a></li>
-    <li><a href="#drawings">Drawings</a></li>
-    <li><a href="#photos">Photos</a></li>
-  </ul>
-  <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back</a>
-</nav>
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <h2>Portfolio</h2>
+    <ul>
+      <li><a href="#3d_model">3D Model</a></li>
+      <li><a href="#drawings">Drawings</a></li>
+      <li><a href="#photos">Photos</a></li>
+    </ul>
+    <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back</a>
+  </nav>
 
-<div class="content">
-  <h1 class="project-title">Box Form - (5'x5'x6')</h1>
+  <!-- Main Content -->
+  <div class="content">
+    <h1 class="project-title">Box Form - (5'x5'x6')</h1>
 
-<section id="3d_model" class="section">
-  <h1>3D Model</h1>
-<model-viewer
-  src="Project_1/3D_Form.glb"
-  alt="3D Model"
-  auto-rotate
-  ar
-  camera-controls
-  exposure="1.1"
-  shadow-intensity="0.8"
-  shadow-softness="0.9"
-  environment-image="neutral"
-  camera-orbit="0deg 70deg 6m"
-  min-camera-orbit="-180deg 0deg 3m"
-  max-camera-orbit="180deg 90deg 10m"
-  field-of-view="40deg"
-</model-viewer>
-</section>
+    <!-- 3D Model Section -->
+    <section id="3d_model" class="section">
+      <h1>3D Model</h1>
+      <model-viewer
+        src="Project_1/3D_Form.glb"
+        alt="3D Model"
+        auto-rotate
+        ar
+        camera-controls
+        exposure="1.1"
+        shadow-intensity="0.8"
+        shadow-softness="0.9"
+        environment-image="neutral"
+        camera-orbit="0deg 70deg 6m"
+        min-camera-orbit="-180deg 0deg 3m"
+        max-camera-orbit="180deg 90deg 10m"
+        field-of-view="40deg">
+      </model-viewer>
+    </section>
 
+    <!-- Drawings Section -->
+    <section id="drawings" class="section">
+      <h1>Drawings</h1>
+      <div class="masonry">
+        <div class="img-wrapper"><img src="Project_1/Drawings/Roller_Assembly.jpg"><span class="overlay">Click to expand</span></div>
+        <div class="img-wrapper"><img src="Project_1/Drawings/Core_Assembly.jpg"><span class="overlay">Click to expand</span></div>
+        <div class="img-wrapper"><img src="Project_1/Drawings/Long_Jacket_Assembly.jpg"><span class="overlay">Click to expand</span></div>
+        <div class="img-wrapper"><img src="Project_1/Drawings/Short_Jacket_Assembly.jpg"><span class="overlay">Click to expand</span></div>
+        <div class="img-wrapper"><img src="Project_1/Drawings/Core_Base_Assembly.jpg"><span class="overlay">Click to expand</span></div>
+        <div class="img-wrapper"><img src="Project_1/Drawings/Form_Assembly.jpg"><span class="overlay">Click to expand</span></div>
+      </div>
+    </section>
 
-  <!-- Drawings -->
-  <section id="drawings" class="section">
-    <h1>Drawings</h1>
-    <div class="masonry">
-      <div class="img-wrapper"><img src="Project_1/Drawings/Roller_Assembly.jpg"><span class="overlay">Click to expand</span></div>
-      <div class="img-wrapper"><img src="Project_1/Drawings/Core_Assembly.jpg"><span class="overlay">Click to expand</span></div>
-      <div class="img-wrapper"><img src="Project_1/Drawings/Long_Jacket_Assembly.jpg"><span class="overlay">Click to expand</span></div>
-      <div class="img-wrapper"><img src="Project_1/Drawings/Short_Jacket_Assembly.jpg"><span class="overlay">Click to expand</span></div>
-      <div class="img-wrapper"><img src="Project_1/Drawings/Core_Base_Assembly.jpg"><span class="overlay">Click to expand</span></div>
-      <div class="img-wrapper"><img src="Project_1/Drawings/Form_Assembly.jpg"><span class="overlay">Click to expand</span></div>
+    <!-- Photos Section -->
+    <section id="photos" class="section">
+      <h1>Photos</h1>
+      <div class="masonry">
+        <div class="img-wrapper"><img src="Project_1/Pictures/Rollers.jpg"><span class="overlay">Click to expand</span></div>
+        <div class="img-wrapper"><img src="Project_1/Pictures/Form_2.jpg"><span class="overlay">Click to expand</span></div>
+        <div class="img-wrapper"><img src="Project_1/Pictures/Jacket.jpg"><span class="overlay">Click to expand</span></div>
+        <div class="img-wrapper"><img src="Project_1/Pictures/Form.jpg"><span class="overlay">Click to expand</span></div>
+        <div class="img-wrapper"><img src="Project_1/Pictures/Form_1.jpg"><span class="overlay">Click to expand</span></div>
+        <div class="img-wrapper"><img src="Project_1/Pictures/Core.jpg"><span class="overlay">Click to expand</span></div>
+      </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox">
+      <span class="close-btn">&times;</span>
+      <img id="lightbox-img" src="">
     </div>
-  </section>
 
-  <!-- Photos -->
-  <section id="photos" class="section">
-    <h1>Photos</h1>
-    <div class="masonry">
-      <div class="img-wrapper"><img src="Project_1/Pictures/Rollers.jpg"><span class="overlay">Click to expand</span></div>
-      <div class="img-wrapper"><img src="Project_1/Pictures/Form_2.jpg"><span class="overlay">Click to expand</span></div>
-      <div class="img-wrapper"><img src="Project_1/Pictures/Jacket.jpg"><span class="overlay">Click to expand</span></div>
-      <div class="img-wrapper"><img src="Project_1/Pictures/Form.jpg"><span class="overlay">Click to expand</span></div>
-      <div class="img-wrapper"><img src="Project_1/Pictures/Form_1.jpg"><span class="overlay">Click to expand</span></div>
-      <div class="img-wrapper"><img src="Project_1/Pictures/Core.jpg"><span class="overlay">Click to expand</span></div>
-    </div>
-  </section>
-
-  <!-- Lightbox -->
-  <div id="lightbox">
-    <span class="close-btn">&times;</span>
-    <img id="lightbox-img" src="">
+    <!-- Footer -->
+    <footer>
+      <p>© 2025 Nathaniel Karau</p>
+    </footer>
   </div>
 
-  <footer>
-    <p>© 2025 Nathaniel Karau</p>
-  </footer>
-</div>
-
-<script>
-  // Lightbox
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-  document.querySelectorAll('.img-wrapper').forEach(wrapper => {
-    wrapper.addEventListener('click', () => {
-      const img = wrapper.querySelector('img');
-      lightbox.style.display = 'flex';
-      lightboxImg.src = img.src;
+  <!-- ================= Scripts ================= -->
+  <script>
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('.img-wrapper').forEach(wrapper => {
+      wrapper.addEventListener('click', () => {
+        const img = wrapper.querySelector('img');
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+      });
     });
-  });
-  document.querySelector('#lightbox .close-btn').addEventListener('click', () => {
-    lightbox.style.display = 'none';
-  });
-  lightbox.addEventListener('click', e => {
-    if (e.target === lightbox) lightbox.style.display = 'none';
-  });
-
-  // Fade-in sections
-  const sections = document.querySelectorAll('.section');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
+    document.querySelector('#lightbox .close-btn').addEventListener('click', () => {
+      lightbox.style.display = 'none';
     });
-  }, { threshold: 0.1 });
-  sections.forEach(section => observer.observe(section));
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) lightbox.style.display = 'none';
+    });
 
-// Mobile Menu - Push Aside
-const menuToggle = document.querySelector('.menu-toggle');
-const sidebar = document.querySelector('.sidebar');
-const content = document.querySelector('.content');
+    // Fade-in sections
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(section => observer.observe(section));
 
-menuToggle.addEventListener('click', () => {
-  sidebar.classList.toggle('active');
-  content.classList.toggle('shifted');
-});
+    // Mobile Menu - Push Aside
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const content = document.querySelector('.content');
 
-// Close sidebar if clicking outside
-document.addEventListener('click', (e) => {
-  if (window.innerWidth <= 1024) {
-    if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-      sidebar.classList.remove('active');
-      content.classList.remove('shifted');
-    }
-  }
-});
-</script>
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      content.classList.toggle('shifted');
+    });
+
+    // Close sidebar if clicking outside
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 1024) {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+          sidebar.classList.remove('active');
+          content.classList.remove('shifted');
+        }
+      }
+    });
+  </script>
 
 </body>
 </html>
