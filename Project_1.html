@@ -74,7 +74,10 @@
       gap: 8px;
       transition: background 0.3s, transform 0.2s;
     }
-    .back-button:hover { background: #ff4d5a; transform: translateX(-3px); }
+    .back-button:hover {
+      background: #ff4d5a;
+      transform: translateX(-3px);
+    }
 
     /* ================= Mobile Menu Toggle ================= */
     .menu-toggle {
@@ -148,20 +151,19 @@
     .img-wrapper:hover span.overlay { opacity: 1; }
 
     /* ================= 3D Model ================= */
-#3d_model {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh; /* full viewport */
-  background: #111;
-}
+    #3d_model {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      background: #111;
+    }
     #3d_model h1 {
       color: var(--accent);
       font-size: 2rem;
       margin-bottom: 1rem;
     }
-
 
     /* ================= Lightbox ================= */
     #lightbox {
@@ -197,8 +199,6 @@
     }
 
     /* ================= Media Queries ================= */
-
-    /* Tablet: 481px–768px */
     @media (min-width: 481px) and (max-width: 768px) {
       .sidebar { transform: translateX(-100%); }
       .sidebar.active { transform: translateX(0); }
@@ -210,37 +210,28 @@
       .masonry { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
       .back-button { margin-top: 1rem; align-self: flex-start; }
     }
-
-    /* Small Laptops / Tablets Landscape: 769px–1024px */
     @media (min-width: 769px) and (max-width: 1024px) {
       .content { margin-left: 200px; }
       #3d_model h1 { font-size: 2.2rem; }
       #3d_model model-viewer { width: 85vw; max-width: 900px; height: 55vh; }
     }
-
-    /* Desktops: 1025px–1439px */
     @media (min-width: 1025px) and (max-width: 1439px) {
       .content { margin-left: 250px; }
       #3d_model h1 { font-size: 2.5rem; }
       #3d_model model-viewer { width: 80vw; max-width: 1000px; height: 60vh; }
     }
-
-    /* Large Desktops: 1440px+ */
     @media (min-width: 1440px) {
       .content { margin-left: 300px; }
       #3d_model h1 { font-size: 2.8rem; }
       #3d_model model-viewer { width: 70vw; max-width: 1200px; height: 70vh; }
     }
-
-    /* Mobile / Tablet Sidebar Push Aside: max-width 1024px */
     @media (max-width: 1024px) {
       .sidebar {
-        width: 100vw;
-        height: 100vh;
+        width: 100vw; height: 100vh;
         transform: translateX(-100%);
       }
       .sidebar.active { transform: translateX(0); }
-      .content { margin-left: 0; transition: margin-left 0.3s ease; }
+      .content { margin-left: 0; }
       .content.shifted { margin-left: 220px; }
       .menu-toggle { display: block; z-index: 1100; }
       .back-button { margin-top: .5rem; align-self: flex-start; }
@@ -268,23 +259,23 @@
   <div class="content">
     <h1 class="project-title">Box Form - (5'x5'x6')</h1>
 
-    <!-- Overview Section -->
-<section id="overview" class="section">
-  <h1>Overview</h1>
-  <p>
-    The (5' x 5' x 6') Box Form was designed to provide a durable and 
-    modular solution for large-scale concrete casting. 
-    I led the CAD modeling and fabrication process, ensuring the form 
-    met strict dimensional and strength requirements while staying within 
-    budget and build time limits.
-  </p>
-  <ul style="text-align:left; max-width:800px; margin:1rem auto;">
-    <li>✅ Designed for structural integrity under heavy loads</li>
-    <li>✅ Easy disassembly and reassembly for reuse</li>
-    <li>✅ Achieved precise tolerances for consistent casting</li>
-  </ul>
-</section>
-    <!-- 3D Model Section -->
+    <!-- Overview -->
+    <section id="overview" class="section">
+      <h1>Overview</h1>
+      <p>
+        The (5' x 5' x 6') Box Form was designed to provide a durable and modular 
+        solution for large-scale concrete casting. I led the CAD modeling and fabrication 
+        process, ensuring the form met strict dimensional and strength requirements 
+        while staying within budget and build time limits.
+      </p>
+      <ul style="text-align:left; max-width:800px; margin:1rem auto;">
+        <li>✅ Designed for structural integrity under heavy loads</li>
+        <li>✅ Easy disassembly and reassembly for reuse</li>
+        <li>✅ Achieved precise tolerances for consistent casting</li>
+      </ul>
+    </section>
+
+    <!-- 3D Model -->
     <section id="3d_model" class="section">
       <h1>3D Model</h1>
       <model-viewer
@@ -301,11 +292,11 @@
         min-camera-orbit="-360deg -360deg 3m"
         max-camera-orbit="360deg 360deg 12m"
         field-of-view="45deg"
-       style="margin: 0 auto; width: 90%; max-width: 500px; height: 50vh; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.7); background-color: #222;"
+        style="margin: 0 auto; width: 90%; max-width: 500px; height: 50vh; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.7); background-color: #222;"
       ></model-viewer>
     </section>
 
-    <!-- Drawings Section -->
+    <!-- Drawings -->
     <section id="drawings" class="section">
       <h1>Drawings</h1>
       <div class="masonry">
@@ -318,7 +309,7 @@
       </div>
     </section>
 
-    <!-- Photos Section -->
+    <!-- Photos -->
     <section id="photos" class="section">
       <h1>Photos</h1>
       <div class="masonry">
@@ -371,17 +362,16 @@
     }, { threshold: 0.1 });
     sections.forEach(section => observer.observe(section));
 
-    // Mobile Menu - Push Aside
+    // Mobile Menu
     const menuToggle = document.querySelector('.menu-toggle');
     const sidebar = document.querySelector('.sidebar');
     const content = document.querySelector('.content');
-
     menuToggle.addEventListener('click', () => {
       sidebar.classList.toggle('active');
       content.classList.toggle('shifted');
     });
 
-    // Close sidebar if clicking outside
+    // Close sidebar on outside click
     document.addEventListener('click', (e) => {
       if (window.innerWidth <= 1024) {
         if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
@@ -391,6 +381,5 @@
       }
     });
   </script>
-
 </body>
 </html>
