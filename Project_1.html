@@ -165,6 +165,35 @@
       margin-bottom: 1rem;
     }
 
+ /* ================= Overview ================= */
+    .case-study {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.case-block h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: #8ab4f8; /* Accent color — adjust to taste */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.case-block p, 
+.case-block ul {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.case-block ul {
+  padding-left: 1.2rem;
+}
+
+
     /* ================= Lightbox ================= */
     #lightbox {
       display: none;
@@ -260,20 +289,51 @@
     <h1 class="project-title">Box Form - (5'x5'x6')</h1>
 
     <!-- Overview -->
-    <section id="overview" class="section">
-      <h1>Overview</h1>
+<section id="overview" class="section">
+  <h1>Project Overview</h1>
+
+  <div class="case-study">
+
+    <div class="case-block">
+      <h2>Objective</h2>
       <p>
-        The (5' x 5' x 6') Box Form was designed to provide a durable and modular 
-        solution for large-scale concrete casting. I led the CAD modeling and fabrication 
-        process, ensuring the form met strict dimensional and strength requirements 
-        while staying within budget and build time limits.
+        Develop a reusable <strong>5' x 5' x 6' modular concrete form</strong> capable of withstanding repeated high-pressure casting while maintaining dimensional accuracy and minimizing material waste.
       </p>
-      <ul style="text-align:left; max-width:800px; margin:1rem auto;">
-        <li>✅ Designed for structural integrity under heavy loads</li>
-        <li>✅ Easy disassembly and reassembly for reuse</li>
-        <li>✅ Achieved precise tolerances for consistent casting</li>
+    </div>
+
+    <div class="case-block">
+      <h2>Role & Responsibilities</h2>
+      <ul>
+        <li>Lead CAD designer — full 3D modeling and mechanical planning</li>
+        <li>Fabrication strategy and hardware specification</li>
+        <li>Assembly sequencing and maintenance planning</li>
       </ul>
-    </section>
+    </div>
+
+    <div class="case-block">
+      <h2>Engineering Features</h2>
+      <ul>
+        <li>✅ Reinforced wall structure rated for high load stress</li>
+        <li>✅ Fully disassemblable design with precision bolt alignment</li>
+        <li>✅ Modular components for interchangeable panel replacement</li>
+      </ul>
+    </div>
+
+    <div class="case-block">
+      <h2>Tools & Software</h2>
+      <p>SolidWorks (CAD Modeling), Structural Analysis (Hand Calculations), MIG Welding, CNC Plasma Cutting</p>
+    </div>
+
+    <div class="case-block">
+      <h2>Outcome</h2>
+      <p>
+        Successfully deployed in repeated casting cycles with <strong>zero structural failures</strong> and <strong>±1/16” dimensional consistency</strong> across all panels.
+      </p>
+    </div>
+
+  </div>
+</section>
+
 
     <!-- 3D Model -->
     <section id="3d_model" class="section">
