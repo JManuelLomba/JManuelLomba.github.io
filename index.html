@@ -99,19 +99,7 @@
     .project-card { width: 250px; height: 250px; background: #333; color: #e0e0e0; padding: 1rem; border-radius: 10px; box-shadow: 0 8px 15px rgba(0,0,0,0.3); cursor: pointer; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; transition: transform 0.3s; }
     .project-card:hover { transform: translateY(-10px); }
     .project-card img { width: 100%; height: 180px; border-radius: 8px; object-fit: cover; margin-bottom:0.8rem; }
-   .project-card .overlay {
-  position: absolute;
-  inset: 0; /* fills the entire card */
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;       /* bigger text */
-  font-weight: bold;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
+    .project-card .overlay {  position: absolute;  inset: 0; background: rgba(0, 0, 0, 0.6);color: white;  display: flex;  align-items: center;  justify-content: center;  font-size: 2rem; font-weight: bold;  opacity: 0;  transition: opacity 0.3s ease;}
     .project-card:hover .overlay {  opacity: 1;}
 
     /* Lightbox */
@@ -243,9 +231,11 @@
     <section id="work-experience" class="section work-experience">
       <h1>Work Experience</h1>
       <h3>Awards/Achievements</h3>
+      <p>(Click to Expand)</p>
       <div class="work-experience-list">
         <!-- Wieser Form Fabrication -->
         <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
+          <span class="overlay">Click to Expand</span>
           <h3>2024 - Present</h3>
           <p><strong>Wieser Form Fabrication | Engineering Project Manager</strong></p>
           <div class="description">
@@ -262,6 +252,7 @@
 
         <!-- Viracon -->
         <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
+          <span class="overlay">Click to Expand</span>
           <h3>2023 - 2024</h3> 
           <p><strong>Viracon | Senior Engineering Design Experience (Capstone)</strong></p>
           <div class="description"> 
@@ -280,6 +271,7 @@
 
             <!-- Walmart -->
               <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
+                <span class="overlay">Click to Expand</span>
         <h3>2022 - 2024</h3>
         <p><strong> Walmart | Stocking Associate (CAP 1)</strong></p> 
         <div class="description"> 
@@ -299,6 +291,7 @@
         
         <!-- Midwest Manufacturing -->
       <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
+        <span class="overlay">Click to Expand</span>
         <h3>2022 - 2022 (Internship)</h3>
         <p><strong>Midwest Manufacturing | Engineering Manager Intern</strong></p> 
         <div class="description"> 
@@ -318,6 +311,7 @@
 
         <!-- Stout University -->
         <div class="work-experience-item" onclick="toggleDescription(this)" title="Click to open">
+          <span class="overlay">Click to Expand</span>
           <h3>2018 - 2022</h3> 
           <p><strong>University of Wisconsin - Stout | Track & Field Team Member</strong></p>
           <div class="description">
@@ -338,10 +332,11 @@
         <!-- PROJECTS SECTION -->
     <section id="projects" class="section projects">
       <h1>Projects</h1>
+      <p>(Click to View Projects)</p>
       <div class="project-list">
         <div class="project-card" onclick="window.location.href='Project_1.html'">
           <img src="Project_1/Pictures/Cover_Picture_5'x5'x6'.jpg" alt="Project 1">
-          <span class="overlay">View Project</span>
+          <span class="overlay">Click to View Project</span>
           <h3>Box Form - (5'x5'x6')</h3>
         </div>
         
