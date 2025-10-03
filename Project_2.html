@@ -68,8 +68,8 @@
     .img-wrapper:hover span.overlay{opacity:1}
 
     /* ---------- 3D Model ---------- */
-    #3d_model{display:flex;flex-direction:center;align-items:center;justify-content:center;min-height:100vh;background:var(--panel);padding:2rem;border-radius:12px;max-width:var(--max-width);margin:0 auto}
-    model-viewer{width:100%;height:60vh;border-radius:12px;background:#222;box-shadow:0 8px 25px rgba(0,0,0,.6)}
+    #3d_model { display: flex; justify-content: center; align-items: center; text-align: center; min-height: 100vh; background: #111; }
+    #3d_model h1 { color: var(--accent); font-size: 2rem; margin-bottom: 1rem;}
 
     /* ---------- Case Study ---------- */
     .case-study{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:2rem;text-align:left}
@@ -189,16 +189,19 @@
       <h1 id="model-heading">3D Model</h1>
       <model-viewer
         src="Project_1/3D_Form.glb"
-        alt="3D Model of box form"
-        ar
+        alt="3D Model"
         auto-rotate
+        ar
         camera-controls
         exposure="1.1"
         shadow-intensity="0.8"
         shadow-softness="0.9"
         environment-image="neutral"
         camera-orbit="0deg 65deg 8m"
-        style="width:100%;max-width:900px;height:55vh;"
+        min-camera-orbit="-360deg -360deg 3m"
+        max-camera-orbit="360deg 360deg 12m"
+        field-of-view="45deg"
+        style="margin: 0 auto; width: 90%; max-width: 500px; height: 50vh; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.7); background-color: #222;"
       ></model-viewer>
     </section>
 
