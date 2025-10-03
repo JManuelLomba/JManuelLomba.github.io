@@ -26,20 +26,16 @@
     a{color:inherit}
 
     /* ---------- Layout ---------- */
-    .sidebar{
-      position:fixed;top:0;left:0;height:100vh;
-      width:240px;
-      background:var(--panel); /* solid per your preference */
-      padding:2rem 1rem;
-      display:flex;flex-direction:column;align-items:center;
-      gap:1rem;z-index:1400;
-      transition:transform .28s ease,opacity .28s ease;
-    }
-    .sidebar h2{color:var(--accent);margin-bottom:4px}
-    .sidebar ul{list-style:none;width:100%;flex:1;display:flex;flex-direction:column;gap:1rem;align-items:center}
-    .sidebar a{display:block;text-decoration:none;color:var(--text);font-weight:700;font-size:1.05rem;padding:.25rem 0}
-    .back-button{margin-top:auto;background:#e63946;color:#fff;text-decoration:none;font-weight:700;font-size:1rem;padding:.55rem 0.9rem;border-radius:8px;display:flex;align-items:center;gap:.5rem}
-    .back-button:hover{transform:translateX(-3px);}
+    .sidebar { position: fixed;  top: 0; left: 0; width: 220px; height: 100%; background: #111; padding: 2rem 1rem; display: flex; flex-direction: column; align-items: center;
+      transition: transform 0.3s ease; z-index: 100;}
+    .sidebar h2 { color: var(--accent); margin-bottom: 2rem;}
+    .sidebar ul { list-style: none; width: 100%; flex-grow: 1;}
+    .sidebar ul li { margin: 1.5rem 0; text-align: center;}
+    .sidebar ul li a { color: #e0e0e0; text-decoration: none; font-weight: bold; font-size: 1.2rem; transition: color 0.3s;}
+    .sidebar ul li a:hover { color: var(--accent); }
+    .back-button { margin-top: auto;  background: #e63946;  color: white;  text-decoration: none;  font-weight: bold;  font-size: 1.1rem;  padding: 0.6rem 1rem;
+      border-radius: 8px;  display: flex;  align-items: center;  gap: 8px;  transition: background 0.3s, transform 0.2s;}
+    .back-button:hover { background: #ff4d5a;  transform: translateX(-3px);}
 
     /* ---------- Mobile Toggle & Overlay ---------- */
     .menu-toggle{
