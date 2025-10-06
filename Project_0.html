@@ -241,22 +241,28 @@
       </div>
     </section>
 
-    <!-- Lightbox -->
-    <div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
-      <button class="close-btn" aria-label="Close image" title="Close" id="lbCloseBtn">&times;</button>
-      <img id="lightbox-img" src="" alt="Expanded view">
-    </div>
-    
-    <!-- Lightbox: supports images OR iframe (PDF fullscreen) -->
+
+  <!-- ✅ Unified Lightbox for Images + PDF -->
 <div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
   <button class="close-btn" aria-label="Close" title="Close" id="lbCloseBtn">&times;</button>
 
-  <!-- iframe for PDFs / presentations (hidden unless used) -->
-  <iframe id="lightbox-iframe" src="" title="Fullscreen presentation" style="display:none;border:0;width:100%;height:100%;max-width:1200px;max-height:90vh;border-radius:8px;"></iframe>
+  <!-- PDF iframe (hidden until active) -->
+  <iframe
+    id="lightbox-iframe"
+    src=""
+    title="Fullscreen presentation"
+    style="display:none;border:0;width:100%;height:100%;max-width:1200px;max-height:90vh;border-radius:8px;"
+  ></iframe>
 
-  <!-- fallback image element (keeps existing image-lightbox behavior) -->
-  <img id="lightbox-img" src="" alt="Expanded view" style="display:none;">
+  <!-- Image element (hidden unless an image is opened) -->
+  <img
+    id="lightbox-img"
+    src=""
+    alt="Expanded view"
+    style="display:none;max-width:95%;max-height:85%;object-fit:contain;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.8);"
+  >
 </div>
+  
 
     <!-- Footer -->
     <footer>
@@ -318,102 +324,71 @@
     }, { threshold: 0.12 });
     sections.forEach(s => observer.observe(s));
 
-    // ---------- Lightbox behavior ----------
-    function openLightbox(src, alt) {
-      lightboxImg.src = src;
-      lightboxImg.alt = alt || 'Expanded image';
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden','false');
-      lbCloseBtn.focus();
+// ---------- Lightbox Unified (Images + PDF) ----------
+const lightboxIframe = document.getElementById('lightbox-iframe');
+
+// Open fullscreen (image or PDF)
+function openLightbox(src, alt, isPDF = false) {
+  if (isPDF) {
+    lightboxImg.style.display = "none";
+    lightboxIframe.style.display = "block";
+    lightboxIframe.src = src;
+  } else {
+    lightboxIframe.style.display = "none";
+    lightboxImg.style.display = "block";
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || "Expanded image";
+  }
+  lightbox.classList.add("open");
+  lightbox.setAttribute("aria-hidden", "false");
+  lbCloseBtn.focus();
+}
+
+// Close fullscreen
+function closeLightbox() {
+  lightbox.classList.remove("open");
+  lightbox.setAttribute("aria-hidden", "true");
+  lightboxImg.src = "";
+  lightboxIframe.src = ""; // Stop PDF if playing
+}
+
+// Click PDF to open fullscreen as PDF
+document.querySelector('.pdf-wrapper').addEventListener('click', () => {
+  openLightbox("Project_0/Presentation/Tilt_Table_Presentation.pdf#view=FitW", "", true);
+});
+
+// Click images to open fullscreen
+document.querySelectorAll('.img-wrapper').forEach(wrapper => {
+  wrapper.addEventListener('click', () => {
+    const img = wrapper.querySelector('img');
+    openLightbox(img.src, img.alt);
+  });
+  wrapper.setAttribute('tabindex','0');
+  wrapper.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      const img = wrapper.querySelector('img');
+      openLightbox(img.src, img.alt);
     }
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden','true');
-      lightboxImg.src = '';
-    }
+  });
+});
 
-    // Click images to open
-    document.querySelectorAll('.img-wrapper').forEach(wrapper => {
-      wrapper.addEventListener('click', () => {
-        const img = wrapper.querySelector('img');
-        openLightbox(img.src, img.alt);
-      });
-      // keyboard access
-      wrapper.setAttribute('tabindex','0');
-      wrapper.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const img = wrapper.querySelector('img');
-          openLightbox(img.src, img.alt);
-        }
-      });
-    });
+// Close controls
+lbCloseBtn.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) closeLightbox();
+});
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (lightbox.classList.contains('open')) closeLightbox();
+    if (sidebar.classList.contains('active') && window.innerWidth <= 767) closeSidebar();
+  }
+});
 
-    // Close controls
-    lbCloseBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-      // If user clicked the backdrop (not the img or close button), close
-      if (e.target === lightbox) closeLightbox();
-    });
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        if (lightbox.classList.contains('open')) closeLightbox();
-        if (sidebar.classList.contains('active') && window.innerWidth <= 767) closeSidebar();
-      }
-    });
 
-    // Lightbox swipe-to-close (vertical swipe)
-    (function addSwipeClose(el) {
-      let startY = null;
-      let moved = false;
-      el.addEventListener('touchstart', (e) => {
-        if (e.touches && e.touches.length === 1) {
-          startY = e.touches[0].clientY;
-          moved = false;
-        }
-      }, {passive:true});
-      el.addEventListener('touchmove', (e) => {
-        if (!startY) return;
-        const currentY = e.touches[0].clientY;
-        const diff = currentY - startY;
-        if (Math.abs(diff) > 20) moved = true;
-      }, {passive:true});
-      el.addEventListener('touchend', (e) => {
-        if (!moved) { startY = null; return; }
-        const endY = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : null;
-        if (startY && endY) {
-          const delta = endY - startY;
-          // swipe up or down to close
-          if (Math.abs(delta) > 80) closeLightbox();
-        }
-        startY = null; moved = false;
-      });
-    })(lightbox);
+	  
 
-    // ---------- Ensure model-viewer scales nicely on resize ----------
-    function adjustModelViewerHeight() {
-      const mv = document.querySelector('model-viewer');
-      if (!mv) return;
-      if (window.innerWidth < 480) mv.style.height = '40vh';
-      else if (window.innerWidth < 768) mv.style.height = '45vh';
-      else if (window.innerWidth < 1024) mv.style.height = '55vh';
-      else mv.style.height = '60vh';
-    }
-    window.addEventListener('resize', adjustModelViewerHeight);
-    adjustModelViewerHeight();
-
-    // ---------- Small UX improvements ----------
-    // Trap focus inside sidebar when it's open on mobile? We keep allow-scroll so focus-trap is not necessary.
-    // But we ensure keyboard users can toggle menu with Escape (handled above) and the toggle button is labeled.
-
-    // If user reloads while sidebar active on small screens, ensure state is consistent
-    window.addEventListener('load', () => {
-      if (window.innerWidth <= 767) {
-        sidebar.classList.remove('active');
-        mobileOverlay.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded','false');
-      }
-    });
+	  
   </script>
 </body>
 </html>
