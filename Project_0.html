@@ -64,9 +64,14 @@
     .img-wrapper span.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;background:rgba(0,0,0,.45);color:#fff;border-radius:8px;opacity:0;transition:opacity .2s}
     .img-wrapper:hover span.overlay{opacity:1}
 
-    /* ---------- 3D Model ---------- */
-    #3d_model { display: flex; justify-content: center; align-items: center; text-align: center; min-height: 100vh; background: #111; }
-    #3d_model h1 { color: var(--accent); font-size: 2rem; margin-bottom: 1rem;}
+   /* Presentation styles */
+.pdf-wrapper{max-width:900px;margin:0 auto;cursor:pointer;outline:none}
+.pdf-container{background:#111;border-radius:12px;box-shadow:0 8px 25px rgba(0,0,0,0.7);overflow:hidden;border:1px solid #222}
+.pdf-frame{width:100%;height:70vh;border:0;display:block;background:#111}
+.pdf-hint{text-align:center;color:var(--muted);font-size:0.95rem;margin-top:.6rem}
+
+/* When the inline iframe is focused, give a subtle ring for accessibility */
+.pdf-wrapper:focus{box-shadow:0 0 0 3px rgba(0,170,255,0.12), 0 8px 25px rgba(0,0,0,0.6);border-radius:12px}
 
     /* ---------- Case Study ---------- */
     .case-study{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:2rem;text-align:left}
@@ -136,7 +141,7 @@
     <h2>Portfolio</h2>
     <ul>
       <li><a href="#overview">Overview</a></li>
-      <li><a href="#3d_model">3D Model</a></li>
+      <li><a href="#presentation">Presentation</a></li>
       <li><a href="#drawings">Drawings</a></li>
       <li><a href="#photos">Photos</a></li>
     </ul>
@@ -189,26 +194,26 @@
       </div>
     </section>
 
-    <!-- 3D Model -->
-    <section id="#3d_model" class="section" aria-labelledby="model-heading">
-      <h1 id="model-heading">3D Model</h1>
-      <model-viewer
-        src="Project_0/3D_Tilt_Table.glb"
-        alt="3D Model"
-        auto-rotate
-        ar
-        camera-controls
-        exposure="1.1"
-        shadow-intensity="0.8"
-        shadow-softness="0.9"
-        environment-image="neutral"
-        camera-orbit="0deg 65deg 8m"
-        min-camera-orbit="-360deg -360deg 3m"
-        max-camera-orbit="360deg 360deg 12m"
-        field-of-view="45deg"
-        style="margin: 0 auto; width: 90%; max-width: 500px; height: 50vh; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.7); background-color: #222;"
-      ></model-viewer>
-    </section>
+<!-- Presentation (vertical PDF) -->
+<section id="presentation" class="section" aria-labelledby="presentation-heading">
+  <h1 id="presentation-heading">Project Presentation</h1>
+
+  <div class="pdf-wrapper" tabindex="0" role="button" aria-pressed="false" aria-label="Open presentation fullscreen">
+    <div class="pdf-container" id="pdfContainer">
+      <!-- Embedded PDF. Use fragment to fit width and allow native scroll. -->
+      <iframe
+        id="pdfFrameInline"
+        src="Project_0/Presentation/presentation.pdf#view=FitW"
+        title="Tilt Table Presentation"
+        class="pdf-frame"
+        loading="lazy"
+        aria-label="Presentation PDF"
+      ></iframe>
+    </div>
+
+    <div class="pdf-hint" aria-hidden="true">Click to open fullscreen • Scroll to browse</div>
+  </div>
+</section>
 
     <!-- Drawings -->
     <section id="drawings" class="section" aria-labelledby="drawings-heading">
@@ -241,6 +246,17 @@
       <button class="close-btn" aria-label="Close image" title="Close" id="lbCloseBtn">&times;</button>
       <img id="lightbox-img" src="" alt="Expanded view">
     </div>
+    
+    <!-- Lightbox: supports images OR iframe (PDF fullscreen) -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="close-btn" aria-label="Close" title="Close" id="lbCloseBtn">&times;</button>
+
+  <!-- iframe for PDFs / presentations (hidden unless used) -->
+  <iframe id="lightbox-iframe" src="" title="Fullscreen presentation" style="display:none;border:0;width:100%;height:100%;max-width:1200px;max-height:90vh;border-radius:8px;"></iframe>
+
+  <!-- fallback image element (keeps existing image-lightbox behavior) -->
+  <img id="lightbox-img" src="" alt="Expanded view" style="display:none;">
+</div>
 
     <!-- Footer -->
     <footer>
@@ -248,7 +264,7 @@
     </footer>
   </main>
 
-  <!-- Scripts -->
+ <!-- Scripts -->
   <script>
     // Elements
     const menuToggle = document.getElementById('menuToggle');
