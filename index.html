@@ -140,6 +140,34 @@
     }
     
       /* ---------- Responsive rules ---------- */
+/* Center work experience items on mobile */
+@media screen and (max-width: 768px) {
+  .work-experience-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Center all items */
+    gap: 1.5rem;
+    width: 100%;
+    padding: 0;
+  }
+
+  .work-experience-item {
+    width: 90%;            /* Make cards smaller and centered */
+    text-align: center;    /* Center text inside each card */
+  }
+
+  .work-experience-item h3,
+  .work-experience-item p {
+    text-align: center;    /* Center headings and paragraphs */
+  }
+
+  .work-experience-item .description p {
+    text-align: center;    /* Center description text */
+  }
+}
+
+
+	  
     /* Mobile first adjustments */
     @media (max-width:767px){
       .sidebar{transform:translateX(-105%);width:85vw;max-width:320px;padding:3rem;align-items:center}
