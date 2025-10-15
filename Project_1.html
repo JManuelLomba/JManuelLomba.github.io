@@ -57,12 +57,10 @@
     .section h1 { margin-bottom: 1.5rem; color: #fff; }
 
 	  /* Center only the 3D model */
-#3d_model {
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* vertical centering */
-  align-items: center;     /* horizontal centering */
-  min-height: 100vh;       /* fill viewport height */
+#3d_model model-viewer {
+  display: block;
+  margin: 0 auto;   /* centers horizontally */
+  background: #111; /* keep your dark background if you want */
 }
 
     /* ---------- Masonry/Images ---------- */
