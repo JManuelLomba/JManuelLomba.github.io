@@ -56,13 +56,6 @@
     .section.visible { opacity: 1; transform: translateY(0); }
     .section h1 { margin-bottom: 1.5rem; color: #fff; }
 
-	  /* Center only the 3D model */
-#3d_model model-viewer {
-  display: block;
-  margin: 0 auto;   /* centers horizontally */
-  background: #111; /* keep your dark background if you want */
-}
-
     /* ---------- Masonry/Images ---------- */
     .masonry{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem;max-width:1100px;margin:0 auto}
     .img-wrapper{position:relative;cursor:pointer;overflow:hidden;border-radius:8px}
@@ -200,7 +193,7 @@
 	shadow-intensity="1.77" 
 	alt="Box Form 3D Model" 
 	loading="eager" 
-	style="width: 100%; max-width: 800px; height: 60vh; border-radius: 12px; background-color:#222;" auto-rotate exposure="0.59" shadow-softness="0.53" environment-image="legacy"> 
+	style="width: 100%; margin: 0 auto; max-width: 800px; height: 60vh; border-radius: 12px; background-color:#222;" auto-rotate exposure="0.59" shadow-softness="0.53" environment-image="legacy"> 
 </model-viewer>
 
     </section>
