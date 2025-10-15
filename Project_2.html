@@ -75,6 +75,10 @@
     #lightbox img{max-width:95%;max-height:85%;object-fit:contain;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.8)}
     #lightbox .close-btn{position:absolute;top:18px;right:28px;font-size:2rem;color:#fff;cursor:pointer}
     #lightbox .close-btn:focus{outline:2px solid var(--accent)}
+	#lightbox .nav-btn {  position: absolute;  top: 50%;  transform: translateY(-50%);  font-size: 2.5rem;  color: white; background: rgba(0,0,0,0.5);  border: none;  cursor: pointer;  padding: 0.6rem 1rem;  border-radius: 6px; user-select: none;  transition: background 0.3s;}
+	#lightbox .nav-btn:hover {  background: rgba(0,0,0,0.75);}
+	#lbPrevBtn { left: 20px; }
+	#lbNextBtn { right: 20px; }
 
     /* ---------- Footer ---------- */
     footer{text-align:center;padding:1.25rem;background:var(--panel);color:var(--muted);margin-top:2rem;border-radius:6px}
@@ -227,11 +231,13 @@
       </div>
     </section>
 
-    <!-- Lightbox -->
-    <div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
-      <button class="close-btn" aria-label="Close image" title="Close" id="lbCloseBtn">&times;</button>
-      <img id="lightbox-img" src="" alt="Expanded view">
-    </div>
+<!-- Lightbox -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="close-btn" aria-label="Close image" title="Close" id="lbCloseBtn">&times;</button>
+  <button class="nav-btn prev" id="lbPrevBtn" aria-label="Previous image">&#10094;</button>
+  <img id="lightbox-img" src="" alt="Expanded view">
+  <button class="nav-btn next" id="lbNextBtn" aria-label="Next image">&#10095;</button>
+</div>
 
     <!-- Footer -->
     <footer>
@@ -324,6 +330,53 @@
       });
     });
 
+// Collect all lightbox images (drawings + photos)
+const imgWrappers = document.querySelectorAll('.img-wrapper');
+let currentIndex = -1; // track which image is open
+
+function openLightbox(src, alt, index) {
+  lightboxImg.src = src;
+  lightboxImg.alt = alt || 'Expanded image';
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden','false');
+  currentIndex = index;
+  lbCloseBtn.focus();
+}
+
+function showImage(index) {
+  if (index < 0) index = imgWrappers.length - 1;
+  if (index >= imgWrappers.length) index = 0;
+  const img = imgWrappers[index].querySelector('img');
+  openLightbox(img.src, img.alt, index);
+}
+
+// Click to open
+imgWrappers.forEach((wrapper, i) => {
+  wrapper.addEventListener('click', () => {
+    const img = wrapper.querySelector('img');
+    openLightbox(img.src, img.alt, i);
+  });
+  wrapper.setAttribute('tabindex','0');
+  wrapper.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      const img = wrapper.querySelector('img');
+      openLightbox(img.src, img.alt, i);
+    }
+  });
+});
+
+// Nav buttons
+document.getElementById('lbPrevBtn').addEventListener('click', () => showImage(currentIndex - 1));
+document.getElementById('lbNextBtn').addEventListener('click', () => showImage(currentIndex + 1));
+
+// Keyboard support
+window.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+  if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+});
+	  
     // Close controls
     lbCloseBtn.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => {
