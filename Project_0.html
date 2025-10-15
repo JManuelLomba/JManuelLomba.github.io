@@ -269,11 +269,15 @@
 </section>
 
 
-  <!-- ✅ Unified Lightbox for Images + PDF -->
+<!-- ✅ Unified Lightbox -->
 <div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
   <button class="close-btn" aria-label="Close" title="Close" id="lbCloseBtn">&times;</button>
 
-  <!-- PDF iframe (hidden until active) -->
+  <!-- Prev/Next only show for images -->
+  <button class="nav-btn prev" id="lbPrevBtn" aria-label="Previous image">&#10094;</button>
+  <button class="nav-btn next" id="lbNextBtn" aria-label="Next image">&#10095;</button>
+
+  <!-- PDF iframe -->
   <iframe
     id="lightbox-iframe"
     src=""
@@ -281,21 +285,13 @@
     style="display:none;border:0;width:100%;height:100%;max-width:1200px;max-height:90vh;border-radius:8px;"
   ></iframe>
 
-  <!-- Image element (hidden unless an image is opened) -->
+  <!-- Image -->
   <img
     id="lightbox-img"
     src=""
     alt="Expanded view"
     style="display:none;max-width:95%;max-height:85%;object-fit:contain;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.8);"
   >
-</div>
-
-	  <!-- Lightbox -->
-<div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
-  <button class="close-btn" aria-label="Close image" title="Close" id="lbCloseBtn">&times;</button>
-  <button class="nav-btn prev" id="lbPrevBtn" aria-label="Previous image">&#10094;</button>
-  <img id="lightbox-img" src="" alt="Expanded view">
-  <button class="nav-btn next" id="lbNextBtn" aria-label="Next image">&#10095;</button>
 </div>
   
 
@@ -307,168 +303,101 @@
 
  <!-- Scripts -->
   <script>
-    // Elements
-    const menuToggle = document.getElementById('menuToggle');
-    const sidebar = document.getElementById('sidebar');
-    const mobileOverlay = document.getElementById('mobileOverlay');
-    const content = document.querySelector('.content');
-    const sections = document.querySelectorAll('.section');
-
-    // Lightbox
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lbCloseBtn = document.getElementById('lbCloseBtn');
-
-    // ---------- Sidebar toggle (mobile) ----------
-    function openSidebar() {
-      sidebar.classList.add('active');
-      menuToggle.setAttribute('aria-expanded', 'true');
-      mobileOverlay.classList.add('active');
-      // NOTE: overlay is visual-only (pointer-events: none). We keep page scrollable behind.
-      // Focus the first link for accessibility
-      const firstLink = sidebar.querySelector('a');
-      if (firstLink) firstLink.focus();
-    }
-    function closeSidebar() {
-      sidebar.classList.remove('active');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      mobileOverlay.classList.remove('active');
-      menuToggle.focus();
-    }
-
-    menuToggle.addEventListener('click', () => {
-      if (sidebar.classList.contains('active')) closeSidebar();
-      else openSidebar();
-    });
-
-    // Close sidebar if a nav link is clicked (mobile)
-    sidebar.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        if (window.innerWidth <= 767) closeSidebar();
-      });
-    });
-
-    // If user taps outside when sidebar is active, we DO NOT auto-close (to honor "allow scroll").
-    // You can close with the hamburger again.
-
-    // ---------- Section fade-in (IntersectionObserver) ----------
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.12 });
-    sections.forEach(s => observer.observe(s));
-
-// ---------- Lightbox Unified (Images + PDF) ----------
+// Lightbox elements
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
 const lightboxIframe = document.getElementById('lightbox-iframe');
+const lbCloseBtn = document.getElementById('lbCloseBtn');
+const lbPrevBtn = document.getElementById('lbPrevBtn');
+const lbNextBtn = document.getElementById('lbNextBtn');
 
-// Open fullscreen (image or PDF)
-function openLightbox(src, alt, isPDF = false) {
-  if (isPDF) {
+const imgWrappers = document.querySelectorAll('.img-wrapper');
+let currentIndex = -1;
+let isPDF = false;
+
+// Open fullscreen
+function openLightbox(src, alt = "", index = -1, pdf = false) {
+  isPDF = pdf;
+  currentIndex = index;
+
+  if (pdf) {
     lightboxImg.style.display = "none";
+    lbPrevBtn.style.display = "none";
+    lbNextBtn.style.display = "none";
     lightboxIframe.style.display = "block";
     lightboxIframe.src = src;
   } else {
     lightboxIframe.style.display = "none";
     lightboxImg.style.display = "block";
+    lbPrevBtn.style.display = "block";
+    lbNextBtn.style.display = "block";
     lightboxImg.src = src;
     lightboxImg.alt = alt || "Expanded image";
   }
+
   lightbox.classList.add("open");
   lightbox.setAttribute("aria-hidden", "false");
   lbCloseBtn.focus();
 }
 
-// Collect all lightbox images (drawings + photos)
-const imgWrappers = document.querySelectorAll('.img-wrapper');
-let currentIndex = -1; // track which image is open
-
-function openLightbox(src, alt, index) {
-  lightboxImg.src = src;
-  lightboxImg.alt = alt || 'Expanded image';
-  lightbox.classList.add('open');
-  lightbox.setAttribute('aria-hidden','false');
-  currentIndex = index;
-  lbCloseBtn.focus();
-}
-
+// Show image by index
 function showImage(index) {
   if (index < 0) index = imgWrappers.length - 1;
   if (index >= imgWrappers.length) index = 0;
   const img = imgWrappers[index].querySelector('img');
-  openLightbox(img.src, img.alt, index);
+  openLightbox(img.src, img.alt, index, false);
 }
 
-// Click to open
-imgWrappers.forEach((wrapper, i) => {
-  wrapper.addEventListener('click', () => {
-    const img = wrapper.querySelector('img');
-    openLightbox(img.src, img.alt, i);
-  });
-  wrapper.setAttribute('tabindex','0');
-  wrapper.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      const img = wrapper.querySelector('img');
-      openLightbox(img.src, img.alt, i);
-    }
-  });
-});
-
-// Nav buttons
-document.getElementById('lbPrevBtn').addEventListener('click', () => showImage(currentIndex - 1));
-document.getElementById('lbNextBtn').addEventListener('click', () => showImage(currentIndex + 1));
-
-// Keyboard support
-window.addEventListener('keydown', (e) => {
-  if (!lightbox.classList.contains('open')) return;
-  if (e.key === 'ArrowRight') showImage(currentIndex + 1);
-  if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
-});
-	
-// Close fullscreen
+// Close
 function closeLightbox() {
   lightbox.classList.remove("open");
   lightbox.setAttribute("aria-hidden", "true");
   lightboxImg.src = "";
-  lightboxIframe.src = ""; // Stop PDF if playing
+  lightboxIframe.src = "";
+  currentIndex = -1;
+  isPDF = false;
 }
 
-// Click PDF to open fullscreen as PDF
-document.querySelector('.pdf-wrapper').addEventListener('click', () => {
-  openLightbox("Project_0/Presentation/Tilt_Table_Presentation.pdf#view=FitW", "", true);
-});
-
-// Click images to open fullscreen
-document.querySelectorAll('.img-wrapper').forEach(wrapper => {
+// Bind click events for images
+imgWrappers.forEach((wrapper, i) => {
   wrapper.addEventListener('click', () => {
     const img = wrapper.querySelector('img');
-    openLightbox(img.src, img.alt);
+    openLightbox(img.src, img.alt, i, false);
   });
   wrapper.setAttribute('tabindex','0');
   wrapper.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       const img = wrapper.querySelector('img');
-      openLightbox(img.src, img.alt);
+      openLightbox(img.src, img.alt, i, false);
     }
   });
 });
 
-// Close controls
+// PDF click
+document.querySelector('.pdf-wrapper').addEventListener('click', () => {
+  openLightbox("Project_0/Presentation/Tilt_Table_Presentation.pdf#view=FitW", "", -1, true);
+});
+
+// Prev/Next
+lbPrevBtn.addEventListener('click', () => showImage(currentIndex - 1));
+lbNextBtn.addEventListener('click', () => showImage(currentIndex + 1));
+
+// Keyboard support
+window.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('open')) return;
+  if (!isPDF) {
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+  }
+  if (e.key === 'Escape') closeLightbox();
+});
+
+// Close click
 lbCloseBtn.addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', (e) => {
   if (e.target === lightbox) closeLightbox();
 });
-window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    if (lightbox.classList.contains('open')) closeLightbox();
-    if (sidebar.classList.contains('active') && window.innerWidth <= 767) closeSidebar();
-  }
-});
-
-
-	  
 
 	  
   </script>
