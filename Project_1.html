@@ -189,22 +189,17 @@
     <!-- 3D Model -->
     <section id="3d_model" class="section" aria-labelledby="model-heading">
       <h1 id="model-heading">3D Model</h1>
-      <model-viewer
-        src="Project_1/3D_Form.glb"
-        alt="3D Model"
-        auto-rotate
-        ar
-        camera-controls
-        exposure="1.1"
-        shadow-intensity="0.8"
-        shadow-softness="0.9"
-        environment-image="neutral"
-        camera-orbit="0deg 65deg 8m"
-        min-camera-orbit="-360deg -360deg 3m"
-        max-camera-orbit="360deg 360deg 12m"
-        field-of-view="45deg"
-        style="margin: 0 auto; width: 90%; max-width: 500px; height: 50vh; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.7); background-color: #222;"
-      ></model-viewer>
+<model-viewer src="3D_Form.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="0.2" environment-image="legacy" exposure="0.2" shadow-softness="0">
+    <div class="progress-bar hide" slot="progress-bar">
+        <div class="update-bar"></div>
+    </div>
+    <button slot="ar-button" id="ar-button">
+        View in your space
+    </button>
+    <div id="ar-prompt">
+        <img src="https://modelviewer.dev/shared-assets/icons/hand.png">
+    </div>
+</model-viewer>
     </section>
 
     <!-- Drawings -->
