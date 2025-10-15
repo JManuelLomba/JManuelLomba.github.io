@@ -397,6 +397,17 @@
     if (e.key === "ArrowLeft") changeSlide(-1);
     if (e.key === "ArrowRight") changeSlide(1);
   });
+
+const sections = document.querySelectorAll('.section');
+function revealSections() {
+  const triggerBottom = window.innerHeight * 0.85;
+  sections.forEach(sec => {
+    const secTop = sec.getBoundingClientRect().top;
+    if (secTop < triggerBottom) sec.classList.add('visible');
+  });
+}
+window.addEventListener('scroll', revealSections);
+revealSections(); // run on load
 	  
   </script>
 </body>
