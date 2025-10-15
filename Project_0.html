@@ -87,7 +87,10 @@
     width: 100%; height: 100%;
     background: rgba(0,0,0,0.9);
     overflow: auto;
+    justify-content: center;
+    align-items: center;
   }
+  #lightbox.open { display: flex; }
   #lightbox img, #lightbox iframe {
     display: none;
     max-width: 90%;
@@ -98,7 +101,7 @@
     width: 90%;
     height: 80vh;
   }
-  #close-lightbox, #prev, #next {
+  #lbCloseBtn, #lbPrevBtn, #lbNextBtn {
     position: absolute;
     top: 50%;
     font-size: 2em;
@@ -106,10 +109,17 @@
     cursor: pointer;
     padding: 10px;
     transform: translateY(-50%);
+    background: none;
+    border: none;
   }
-  #close-lightbox { top: 15px; right: 25px; transform: none; }
-  #prev { left: 15px; }
-  #next { right: 15px; }
+  #lbCloseBtn {
+    top: 15px;
+    right: 25px;
+    transform: none;
+    font-size: 2.5em;
+  }
+  #lbPrevBtn { left: 15px; }
+  #lbNextBtn { right: 15px; }
 
     /* ---------- Footer ---------- */
     footer{text-align:center;padding:1.25rem;background:var(--panel);color:var(--muted);margin-top:2rem;border-radius:6px}
@@ -292,13 +302,15 @@
 
 
 <!-- Lightbox (Unified for Images + PDFs) -->
-<div id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded view">
-  <span id="close-lightbox" aria-label="Close lightbox">&times;</span>
-  <button id="prev" aria-label="Previous image">&#10094;</button>
-  <button id="next" aria-label="Next image">&#10095;</button>
+<!-- 🔹 Single Lightbox (for Images + PDFs) -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Expanded view">
+  <span id="lbCloseBtn" aria-label="Close lightbox">&times;</span>
+  <button id="lbPrevBtn" aria-label="Previous image">&#10094;</button>
+  <button id="lbNextBtn" aria-label="Next image">&#10095;</button>
+  
   <div class="lightbox-content">
-    <img id="lightbox-img" alt="" />
-    <iframe id="lightbox-pdf" src="" frameborder="0"></iframe>
+    <img id="lightboxImg" alt="" />
+    <iframe id="lightboxIframe" src="" frameborder="0"></iframe>
   </div>
 </div>
   
@@ -311,73 +323,79 @@
 
  <!-- Scripts -->
   <script>
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightbox-img");
-  const lightboxPDF = document.getElementById("lightbox-pdf");
-  const closeBtn = document.getElementById("close-lightbox");
-  const prevBtn = document.getElementById("prev");
-  const nextBtn = document.getElementById("next");
+ const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
+  const lightboxIframe = document.getElementById("lightboxIframe");
+  const closeBtn = document.getElementById("lbCloseBtn");
+  const prevBtn = document.getElementById("lbPrevBtn");
+  const nextBtn = document.getElementById("lbNextBtn");
 
-  let currentIndex = 0;
+  let currentIndex = -1;
   const galleryImages = Array.from(document.querySelectorAll(".gallery img"));
 
-  // ✅ Open Lightbox (works for image + PDF)
-  function openLightbox(src, alt = "", isPDF = false, index = null) {
-    lightbox.style.display = "flex";
+  // 🔹 Open Lightbox (Image or PDF)
+  function openLightbox(src, alt = "", options = {}) {
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden", "false");
 
-    if (isPDF) {
-      lightboxPDF.src = src;
-      lightboxPDF.style.display = "block";
+    if (options.isPDF) {
+      lightboxIframe.src = src;
+      lightboxIframe.style.display = "block";
       lightboxImg.style.display = "none";
       prevBtn.style.display = "none";
       nextBtn.style.display = "none";
+      currentIndex = -1;
     } else {
-      currentIndex = index ?? 0;
       lightboxImg.src = src;
       lightboxImg.alt = alt || "Expanded image";
       lightboxImg.style.display = "block";
-      lightboxPDF.style.display = "none";
+      lightboxIframe.style.display = "none";
       prevBtn.style.display = "block";
       nextBtn.style.display = "block";
+      currentIndex = options.index ?? -1;
+    }
+    closeBtn.focus();
+  }
+
+  // 🔹 Close Lightbox
+  function closeLightbox() {
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden", "true");
+    lightboxImg.src = "";
+    lightboxIframe.src = "";
+  }
+
+  // 🔹 Slideshow Navigation
+  function changeSlide(step) {
+    if (currentIndex >= 0) {
+      currentIndex = (currentIndex + step + galleryImages.length) % galleryImages.length;
+      const img = galleryImages[currentIndex];
+      openLightbox(img.src, img.alt, { index: currentIndex });
     }
   }
 
-  function closeLightbox() {
-    lightbox.style.display = "none";
-    lightboxImg.src = "";
-    lightboxPDF.src = "";
-  }
-
-  function changeSlide(step) {
-    currentIndex = (currentIndex + step + galleryImages.length) % galleryImages.length;
-    const img = galleryImages[currentIndex];
-    openLightbox(img.src, img.alt, false, currentIndex);
-  }
-
-  // Event Listeners
+  // Events
   closeBtn.addEventListener("click", closeLightbox);
   prevBtn.addEventListener("click", () => changeSlide(-1));
   nextBtn.addEventListener("click", () => changeSlide(1));
 
-  // Gallery click handler
   galleryImages.forEach((img, index) => {
     img.addEventListener("click", () => {
-      openLightbox(img.src, img.alt, false, index);
+      openLightbox(img.src, img.alt, { index });
     });
   });
 
-  // PDF click handler
-  document.querySelector('.pdf-wrapper').addEventListener('click', () => {
-    openLightbox("Project_0/Presentation/Tilt_Table_Presentation.pdf#view=FitW", "", true);
+  // PDF opener (example: your presentation)
+  document.querySelector(".pdf-wrapper").addEventListener("click", () => {
+    openLightbox("Project_0/Presentation/Tilt_Table_Presentation.pdf#view=FitW", "", { isPDF: true });
   });
 
-  // Keyboard navigation
+  // Keyboard support
   document.addEventListener("keydown", (e) => {
-    if (lightbox.style.display === "flex") {
-      if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowLeft") changeSlide(-1);
-      if (e.key === "ArrowRight") changeSlide(1);
-    }
+    if (!lightbox.classList.contains("open")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft") changeSlide(-1);
+    if (e.key === "ArrowRight") changeSlide(1);
   });
 	  
   </script>
