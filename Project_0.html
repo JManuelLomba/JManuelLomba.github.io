@@ -79,15 +79,37 @@
     .case-block p,.case-block ul{font-size:1.05rem;line-height:1.6;padding-left: 1.2rem;}
 
     /* ---------- Lightbox ---------- */
-    #lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;justify-content:center;align-items:center;padding:1rem}
-    #lightbox.open{display:flex}
-    #lightbox img{max-width:95%;max-height:85%;object-fit:contain;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.8)}
-    #lightbox .close-btn{position:absolute;top:18px;right:28px;font-size:2rem;color:#fff;cursor:pointer}
-    #lightbox .close-btn:focus{outline:2px solid var(--accent)}
-	#lightbox .nav-btn {  position: absolute;  top: 50%;  transform: translateY(-50%);  font-size: 2.5rem;  color: white; background: rgba(0,0,0,0.5);  border: none;  cursor: pointer;  padding: 0.6rem 1rem;  border-radius: 6px; user-select: none;  transition: background 0.3s;}
-	#lightbox .nav-btn:hover {  background: rgba(0,0,0,0.75);}
-	#lbPrevBtn { left: 20px; }
-	#lbNextBtn { right: 20px; }
+  #lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    overflow: auto;
+  }
+  #lightbox img, #lightbox iframe {
+    display: none;
+    max-width: 90%;
+    max-height: 80vh;
+    margin: auto;
+  }
+  #lightbox iframe {
+    width: 90%;
+    height: 80vh;
+  }
+  #close-lightbox, #prev, #next {
+    position: absolute;
+    top: 50%;
+    font-size: 2em;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    transform: translateY(-50%);
+  }
+  #close-lightbox { top: 15px; right: 25px; transform: none; }
+  #prev { left: 15px; }
+  #next { right: 15px; }
 
     /* ---------- Footer ---------- */
     footer{text-align:center;padding:1.25rem;background:var(--panel);color:var(--muted);margin-top:2rem;border-radius:6px}
@@ -269,29 +291,15 @@
 </section>
 
 
-<!-- ✅ Unified Lightbox -->
-<div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
-  <button class="close-btn" aria-label="Close" title="Close" id="lbCloseBtn">&times;</button>
-
-  <!-- Prev/Next only show for images -->
-  <button class="nav-btn prev" id="lbPrevBtn" aria-label="Previous image">&#10094;</button>
-  <button class="nav-btn next" id="lbNextBtn" aria-label="Next image">&#10095;</button>
-
-  <!-- PDF iframe -->
-  <iframe
-    id="lightbox-iframe"
-    src=""
-    title="Fullscreen presentation"
-    style="display:none;border:0;width:100%;height:100%;max-width:1200px;max-height:90vh;border-radius:8px;"
-  ></iframe>
-
-  <!-- Image -->
-  <img
-    id="lightbox-img"
-    src=""
-    alt="Expanded view"
-    style="display:none;max-width:95%;max-height:85%;object-fit:contain;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.8);"
-  >
+<!-- Lightbox (Unified for Images + PDFs) -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded view">
+  <span id="close-lightbox" aria-label="Close lightbox">&times;</span>
+  <button id="prev" aria-label="Previous image">&#10094;</button>
+  <button id="next" aria-label="Next image">&#10095;</button>
+  <div class="lightbox-content">
+    <img id="lightbox-img" alt="" />
+    <iframe id="lightbox-pdf" src="" frameborder="0"></iframe>
+  </div>
 </div>
   
 
@@ -303,102 +311,74 @@
 
  <!-- Scripts -->
   <script>
-// Lightbox elements
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-const lightboxIframe = document.getElementById('lightbox-iframe');
-const lbCloseBtn = document.getElementById('lbCloseBtn');
-const lbPrevBtn = document.getElementById('lbPrevBtn');
-const lbNextBtn = document.getElementById('lbNextBtn');
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const lightboxPDF = document.getElementById("lightbox-pdf");
+  const closeBtn = document.getElementById("close-lightbox");
+  const prevBtn = document.getElementById("prev");
+  const nextBtn = document.getElementById("next");
 
-const imgWrappers = document.querySelectorAll('.img-wrapper');
-let currentIndex = -1;
-let isPDF = false;
+  let currentIndex = 0;
+  const galleryImages = Array.from(document.querySelectorAll(".gallery img"));
 
-// Open fullscreen
-function openLightbox(src, alt = "", index = -1, pdf = false) {
-  isPDF = pdf;
-  currentIndex = index;
+  // ✅ Open Lightbox (works for image + PDF)
+  function openLightbox(src, alt = "", isPDF = false, index = null) {
+    lightbox.style.display = "flex";
 
-  if (pdf) {
-    lightboxImg.style.display = "none";
-    lbPrevBtn.style.display = "none";
-    lbNextBtn.style.display = "none";
-    lightboxIframe.style.display = "block";
-    lightboxIframe.src = src;
-  } else {
-    lightboxIframe.style.display = "none";
-    lightboxImg.style.display = "block";
-    lbPrevBtn.style.display = "block";
-    lbNextBtn.style.display = "block";
-    lightboxImg.src = src;
-    lightboxImg.alt = alt || "Expanded image";
+    if (isPDF) {
+      lightboxPDF.src = src;
+      lightboxPDF.style.display = "block";
+      lightboxImg.style.display = "none";
+      prevBtn.style.display = "none";
+      nextBtn.style.display = "none";
+    } else {
+      currentIndex = index ?? 0;
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || "Expanded image";
+      lightboxImg.style.display = "block";
+      lightboxPDF.style.display = "none";
+      prevBtn.style.display = "block";
+      nextBtn.style.display = "block";
+    }
   }
 
-  lightbox.classList.add("open");
-  lightbox.setAttribute("aria-hidden", "false");
-  lbCloseBtn.focus();
-}
+  function closeLightbox() {
+    lightbox.style.display = "none";
+    lightboxImg.src = "";
+    lightboxPDF.src = "";
+  }
 
-// Show image by index
-function showImage(index) {
-  if (index < 0) index = imgWrappers.length - 1;
-  if (index >= imgWrappers.length) index = 0;
-  const img = imgWrappers[index].querySelector('img');
-  openLightbox(img.src, img.alt, index, false);
-}
+  function changeSlide(step) {
+    currentIndex = (currentIndex + step + galleryImages.length) % galleryImages.length;
+    const img = galleryImages[currentIndex];
+    openLightbox(img.src, img.alt, false, currentIndex);
+  }
 
-// Close
-function closeLightbox() {
-  lightbox.classList.remove("open");
-  lightbox.setAttribute("aria-hidden", "true");
-  lightboxImg.src = "";
-  lightboxIframe.src = "";
-  currentIndex = -1;
-  isPDF = false;
-}
+  // Event Listeners
+  closeBtn.addEventListener("click", closeLightbox);
+  prevBtn.addEventListener("click", () => changeSlide(-1));
+  nextBtn.addEventListener("click", () => changeSlide(1));
 
-// Bind click events for images
-imgWrappers.forEach((wrapper, i) => {
-  wrapper.addEventListener('click', () => {
-    const img = wrapper.querySelector('img');
-    openLightbox(img.src, img.alt, i, false);
+  // Gallery click handler
+  galleryImages.forEach((img, index) => {
+    img.addEventListener("click", () => {
+      openLightbox(img.src, img.alt, false, index);
+    });
   });
-  wrapper.setAttribute('tabindex','0');
-  wrapper.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      const img = wrapper.querySelector('img');
-      openLightbox(img.src, img.alt, i, false);
+
+  // PDF click handler
+  document.querySelector('.pdf-wrapper').addEventListener('click', () => {
+    openLightbox("Project_0/Presentation/Tilt_Table_Presentation.pdf#view=FitW", "", true);
+  });
+
+  // Keyboard navigation
+  document.addEventListener("keydown", (e) => {
+    if (lightbox.style.display === "flex") {
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") changeSlide(-1);
+      if (e.key === "ArrowRight") changeSlide(1);
     }
   });
-});
-
-// PDF click
-document.querySelector('.pdf-wrapper').addEventListener('click', () => {
-  openLightbox("Project_0/Presentation/Tilt_Table_Presentation.pdf#view=FitW", "", -1, true);
-});
-
-// Prev/Next
-lbPrevBtn.addEventListener('click', () => showImage(currentIndex - 1));
-lbNextBtn.addEventListener('click', () => showImage(currentIndex + 1));
-
-// Keyboard support
-window.addEventListener('keydown', (e) => {
-  if (!lightbox.classList.contains('open')) return;
-  if (!isPDF) {
-    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
-    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
-  }
-  if (e.key === 'Escape') closeLightbox();
-});
-
-// Close click
-lbCloseBtn.addEventListener('click', closeLightbox);
-lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox) closeLightbox();
-});
-
 	  
   </script>
 </body>
