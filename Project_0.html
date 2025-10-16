@@ -61,7 +61,7 @@
     .img-wrapper{position:relative;cursor:pointer;overflow:hidden;border-radius:8px}
     .img-wrapper img{width:100%;height:100%;display:block;object-fit:cover;border-radius:8px;transition:transform .28s ease,box-shadow .28s ease}
     .img-wrapper img:hover{transform:scale(1.03)}
-    .img-wrapper span.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;background:rgba(0,0,0,.45);color:#fff;border-radius:8px;opacity:0;transition:opacity .2s}
+    .img-wrapper span.overlay{pointer-events: none; position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;background:rgba(0,0,0,.45);color:#fff;border-radius:8px;opacity:0;transition:opacity .2s}
     .img-wrapper:hover span.overlay{opacity:1}
 
    /* Presentation styles */
@@ -331,7 +331,13 @@
   const nextBtn = document.getElementById("lbNextBtn");
 
   let currentIndex = -1;
-  const galleryImages = Array.from(document.querySelectorAll(".masonry img"));
+  const galleryImages = Array.from(document.querySelectorAll(".img-wrapper img"));
+
+galleryImages.forEach((img, index) => {
+  img.parentElement.addEventListener("click", () => {
+    openLightbox(img.src, img.alt, { index });
+  });
+});
 
   // 🔹 Open Lightbox (Image or PDF)
   function openLightbox(src, alt = "", options = {}) {
