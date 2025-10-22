@@ -57,6 +57,13 @@
     .img-wrapper:hover img{transform:scale(1.03);}
     .img-wrapper span.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;background:rgba(0,0,0,.45);color:#fff;border-radius:8px;opacity:0;transition:opacity .2s;}
     .img-wrapper:hover span.overlay{opacity:1;}
+	.caption { margin-top: 0.5rem; color: var(--muted); font-size: 0.95rem; font-weight: 600;}
+	.img-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
     footer{text-align:center;padding:1.25rem;background:var(--panel);color:var(--muted);margin-top:2rem;border-radius:6px;}
   </style>
@@ -112,26 +119,32 @@
         <div class="img-wrapper" data-model="Project_6/Project_1/Project 1 - (Box Form 54x42x47).glb">
           <img loading="lazy" src="Project_6/Project_1/Project 1 - (Box Form 54x42x47).jpeg" alt="Project 1">
           <span class="overlay">Load Model 1</span>
+		  <p class="caption">Box Form (54x42x47)</p>
         </div>
         <div class="img-wrapper" data-model="Project_5/3 - Full Assembly.glb">
           <img loading="lazy" src="Project_5/Cover Photo stairs.jpeg" alt="Project 2">
           <span class="overlay">Load Model 2</span>
+		  <p class="caption">Stair Form Assembly</p>
         </div>
         <div class="img-wrapper" data-model="Project_4/7 - Form Assembly.glb">
           <img loading="lazy" src="Project_4/7 - Form Assembly Cover Photo.jpeg" alt="Project 3">
           <span class="overlay">Load Model 3</span>
+		  <p class="caption">CHANGE</p>
         </div>
         <div class="img-wrapper" data-model="">
           <img loading="lazy" src="" alt="Project 4">
           <span class="overlay">Load Model 4</span>
+	      <p class="caption">CHANGE</p>
         </div>
         <div class="img-wrapper" data-model="">
           <img loading="lazy" src="" alt="Project 5">
           <span class="overlay">Load Model 5</span>
+	      <p class="caption">CHANGE</p>			
         </div>
         <div class="img-wrapper" data-model="">
           <img loading="lazy" src="" alt="Project 6">
           <span class="overlay">Load Model 6</span>
+	      <p class="caption">CHANGE</p>			
         </div>
       </div>
     </section>
