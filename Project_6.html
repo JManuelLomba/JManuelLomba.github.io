@@ -195,26 +195,32 @@
   const prevBtn = document.getElementById('prevModel');
   let currentIndex = 0;
 
+  // --- Update currentIndex based on modelViewer.src ---
+  currentIndex = wrappers.findIndex(w => w.getAttribute('data-model') === modelViewer.src) || 0;
+
   // Fade in when model finishes loading
   modelViewer.addEventListener('load', () => {
     modelViewer.classList.add('fade');
   });
 
-  // --- Helper to load model by index ---
+  // --- Helper function to load model by index ---
   function loadModel(index) {
     const selected = wrappers[index];
     if (!selected) return;
 
     const newModel = selected.getAttribute('data-model');
     if (newModel) {
+      // Remove and reset fade for smooth transition
       modelViewer.classList.remove('fade');
       void modelViewer.offsetWidth; // reset animation
       modelViewer.src = newModel;
-      modelViewer.classList.add('fade');
+
+      // Update currentIndex dynamically
+      currentIndex = wrappers.findIndex(w => w.getAttribute('data-model') === newModel) || 0;
     }
   }
 
-  // --- Arrow button controls ---
+  // --- Arrow button navigation ---
   nextBtn.addEventListener('click', () => {
     currentIndex = (currentIndex + 1) % wrappers.length; // loop forward
     loadModel(currentIndex);
@@ -234,6 +240,7 @@
     });
   });
 </script>
+
 
 </body>
 </html>
