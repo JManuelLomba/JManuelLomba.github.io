@@ -37,6 +37,14 @@
     .content{margin-left:220px;padding:2rem;text-align:center;}
     .project-title{font-size:2.2rem;color:var(--accent);margin-bottom:2rem;}
 
+
+	/* Smooth fade animation for model changes */
+#modelViewer.fade {  animation: fadeIn 0.6s ease;}
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.98);}
+  to {opacity: 1;transform: scale(1);}
+}  
+
     /* Sections */
     .section{padding:2rem 1.5rem;margin-bottom:3rem;border-bottom:1px solid #333;opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
     .section.visible{opacity:1;transform:translateY(0);}
@@ -84,7 +92,9 @@
     <!-- 3D Model -->
     <section id="3d_model" class="section">
       <h1>3D Model</h1>
-<model-viewer src="Project_5/3 - Full Assembly.glb" 
+<model-viewer 
+	id="modelViewer"
+	src="Project_5/3 - Full Assembly.glb" 
 	ar ar-modes="webxr scene-viewer quick-look" 
 	camera-controls tone-mapping="Neutral" 
 	poster="poster.webp" 
@@ -99,8 +109,8 @@
     <section id="photos" class="section">
       <h1>Photos (Click to Load 3D Model)</h1>
       <div class="masonry">
-        <div class="img-wrapper" data-model="Project_5/Form1.glb">
-          <img loading="lazy" src="Project_5/Pictures/Form_Farbrication_4.jpeg" alt="Form 1">
+        <div class="img-wrapper" data-model="Project_6/Project_1/Project 1 - (Box Form 54x42x47).glb">
+          <img loading="lazy" src="Project_6/Project_1/Project 1 - (Box Form 54x42x47).jpeg" alt="Project 1">
           <span class="overlay">Load Model 1</span>
         </div>
         <div class="img-wrapper" data-model="Project_5/Form2.glb">
@@ -131,23 +141,32 @@
     </footer>
   </main>
 
-  <script>
-    // Fade-in effect
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-    }, {threshold:0.12});
-    sections.forEach(s => observer.observe(s));
-
-    // Click to load 3D model
-    const modelViewer = document.getElementById('modelViewer');
-    document.querySelectorAll('.img-wrapper').forEach(wrapper => {
-      wrapper.addEventListener('click', () => {
-        const newModel = wrapper.getAttribute('data-model');
-        modelViewer.src = newModel;
-        document.getElementById('3d_model').scrollIntoView({ behavior: 'smooth' });
-      });
+<script>
+  // Fade-in effect for sections
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { 
+      if (entry.isIntersecting) entry.target.classList.add('visible'); 
     });
-  </script>
+  }, { threshold: 0.12 });
+  sections.forEach(s => observer.observe(s));
+
+  // Click to load 3D model
+  const modelViewer = document.getElementById('modelViewer');
+  document.querySelectorAll('.img-wrapper').forEach(wrapper => {
+    wrapper.addEventListener('click', () => {
+      const newModel = wrapper.getAttribute('data-model');
+
+      // 🔥 Add fade animation
+      modelViewer.classList.remove('fade');
+      void modelViewer.offsetWidth; // resets animation
+      modelViewer.classList.add('fade');
+
+      // Update the model
+      modelViewer.src = newModel;
+      document.getElementById('3d_model').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
 </body>
 </html>
