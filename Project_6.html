@@ -113,24 +113,24 @@
           <img loading="lazy" src="Project_6/Project_1/Project 1 - (Box Form 54x42x47).jpeg" alt="Project 1">
           <span class="overlay">Load Model 1</span>
         </div>
-        <div class="img-wrapper" data-model="Project_5/Form2.glb">
-          <img loading="lazy" src="Project_5/Pictures/Form_Farbrication_1.jpeg" alt="Form 2">
+        <div class="img-wrapper" data-model="Project_5/3 - Full Assembly.glb">
+          <img loading="lazy" src="Project_5/Cover Photo stairs.jpeg" alt="Project 2">
           <span class="overlay">Load Model 2</span>
         </div>
-        <div class="img-wrapper" data-model="Project_5/Form3.glb">
-          <img loading="lazy" src="Project_5/Pictures/Form_Farbrication_3.jpeg" alt="Form 3">
+        <div class="img-wrapper" data-model="Project_4/7 - Form Assembly.glb">
+          <img loading="lazy" src="Project_4/7 - Form Assembly Cover Photo.jpeg" alt="Project 3">
           <span class="overlay">Load Model 3</span>
         </div>
-        <div class="img-wrapper" data-model="Project_5/Form4.glb">
-          <img loading="lazy" src="Project_5/Pictures/Form_Farbrication_2.jpeg" alt="Form 4">
+        <div class="img-wrapper" data-model="">
+          <img loading="lazy" src="" alt="Project 4">
           <span class="overlay">Load Model 4</span>
         </div>
-        <div class="img-wrapper" data-model="Project_5/Form5.glb">
-          <img loading="lazy" src="Project_5/Pictures/Form_Concrete_3.jpg" alt="Concrete 1">
+        <div class="img-wrapper" data-model="">
+          <img loading="lazy" src="" alt="Project 5">
           <span class="overlay">Load Model 5</span>
         </div>
-        <div class="img-wrapper" data-model="Project_5/Form6.glb">
-          <img loading="lazy" src="Project_5/Pictures/Form_Concrete_1.jpg" alt="Concrete 2">
+        <div class="img-wrapper" data-model="">
+          <img loading="lazy" src="" alt="Project 6">
           <span class="overlay">Load Model 6</span>
         </div>
       </div>
@@ -153,16 +153,19 @@
 
   // Click to load 3D model
   const modelViewer = document.getElementById('modelViewer');
+
+  // ✅ Add fade when model finishes loading
+  modelViewer.addEventListener('load', () => {
+    modelViewer.classList.add('fade');
+  });
+
   document.querySelectorAll('.img-wrapper').forEach(wrapper => {
     wrapper.addEventListener('click', () => {
       const newModel = wrapper.getAttribute('data-model');
 
-      // 🔥 Add fade animation
+      // 🔥 Trigger fade animation while switching
       modelViewer.classList.remove('fade');
       void modelViewer.offsetWidth; // resets animation
-      modelViewer.classList.add('fade');
-
-      // Update the model
       modelViewer.src = newModel;
       document.getElementById('3d_model').scrollIntoView({ behavior: 'smooth' });
     });
