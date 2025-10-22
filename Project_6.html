@@ -23,6 +23,31 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
 
+	  /* Arrow navigation under model-viewer */
+.model-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 1.5rem;
+}
+
+.model-nav button {
+  background: var(--panel);
+  color: var(--accent);
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.model-nav button:hover {
+  background: #222;
+  transform: scale(1.1);
+}
+
     /* Sidebar */
     .sidebar{position:fixed;top:0;left:0;width:220px;height:100%;background:#111;padding:2rem 1rem;display:flex;flex-direction:column;align-items:center;z-index:100;}
     .sidebar h2{color:var(--accent);margin-bottom:1.5rem;padding-bottom:.8rem;border-bottom:1px solid #333;width:100%;text-align:center;}
@@ -104,6 +129,11 @@
 	loading="eager" 
 	style="width: 100%; margin: 0 auto; max-width: 800px; height: 60vh; border-radius: 12px; background-color:#222;" auto-rotate exposure="0.59" shadow-softness="0.53" environment-image="legacy"> 
 </model-viewer>
+		<!-- Model navigation arrows -->
+<div class="model-nav">
+  <button id="prevModel"><i class="fas fa-chevron-left"></i></button>
+  <button id="nextModel"><i class="fas fa-chevron-right"></i></button>
+</div>
     </section>
 
     <!-- Photos -->
@@ -149,7 +179,7 @@
   </main>
 
 <script>
-  // Fade-in effect for sections
+  // --- Fade-in effect for sections ---
   const sections = document.querySelectorAll('.section');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => { 
@@ -158,25 +188,52 @@
   }, { threshold: 0.12 });
   sections.forEach(s => observer.observe(s));
 
-  // Click to load 3D model
+  // --- Model viewer setup ---
   const modelViewer = document.getElementById('modelViewer');
+  const wrappers = Array.from(document.querySelectorAll('.img-wrapper'));
+  const nextBtn = document.getElementById('nextModel');
+  const prevBtn = document.getElementById('prevModel');
+  let currentIndex = 0;
 
-  // ✅ Add fade when model finishes loading
+  // Fade in when model finishes loading
   modelViewer.addEventListener('load', () => {
     modelViewer.classList.add('fade');
   });
 
-  document.querySelectorAll('.img-wrapper').forEach(wrapper => {
-    wrapper.addEventListener('click', () => {
-      const newModel = wrapper.getAttribute('data-model');
+  // --- Helper to load model by index ---
+  function loadModel(index) {
+    const selected = wrappers[index];
+    if (!selected) return;
 
-      // 🔥 Trigger fade animation while switching
+    const newModel = selected.getAttribute('data-model');
+    if (newModel) {
       modelViewer.classList.remove('fade');
-      void modelViewer.offsetWidth; // resets animation
+      void modelViewer.offsetWidth; // reset animation
       modelViewer.src = newModel;
+      modelViewer.classList.add('fade');
+    }
+  }
+
+  // --- Arrow button controls ---
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % wrappers.length; // loop forward
+    loadModel(currentIndex);
+  });
+
+  prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + wrappers.length) % wrappers.length; // loop backward
+    loadModel(currentIndex);
+  });
+
+  // --- Click on photo to load model ---
+  wrappers.forEach((wrapper, idx) => {
+    wrapper.addEventListener('click', () => {
+      currentIndex = idx;
+      loadModel(currentIndex);
       document.getElementById('3d_model').scrollIntoView({ behavior: 'smooth' });
     });
   });
 </script>
+
 </body>
 </html>
