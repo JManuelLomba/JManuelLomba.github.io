@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Supplementary Project Work</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+  <!-- model-viewer -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    :root{
+      --accent:#00aaff;
+      --bg:#1a1a1a;
+      --panel:#111;
+      --muted:#aaa;
+      --text:#e0e0e0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
+
+    /* Sidebar */
+    .sidebar{position:fixed;top:0;left:0;width:220px;height:100%;background:#111;padding:2rem 1rem;display:flex;flex-direction:column;align-items:center;z-index:100;}
+    .sidebar h2{color:var(--accent);margin-bottom:1.5rem;padding-bottom:.8rem;border-bottom:1px solid #333;width:100%;text-align:center;}
+    .sidebar ul{list-style:none;width:100%;flex-grow:1;}
+    .sidebar ul li{margin:1.5rem 0;text-align:center;}
+    .sidebar ul li a{color:#e0e0e0;text-decoration:none;font-weight:bold;font-size:1.2rem;transition:color .3s;}
+    .sidebar ul li a:hover{color:var(--accent);}
+    .back-button{margin-top:auto;background:#e63946;color:white;text-decoration:none;font-weight:bold;font-size:1.1rem;padding:.6rem 1rem;border-radius:8px;display:flex;align-items:center;gap:8px;transition:background .3s,transform .2s;}
+    .back-button:hover{background:#ff4d5a;transform:translateX(-3px);}
+
+    /* Main */
+    .content{margin-left:220px;padding:2rem;text-align:center;}
+    .project-title{font-size:2.2rem;color:var(--accent);margin-bottom:2rem;}
+
+    /* Sections */
+    .section{padding:2rem 1.5rem;margin-bottom:3rem;border-bottom:1px solid #333;opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+    .section.visible{opacity:1;transform:translateY(0);}
+    .section h1{margin-bottom:1.5rem;color:#fff;}
+
+    /* Masonry grid */
+    .masonry{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem;max-width:1100px;margin:0 auto;}
+    .img-wrapper{position:relative;cursor:pointer;overflow:hidden;border-radius:8px;}
+    .img-wrapper img{width:100%;display:block;object-fit:cover;border-radius:8px;transition:transform .28s ease;}
+    .img-wrapper:hover img{transform:scale(1.03);}
+    .img-wrapper span.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;background:rgba(0,0,0,.45);color:#fff;border-radius:8px;opacity:0;transition:opacity .2s;}
+    .img-wrapper:hover span.overlay{opacity:1;}
+
+    footer{text-align:center;padding:1.25rem;background:var(--panel);color:var(--muted);margin-top:2rem;border-radius:6px;}
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <nav id="sidebar" class="sidebar">
+    <h2>Portfolio</h2>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#3d_model">3D Model</a></li>
+      <li><a href="#photos">Photos</a></li>
+    </ul>
+    <a href="index.html#projects" class="back-button"><i class="fas fa-arrow-left"></i> Back</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="content">
+    <h1 class="project-title">Supplementary Project Work</h1>
+
+    <!-- Overview -->
+    <section id="overview" class="section">
+      <h1>Project Overview</h1>
+      <div class="case-study">
+        <div class="case-block">
+          <h2>DESCRIPTION</h2>
+          <p><strong>(PLACE WORDS)</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D Model -->
+    <section id="3d_model" class="section">
+      <h1>3D Model</h1>
+<model-viewer src="Project_5/3 - Full Assembly.glb" 
+	ar ar-modes="webxr scene-viewer quick-look" 
+	camera-controls tone-mapping="Neutral" 
+	poster="poster.webp" 
+	shadow-intensity="1.77" 
+	alt="Box Form 3D Model" 
+	loading="eager" 
+	style="width: 100%; margin: 0 auto; max-width: 800px; height: 60vh; border-radius: 12px; background-color:#222;" auto-rotate exposure="0.59" shadow-softness="0.53" environment-image="legacy"> 
+</model-viewer>
+    </section>
+
+    <!-- Photos -->
+    <section id="photos" class="section">
+      <h1>Photos (Click to Load 3D Model)</h1>
+      <div class="masonry">
+        <div class="img-wrapper" data-model="Project_5/Form1.glb">
+          <img loading="lazy" src="Project_5/Pictures/Form_Farbrication_4.jpeg" alt="Form 1">
+          <span class="overlay">Load Model 1</span>
+        </div>
+        <div class="img-wrapper" data-model="Project_5/Form2.glb">
+          <img loading="lazy" src="Project_5/Pictures/Form_Farbrication_1.jpeg" alt="Form 2">
+          <span class="overlay">Load Model 2</span>
+        </div>
+        <div class="img-wrapper" data-model="Project_5/Form3.glb">
+          <img loading="lazy" src="Project_5/Pictures/Form_Farbrication_3.jpeg" alt="Form 3">
+          <span class="overlay">Load Model 3</span>
+        </div>
+        <div class="img-wrapper" data-model="Project_5/Form4.glb">
+          <img loading="lazy" src="Project_5/Pictures/Form_Farbrication_2.jpeg" alt="Form 4">
+          <span class="overlay">Load Model 4</span>
+        </div>
+        <div class="img-wrapper" data-model="Project_5/Form5.glb">
+          <img loading="lazy" src="Project_5/Pictures/Form_Concrete_3.jpg" alt="Concrete 1">
+          <span class="overlay">Load Model 5</span>
+        </div>
+        <div class="img-wrapper" data-model="Project_5/Form6.glb">
+          <img loading="lazy" src="Project_5/Pictures/Form_Concrete_1.jpg" alt="Concrete 2">
+          <span class="overlay">Load Model 6</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2025 Nathaniel Karau — Engineering Portfolio v1.0</p>
+    </footer>
+  </main>
+
+  <script>
+    // Fade-in effect
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, {threshold:0.12});
+    sections.forEach(s => observer.observe(s));
+
+    // Click to load 3D model
+    const modelViewer = document.getElementById('modelViewer');
+    document.querySelectorAll('.img-wrapper').forEach(wrapper => {
+      wrapper.addEventListener('click', () => {
+        const newModel = wrapper.getAttribute('data-model');
+        modelViewer.src = newModel;
+        document.getElementById('3d_model').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
