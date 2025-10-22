@@ -133,10 +133,6 @@
   <!-- Visual overlay (mobile only visual) -->
   <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
 
-    footer{text-align:center;padding:1.25rem;background:var(--panel);color:var(--muted);margin-top:2rem;border-radius:6px;}
-  </style>
-</head>
-<body>
 
   <!-- Sidebar -->
   <nav id="sidebar" class="sidebar">
@@ -245,10 +241,9 @@
   const wrappers = Array.from(document.querySelectorAll('.img-wrapper'));
   const nextBtn = document.getElementById('nextModel');
   const prevBtn = document.getElementById('prevModel');
-  let currentIndex = 0;
 
   // --- Update currentIndex based on modelViewer.src ---
- let currentIndex = wrappers.findIndex(w => w.getAttribute('data-model') === modelViewer.src);
+currentIndex = wrappers.findIndex(w => w.getAttribute('data-model') === modelViewer.src);
 if (currentIndex === -1) currentIndex = 0;
 
   // Fade in when model finishes loading
