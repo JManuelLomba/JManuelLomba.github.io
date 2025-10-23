@@ -82,8 +82,14 @@
 	#lbPrevBtn { left: 20px; }
 	#lbNextBtn { right: 20px; }
 
-    /* ---------- Footer ---------- */
-    footer{text-align:center;padding:1.25rem;background:var(--panel);color:var(--muted);margin-top:2rem;border-radius:6px}
+	/* ----- Footer styling ----- */
+	footer { background: var(--panel); color: var(--muted); text-align: center; padding: 1.5rem 1rem; font-size: 0.9rem; border-top: 1px solid #333; margin-top: 3rem;}
+	footer p { margin: 0; letter-spacing: 0.5px;}
+	footer a { color: var(--accent); text-decoration: none; font-weight: 600;}
+	footer a:hover { text-decoration: underline;}
+	/* Keep footer at bottom when content is short */
+	html, body { height: 100%; display: flex; flex-direction: column;}
+	main.content { flex: 1;}
 
     /* ---------- Responsive rules ---------- */
     /* Mobile first adjustments */
