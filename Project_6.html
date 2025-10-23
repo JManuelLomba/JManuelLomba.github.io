@@ -73,6 +73,44 @@
 	/* Keep footer at bottom when content is short */
 	html, body { height: 100%; display: flex; flex-direction: column;}
 	main.content { flex: 1;}
+
+/* Mobile overlay for sidebar background */
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 50;
+}
+
+.mobile-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Sidebar slide animation */
+.sidebar {
+  transition: transform 0.3s ease;
+  z-index: 100;
+}
+
+.menu-toggle {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 150;
+  display: none;
+}	  
 	  
   /* ---------- Responsive rules ---------- */
     /* Mobile first adjustments */
@@ -222,6 +260,29 @@
     </footer>
 
 <script>
+
+// --- Mobile sidebar toggle ---
+const menuToggle = document.getElementById('menuToggle');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('mobileOverlay');
+
+menuToggle.addEventListener('click', () => {
+  const isActive = sidebar.classList.toggle('active');
+  overlay.classList.toggle('active', isActive);
+
+  // Update ARIA attributes for accessibility
+  menuToggle.setAttribute('aria-expanded', isActive);
+  overlay.setAttribute('aria-hidden', !isActive);
+});
+
+// Close sidebar when overlay is clicked
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+  menuToggle.setAttribute('aria-expanded', false);
+  overlay.setAttribute('aria-hidden', true);
+});
+
   // --- Fade-in effect for sections ---
   const sections = document.querySelectorAll('.section');
   const observer = new IntersectionObserver(entries => {
