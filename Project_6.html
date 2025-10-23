@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Supplementary Design Projects</title>
 
+ <!-- ✅ Preload model-viewer -->
+  <link rel="preload" href="Project_6/Project_1/Project 1 - (Box Form 54x42x47).glb" as="fetch" crossorigin>
+	
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
@@ -212,8 +215,8 @@
 		
 		<!-- Model navigation arrows -->
 <div class="model-nav">
-  <button id="prevModel"><i class="fas fa-chevron-left"></i></button>
-  <button id="nextModel"><i class="fas fa-chevron-right"></i></button>
+	<button id="prevModel" aria-label="Previous model"><i class="fas fa-chevron-left"></i></button>
+	<button id="nextModel" aria-label="Next model"><i class="fas fa-chevron-right"></i></button>
 </div>
     </section>
 
@@ -309,22 +312,6 @@ if (currentIndex === -1) currentIndex = 0;
     modelViewer.classList.add('fade');
   });
 
-  // --- Helper function to load model by index ---
-  function loadModel(index) {
-    const selected = wrappers[index];
-    if (!selected) return;
-
-    const newModel = selected.getAttribute('data-model');
-    if (newModel) {
-      // Remove and reset fade for smooth transition
-      modelViewer.classList.remove('fade');
-      void modelViewer.offsetWidth; // reset animation
-      modelViewer.src = newModel;
-
-      // Update currentIndex dynamically
-      currentIndex = wrappers.findIndex(w => w.getAttribute('data-model') === newModel) || 0;
-    }
-  }
 
 const modelTitle = document.getElementById('modelTitle');
 
