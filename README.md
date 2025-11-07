@@ -12,13 +12,12 @@ Check out my portfolio online:
 ---
 
 ## Repository Structure
-├── index.html # Main portfolio webpage
-├── assets/ # Folder for supporting files
-│ ├── Nathaniel_Karau_Resume.pdf # Downloadable resume
-│ ├── project1.jpg # Example project image
-│ ├── project2.jpg # Example project image
-│ └── preview.png # Screenshot for README (optional)
-└── README.md # This file
+<p>├── index.html (Main portfolio webpage)</p>
+<p>├── assets/ (Folder for supporting files)</p>
+<p>│ ├── Cover Photo</p>
+<p>│ ├── Headshot</p>
+<p>│ └── Logo</p></p>
+<p>└── README.md  (This file)</p>
 
 ---
 
@@ -57,12 +56,15 @@ I am actively seeking opportunities in **aerospace, defense, and advanced manufa
 
 ## Selected Projects
 
-### Tilt Table Prototype
+### All Projects
 
-- Led a team for a two-semester prototype project  
-- Responsibilities: CAD design, manufacturability analysis, team coordination, and reporting  
-
-*(Additional projects can be added or replaced by editing `index.html`.)*
+- Tilt Table
+- Box Form - (5' x 5' x 6') 
+- Barrier Form - (34" x 23" x 10')
+- Light Pole Base Form - (30" Diameter)
+- Pool Form - (7' x 13' x 5')
+- Stair Form - (16' x 12' x 4')
+- Other Projects
 
 ---
 
